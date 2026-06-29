@@ -1,0 +1,10 @@
+{
+  "case_id": "SX-10482",
+  "citizen": "Arun Kumar",
+  "phones": ["+918874329104"],
+  "devices": ["IMEI-492048153"],
+  "bank_accounts": ["XXXX-9841"],
+  "upi_ids": ["verify.case@upi"],
+  "ip_addresses": ["203.0.113.27"],
+  "risk_score": 94
+}

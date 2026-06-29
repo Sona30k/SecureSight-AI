@@ -1,0 +1,8 @@
+{
+  "scam_calls": 5000,
+  "fraud_reports": 3000,
+  "counterfeit_cases": 2000,
+  "crime_incidents": 10000,
+  "fraud_network_nodes": 3000,
+  "fraud_networks": 500
+}

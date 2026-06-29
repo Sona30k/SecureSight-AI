@@ -1,0 +1,3001 @@
+report_id,category,district,amount,risk_score,status
+SX-100000,digital_arrest,Lucknow,730044,33,resolved
+SX-100001,phishing,Jaipur,475203,91,resolved
+SX-100002,scam_call,Central Delhi,539050,70,investigating
+SX-100003,scam_call,Kolkata,413071,37,submitted
+SX-100004,digital_arrest,Jaipur,394115,34,submitted
+SX-100005,upi_fraud,Chennai,134956,64,investigating
+SX-100006,scam_call,Mumbai,395234,23,submitted
+SX-100007,scam_call,Central Delhi,195684,22,verified
+SX-100008,phishing,Lucknow,80787,81,submitted
+SX-100009,scam_call,Central Delhi,98669,94,resolved
+SX-100010,phishing,Bengaluru,554582,71,verified
+SX-100011,upi_fraud,Jaipur,335064,21,investigating
+SX-100012,phishing,Mumbai,704519,92,submitted
+SX-100013,scam_call,Jaipur,311433,78,investigating
+SX-100014,counterfeit,Central Delhi,496042,68,submitted
+SX-100015,phishing,Mumbai,676294,26,verified
+SX-100016,scam_call,Lucknow,114232,83,resolved
+SX-100017,counterfeit,Central Delhi,153687,15,submitted
+SX-100018,digital_arrest,Mumbai,770274,17,investigating
+SX-100019,digital_arrest,Chennai,271566,73,investigating
+SX-100020,counterfeit,Jaipur,746968,19,submitted
+SX-100021,upi_fraud,Kolkata,203411,88,resolved
+SX-100022,phishing,Kolkata,343251,65,investigating
+SX-100023,digital_arrest,Mumbai,563696,37,verified
+SX-100024,digital_arrest,Pune,314483,43,investigating
+SX-100025,upi_fraud,Pune,402419,64,verified
+SX-100026,digital_arrest,Chennai,525764,22,submitted
+SX-100027,digital_arrest,Central Delhi,572325,93,submitted
+SX-100028,scam_call,Bengaluru,276291,43,verified
+SX-100029,counterfeit,Kolkata,162120,46,submitted
+SX-100030,digital_arrest,Pune,130565,87,resolved
+SX-100031,upi_fraud,Kolkata,445746,28,submitted
+SX-100032,upi_fraud,Kolkata,122048,57,investigating
+SX-100033,phishing,Mumbai,567202,88,verified
+SX-100034,upi_fraud,Pune,247986,20,submitted
+SX-100035,phishing,Chennai,733317,49,submitted
+SX-100036,counterfeit,Bengaluru,149125,55,verified
+SX-100037,digital_arrest,Pune,498126,96,verified
+SX-100038,phishing,Chennai,313552,76,resolved
+SX-100039,phishing,Chennai,575916,93,resolved
+SX-100040,counterfeit,Jaipur,224078,93,verified
+SX-100041,scam_call,Central Delhi,677743,28,submitted
+SX-100042,upi_fraud,Pune,207033,93,submitted
+SX-100043,phishing,Mumbai,509635,74,resolved
+SX-100044,phishing,Jaipur,358418,73,resolved
+SX-100045,phishing,Chennai,146113,29,investigating
+SX-100046,phishing,Bengaluru,382548,27,resolved
+SX-100047,counterfeit,Bengaluru,324676,41,verified
+SX-100048,counterfeit,Mumbai,392634,53,resolved
+SX-100049,upi_fraud,Lucknow,552758,96,submitted
+SX-100050,upi_fraud,Lucknow,137207,34,verified
+SX-100051,upi_fraud,Mumbai,721008,97,verified
+SX-100052,phishing,Chennai,407308,82,verified
+SX-100053,phishing,Jaipur,782705,80,investigating
+SX-100054,upi_fraud,Jaipur,456798,54,investigating
+SX-100055,digital_arrest,Mumbai,598521,81,resolved
+SX-100056,digital_arrest,Kolkata,603636,71,resolved
+SX-100057,scam_call,Chennai,569072,97,submitted
+SX-100058,digital_arrest,Chennai,504909,24,investigating
+SX-100059,digital_arrest,Pune,469788,26,resolved
+SX-100060,counterfeit,Mumbai,195258,60,submitted
+SX-100061,digital_arrest,Lucknow,347120,20,submitted
+SX-100062,scam_call,Bengaluru,194175,17,investigating
+SX-100063,upi_fraud,Bengaluru,128801,68,resolved
+SX-100064,digital_arrest,Central Delhi,665537,25,verified
+SX-100065,digital_arrest,Pune,643836,42,verified
+SX-100066,digital_arrest,Kolkata,41246,29,submitted
+SX-100067,phishing,Central Delhi,75733,93,verified
+SX-100068,phishing,Lucknow,417167,92,verified
+SX-100069,upi_fraud,Bengaluru,515134,88,resolved
+SX-100070,counterfeit,Bengaluru,481837,62,verified
+SX-100071,counterfeit,Kolkata,667191,77,submitted
+SX-100072,scam_call,Mumbai,461765,19,verified
+SX-100073,digital_arrest,Jaipur,465310,24,resolved
+SX-100074,digital_arrest,Jaipur,20767,95,investigating
+SX-100075,scam_call,Kolkata,242409,78,submitted
+SX-100076,upi_fraud,Bengaluru,383792,28,resolved
+SX-100077,digital_arrest,Mumbai,11404,81,submitted
+SX-100078,digital_arrest,Kolkata,39877,23,verified
+SX-100079,digital_arrest,Kolkata,534169,17,investigating
+SX-100080,scam_call,Bengaluru,392407,51,resolved
+SX-100081,scam_call,Central Delhi,459662,26,submitted
+SX-100082,scam_call,Central Delhi,61759,17,resolved
+SX-100083,phishing,Lucknow,564785,53,submitted
+SX-100084,phishing,Chennai,321894,19,submitted
+SX-100085,counterfeit,Lucknow,284269,55,submitted
+SX-100086,phishing,Central Delhi,775883,42,submitted
+SX-100087,counterfeit,Bengaluru,377579,87,resolved
+SX-100088,phishing,Jaipur,519849,60,verified
+SX-100089,digital_arrest,Chennai,445174,70,resolved
+SX-100090,upi_fraud,Pune,703702,91,investigating
+SX-100091,phishing,Chennai,656260,67,submitted
+SX-100092,phishing,Bengaluru,302774,28,resolved
+SX-100093,scam_call,Chennai,767978,47,resolved
+SX-100094,counterfeit,Central Delhi,21590,95,submitted
+SX-100095,upi_fraud,Lucknow,199457,59,investigating
+SX-100096,upi_fraud,Chennai,433422,89,submitted
+SX-100097,phishing,Pune,583200,55,investigating
+SX-100098,scam_call,Central Delhi,592194,79,verified
+SX-100099,digital_arrest,Lucknow,745802,31,submitted
+SX-100100,counterfeit,Bengaluru,268219,33,verified
+SX-100101,digital_arrest,Jaipur,279099,48,verified
+SX-100102,scam_call,Chennai,526112,20,verified
+SX-100103,digital_arrest,Kolkata,313878,84,verified
+SX-100104,scam_call,Bengaluru,790238,23,investigating
+SX-100105,scam_call,Chennai,707045,61,submitted
+SX-100106,counterfeit,Jaipur,793577,29,verified
+SX-100107,upi_fraud,Chennai,435799,51,investigating
+SX-100108,phishing,Central Delhi,413953,34,resolved
+SX-100109,scam_call,Bengaluru,330593,89,submitted
+SX-100110,upi_fraud,Pune,192474,97,investigating
+SX-100111,digital_arrest,Chennai,739071,96,submitted
+SX-100112,counterfeit,Bengaluru,310834,82,verified
+SX-100113,upi_fraud,Pune,449004,85,resolved
+SX-100114,phishing,Pune,660020,45,investigating
+SX-100115,upi_fraud,Chennai,88013,51,investigating
+SX-100116,digital_arrest,Chennai,730175,56,submitted
+SX-100117,counterfeit,Central Delhi,31849,52,investigating
+SX-100118,upi_fraud,Lucknow,10631,64,submitted
+SX-100119,scam_call,Bengaluru,60995,19,resolved
+SX-100120,counterfeit,Jaipur,249517,31,submitted
+SX-100121,scam_call,Kolkata,365338,25,verified
+SX-100122,digital_arrest,Lucknow,29346,72,submitted
+SX-100123,upi_fraud,Bengaluru,753290,77,resolved
+SX-100124,scam_call,Bengaluru,689575,62,submitted
+SX-100125,counterfeit,Lucknow,252891,60,resolved
+SX-100126,counterfeit,Jaipur,793395,97,submitted
+SX-100127,upi_fraud,Jaipur,402396,52,verified
+SX-100128,counterfeit,Chennai,171685,91,submitted
+SX-100129,phishing,Mumbai,27172,73,verified
+SX-100130,digital_arrest,Bengaluru,424213,56,verified
+SX-100131,counterfeit,Kolkata,185128,74,submitted
+SX-100132,digital_arrest,Chennai,675912,20,resolved
+SX-100133,digital_arrest,Lucknow,586656,96,resolved
+SX-100134,phishing,Mumbai,346342,44,investigating
+SX-100135,counterfeit,Bengaluru,760527,82,resolved
+SX-100136,digital_arrest,Bengaluru,299211,60,verified
+SX-100137,phishing,Chennai,463656,79,submitted
+SX-100138,scam_call,Mumbai,714443,18,resolved
+SX-100139,digital_arrest,Central Delhi,595875,53,submitted
+SX-100140,upi_fraud,Central Delhi,394698,42,resolved
+SX-100141,counterfeit,Mumbai,157817,94,resolved
+SX-100142,scam_call,Pune,95410,37,verified
+SX-100143,scam_call,Lucknow,93393,26,verified
+SX-100144,phishing,Lucknow,704402,77,investigating
+SX-100145,scam_call,Central Delhi,476154,62,submitted
+SX-100146,phishing,Jaipur,130926,15,investigating
+SX-100147,digital_arrest,Pune,277101,89,submitted
+SX-100148,phishing,Kolkata,216707,18,submitted
+SX-100149,upi_fraud,Bengaluru,636336,93,resolved
+SX-100150,upi_fraud,Lucknow,352192,20,investigating
+SX-100151,digital_arrest,Chennai,736541,17,verified
+SX-100152,phishing,Pune,289272,65,resolved
+SX-100153,scam_call,Kolkata,34845,54,resolved
+SX-100154,phishing,Kolkata,123285,97,submitted
+SX-100155,digital_arrest,Chennai,434413,55,verified
+SX-100156,upi_fraud,Kolkata,450567,30,verified
+SX-100157,scam_call,Bengaluru,408325,41,verified
+SX-100158,digital_arrest,Pune,80881,29,resolved
+SX-100159,digital_arrest,Central Delhi,479422,62,verified
+SX-100160,upi_fraud,Lucknow,128253,63,submitted
+SX-100161,digital_arrest,Lucknow,398220,61,verified
+SX-100162,upi_fraud,Lucknow,681479,45,resolved
+SX-100163,digital_arrest,Central Delhi,286628,75,submitted
+SX-100164,digital_arrest,Bengaluru,198581,89,verified
+SX-100165,counterfeit,Bengaluru,575802,89,verified
+SX-100166,scam_call,Central Delhi,525338,51,submitted
+SX-100167,scam_call,Kolkata,752227,76,investigating
+SX-100168,scam_call,Jaipur,786301,53,verified
+SX-100169,upi_fraud,Bengaluru,380062,76,resolved
+SX-100170,digital_arrest,Central Delhi,755095,72,submitted
+SX-100171,upi_fraud,Chennai,459964,48,investigating
+SX-100172,counterfeit,Kolkata,671621,67,investigating
+SX-100173,digital_arrest,Chennai,687715,17,resolved
+SX-100174,scam_call,Central Delhi,104246,15,verified
+SX-100175,phishing,Chennai,362170,95,verified
+SX-100176,upi_fraud,Jaipur,532714,59,investigating
+SX-100177,digital_arrest,Jaipur,745151,18,verified
+SX-100178,counterfeit,Bengaluru,413158,35,verified
+SX-100179,phishing,Central Delhi,49166,16,submitted
+SX-100180,upi_fraud,Bengaluru,594026,82,submitted
+SX-100181,digital_arrest,Lucknow,630995,41,verified
+SX-100182,digital_arrest,Central Delhi,610000,83,resolved
+SX-100183,scam_call,Pune,305016,21,investigating
+SX-100184,phishing,Jaipur,625105,69,resolved
+SX-100185,upi_fraud,Central Delhi,17975,88,submitted
+SX-100186,counterfeit,Mumbai,128802,90,submitted
+SX-100187,scam_call,Central Delhi,480822,26,verified
+SX-100188,digital_arrest,Central Delhi,40642,85,resolved
+SX-100189,upi_fraud,Central Delhi,302051,97,verified
+SX-100190,phishing,Bengaluru,224282,25,resolved
+SX-100191,upi_fraud,Lucknow,561425,96,verified
+SX-100192,scam_call,Pune,400965,63,submitted
+SX-100193,phishing,Lucknow,490587,90,verified
+SX-100194,counterfeit,Lucknow,661454,66,resolved
+SX-100195,phishing,Lucknow,101589,28,verified
+SX-100196,counterfeit,Bengaluru,47280,29,resolved
+SX-100197,phishing,Bengaluru,36015,73,submitted
+SX-100198,scam_call,Chennai,385146,19,investigating
+SX-100199,scam_call,Bengaluru,197631,69,verified
+SX-100200,scam_call,Lucknow,594934,98,submitted
+SX-100201,phishing,Bengaluru,720091,52,submitted
+SX-100202,upi_fraud,Mumbai,23196,88,resolved
+SX-100203,phishing,Chennai,689032,16,resolved
+SX-100204,digital_arrest,Pune,2295,29,submitted
+SX-100205,digital_arrest,Mumbai,465789,15,resolved
+SX-100206,counterfeit,Pune,23910,50,submitted
+SX-100207,phishing,Bengaluru,798358,25,verified
+SX-100208,digital_arrest,Chennai,289429,81,submitted
+SX-100209,phishing,Jaipur,307708,25,resolved
+SX-100210,phishing,Bengaluru,363268,69,verified
+SX-100211,counterfeit,Chennai,606862,47,investigating
+SX-100212,counterfeit,Jaipur,655591,92,investigating
+SX-100213,upi_fraud,Bengaluru,769680,49,investigating
+SX-100214,digital_arrest,Kolkata,251821,45,verified
+SX-100215,upi_fraud,Kolkata,513371,80,investigating
+SX-100216,digital_arrest,Kolkata,52447,29,submitted
+SX-100217,phishing,Chennai,195464,48,submitted
+SX-100218,counterfeit,Kolkata,19399,47,investigating
+SX-100219,digital_arrest,Bengaluru,461098,68,verified
+SX-100220,phishing,Pune,695732,42,resolved
+SX-100221,scam_call,Kolkata,588262,94,resolved
+SX-100222,counterfeit,Lucknow,506906,56,submitted
+SX-100223,phishing,Chennai,18182,15,submitted
+SX-100224,phishing,Bengaluru,117824,44,submitted
+SX-100225,scam_call,Chennai,102745,50,resolved
+SX-100226,phishing,Jaipur,713463,46,verified
+SX-100227,counterfeit,Bengaluru,519879,55,resolved
+SX-100228,counterfeit,Central Delhi,84507,77,resolved
+SX-100229,phishing,Bengaluru,239235,51,submitted
+SX-100230,digital_arrest,Jaipur,92377,33,submitted
+SX-100231,counterfeit,Kolkata,49325,92,submitted
+SX-100232,counterfeit,Jaipur,727555,48,verified
+SX-100233,phishing,Mumbai,319461,51,investigating
+SX-100234,upi_fraud,Lucknow,347581,64,verified
+SX-100235,upi_fraud,Pune,686817,37,investigating
+SX-100236,counterfeit,Bengaluru,53432,19,submitted
+SX-100237,digital_arrest,Chennai,341137,40,submitted
+SX-100238,digital_arrest,Pune,443536,40,resolved
+SX-100239,scam_call,Lucknow,641145,59,verified
+SX-100240,counterfeit,Chennai,713531,94,verified
+SX-100241,phishing,Bengaluru,499207,89,submitted
+SX-100242,digital_arrest,Chennai,517370,85,resolved
+SX-100243,counterfeit,Kolkata,557607,55,investigating
+SX-100244,phishing,Kolkata,5100,97,submitted
+SX-100245,counterfeit,Chennai,44937,63,submitted
+SX-100246,phishing,Lucknow,289959,16,resolved
+SX-100247,phishing,Mumbai,191039,46,investigating
+SX-100248,scam_call,Lucknow,471480,64,verified
+SX-100249,phishing,Kolkata,621098,64,resolved
+SX-100250,digital_arrest,Pune,128134,37,resolved
+SX-100251,upi_fraud,Central Delhi,217063,25,submitted
+SX-100252,phishing,Bengaluru,531066,49,resolved
+SX-100253,upi_fraud,Pune,600987,32,resolved
+SX-100254,scam_call,Lucknow,408968,57,resolved
+SX-100255,digital_arrest,Bengaluru,766764,80,investigating
+SX-100256,digital_arrest,Mumbai,380285,23,submitted
+SX-100257,scam_call,Lucknow,757607,41,investigating
+SX-100258,scam_call,Lucknow,118760,63,investigating
+SX-100259,scam_call,Pune,672359,70,submitted
+SX-100260,upi_fraud,Bengaluru,667764,62,submitted
+SX-100261,phishing,Mumbai,313478,94,resolved
+SX-100262,phishing,Central Delhi,214369,63,investigating
+SX-100263,phishing,Central Delhi,671443,63,verified
+SX-100264,upi_fraud,Jaipur,527373,88,resolved
+SX-100265,upi_fraud,Mumbai,146348,99,submitted
+SX-100266,upi_fraud,Central Delhi,436287,71,submitted
+SX-100267,phishing,Kolkata,722508,17,resolved
+SX-100268,upi_fraud,Bengaluru,535738,78,investigating
+SX-100269,upi_fraud,Mumbai,149117,21,resolved
+SX-100270,upi_fraud,Jaipur,475941,32,resolved
+SX-100271,phishing,Lucknow,699928,30,verified
+SX-100272,digital_arrest,Jaipur,649394,21,submitted
+SX-100273,scam_call,Kolkata,174117,36,verified
+SX-100274,digital_arrest,Mumbai,525961,17,submitted
+SX-100275,upi_fraud,Mumbai,192080,26,verified
+SX-100276,counterfeit,Chennai,408469,59,resolved
+SX-100277,phishing,Jaipur,579842,91,verified
+SX-100278,counterfeit,Lucknow,152480,16,verified
+SX-100279,counterfeit,Pune,670369,65,verified
+SX-100280,counterfeit,Bengaluru,438147,49,investigating
+SX-100281,counterfeit,Central Delhi,746727,90,submitted
+SX-100282,upi_fraud,Kolkata,710404,94,verified
+SX-100283,counterfeit,Chennai,781781,92,resolved
+SX-100284,phishing,Pune,741739,79,resolved
+SX-100285,phishing,Jaipur,426063,75,submitted
+SX-100286,phishing,Kolkata,621715,85,resolved
+SX-100287,phishing,Lucknow,490549,53,submitted
+SX-100288,phishing,Kolkata,504232,58,verified
+SX-100289,phishing,Lucknow,69423,92,submitted
+SX-100290,upi_fraud,Pune,30662,75,verified
+SX-100291,counterfeit,Mumbai,382512,57,verified
+SX-100292,counterfeit,Bengaluru,765393,27,investigating
+SX-100293,digital_arrest,Lucknow,394005,53,investigating
+SX-100294,scam_call,Kolkata,438904,32,investigating
+SX-100295,counterfeit,Chennai,95529,46,verified
+SX-100296,counterfeit,Lucknow,490213,51,verified
+SX-100297,upi_fraud,Lucknow,579465,38,verified
+SX-100298,counterfeit,Chennai,371035,29,resolved
+SX-100299,scam_call,Chennai,694902,29,verified
+SX-100300,counterfeit,Bengaluru,434083,75,resolved
+SX-100301,counterfeit,Pune,664373,50,resolved
+SX-100302,upi_fraud,Jaipur,289653,64,verified
+SX-100303,counterfeit,Mumbai,653695,56,resolved
+SX-100304,phishing,Kolkata,732473,87,investigating
+SX-100305,digital_arrest,Bengaluru,301834,60,verified
+SX-100306,scam_call,Jaipur,579282,74,verified
+SX-100307,digital_arrest,Central Delhi,128862,59,investigating
+SX-100308,upi_fraud,Kolkata,493790,44,resolved
+SX-100309,digital_arrest,Jaipur,668438,76,resolved
+SX-100310,counterfeit,Pune,555505,29,submitted
+SX-100311,digital_arrest,Kolkata,201531,52,investigating
+SX-100312,digital_arrest,Jaipur,188677,26,submitted
+SX-100313,digital_arrest,Bengaluru,451665,64,investigating
+SX-100314,phishing,Chennai,606570,41,submitted
+SX-100315,digital_arrest,Central Delhi,373818,84,investigating
+SX-100316,digital_arrest,Lucknow,516375,55,resolved
+SX-100317,scam_call,Mumbai,320795,90,resolved
+SX-100318,upi_fraud,Pune,485692,87,investigating
+SX-100319,phishing,Chennai,2359,61,resolved
+SX-100320,scam_call,Kolkata,35319,34,investigating
+SX-100321,scam_call,Central Delhi,561932,52,resolved
+SX-100322,digital_arrest,Kolkata,215983,90,investigating
+SX-100323,phishing,Jaipur,479798,51,investigating
+SX-100324,upi_fraud,Lucknow,730255,72,resolved
+SX-100325,counterfeit,Pune,385443,19,submitted
+SX-100326,digital_arrest,Mumbai,636388,92,resolved
+SX-100327,phishing,Central Delhi,590412,79,verified
+SX-100328,upi_fraud,Kolkata,590087,25,resolved
+SX-100329,digital_arrest,Pune,666613,33,investigating
+SX-100330,counterfeit,Lucknow,369793,94,verified
+SX-100331,upi_fraud,Bengaluru,264889,33,submitted
+SX-100332,upi_fraud,Kolkata,210344,57,resolved
+SX-100333,digital_arrest,Central Delhi,734562,30,verified
+SX-100334,digital_arrest,Mumbai,504079,42,verified
+SX-100335,upi_fraud,Bengaluru,46697,99,verified
+SX-100336,phishing,Chennai,740268,34,verified
+SX-100337,upi_fraud,Pune,447927,44,resolved
+SX-100338,scam_call,Central Delhi,104616,36,investigating
+SX-100339,scam_call,Chennai,482649,85,verified
+SX-100340,scam_call,Lucknow,417645,90,resolved
+SX-100341,phishing,Kolkata,427400,74,verified
+SX-100342,digital_arrest,Kolkata,588549,96,resolved
+SX-100343,scam_call,Mumbai,663370,55,resolved
+SX-100344,digital_arrest,Bengaluru,229231,75,verified
+SX-100345,upi_fraud,Mumbai,174240,46,resolved
+SX-100346,upi_fraud,Central Delhi,260183,68,verified
+SX-100347,counterfeit,Chennai,734590,78,verified
+SX-100348,counterfeit,Jaipur,346001,79,submitted
+SX-100349,scam_call,Chennai,41990,89,resolved
+SX-100350,scam_call,Mumbai,284212,39,investigating
+SX-100351,upi_fraud,Bengaluru,179292,22,investigating
+SX-100352,counterfeit,Bengaluru,435121,37,verified
+SX-100353,phishing,Pune,707690,80,resolved
+SX-100354,digital_arrest,Central Delhi,458791,24,investigating
+SX-100355,digital_arrest,Bengaluru,531877,44,verified
+SX-100356,upi_fraud,Kolkata,781111,24,investigating
+SX-100357,upi_fraud,Jaipur,405366,94,verified
+SX-100358,upi_fraud,Chennai,627153,63,investigating
+SX-100359,upi_fraud,Jaipur,351822,61,verified
+SX-100360,phishing,Mumbai,586606,76,investigating
+SX-100361,scam_call,Mumbai,82526,65,submitted
+SX-100362,scam_call,Pune,279653,97,verified
+SX-100363,scam_call,Lucknow,617016,86,investigating
+SX-100364,scam_call,Jaipur,629911,44,investigating
+SX-100365,digital_arrest,Pune,708794,55,investigating
+SX-100366,digital_arrest,Central Delhi,638465,34,resolved
+SX-100367,phishing,Pune,692623,79,investigating
+SX-100368,scam_call,Jaipur,512224,45,submitted
+SX-100369,phishing,Jaipur,167908,96,resolved
+SX-100370,scam_call,Chennai,585422,26,investigating
+SX-100371,phishing,Bengaluru,58704,99,submitted
+SX-100372,scam_call,Jaipur,628691,75,verified
+SX-100373,digital_arrest,Kolkata,798047,92,verified
+SX-100374,counterfeit,Mumbai,104604,54,investigating
+SX-100375,counterfeit,Kolkata,612878,65,submitted
+SX-100376,phishing,Chennai,38166,83,resolved
+SX-100377,digital_arrest,Pune,163987,71,investigating
+SX-100378,digital_arrest,Chennai,248060,37,submitted
+SX-100379,upi_fraud,Lucknow,163058,58,submitted
+SX-100380,upi_fraud,Lucknow,304215,99,resolved
+SX-100381,digital_arrest,Mumbai,467605,18,investigating
+SX-100382,upi_fraud,Chennai,634943,83,resolved
+SX-100383,digital_arrest,Mumbai,585593,75,resolved
+SX-100384,counterfeit,Jaipur,336893,39,submitted
+SX-100385,upi_fraud,Mumbai,505581,58,investigating
+SX-100386,phishing,Kolkata,303894,25,verified
+SX-100387,scam_call,Bengaluru,135439,55,investigating
+SX-100388,phishing,Lucknow,748301,22,investigating
+SX-100389,digital_arrest,Lucknow,711846,72,resolved
+SX-100390,digital_arrest,Central Delhi,50437,93,submitted
+SX-100391,digital_arrest,Pune,597829,30,submitted
+SX-100392,scam_call,Jaipur,162421,77,investigating
+SX-100393,digital_arrest,Mumbai,216413,76,investigating
+SX-100394,counterfeit,Central Delhi,379585,47,investigating
+SX-100395,digital_arrest,Bengaluru,476916,91,investigating
+SX-100396,phishing,Jaipur,352690,33,verified
+SX-100397,upi_fraud,Bengaluru,543287,21,investigating
+SX-100398,counterfeit,Pune,501836,83,verified
+SX-100399,scam_call,Pune,67809,21,investigating
+SX-100400,scam_call,Pune,630751,76,verified
+SX-100401,counterfeit,Jaipur,34964,66,resolved
+SX-100402,phishing,Kolkata,383854,84,resolved
+SX-100403,scam_call,Lucknow,355467,70,resolved
+SX-100404,phishing,Mumbai,176413,75,submitted
+SX-100405,phishing,Chennai,561170,83,submitted
+SX-100406,phishing,Kolkata,343551,48,verified
+SX-100407,counterfeit,Jaipur,298123,73,investigating
+SX-100408,counterfeit,Kolkata,32709,55,investigating
+SX-100409,upi_fraud,Pune,264451,72,investigating
+SX-100410,phishing,Lucknow,263682,77,investigating
+SX-100411,counterfeit,Bengaluru,422774,65,submitted
+SX-100412,upi_fraud,Central Delhi,631367,53,investigating
+SX-100413,counterfeit,Central Delhi,767708,72,investigating
+SX-100414,digital_arrest,Jaipur,193034,57,investigating
+SX-100415,digital_arrest,Pune,361233,28,submitted
+SX-100416,scam_call,Chennai,385730,31,resolved
+SX-100417,phishing,Central Delhi,468221,51,verified
+SX-100418,digital_arrest,Pune,330741,63,verified
+SX-100419,phishing,Jaipur,513367,32,verified
+SX-100420,scam_call,Mumbai,85324,37,verified
+SX-100421,phishing,Bengaluru,129801,80,verified
+SX-100422,scam_call,Jaipur,711637,34,investigating
+SX-100423,digital_arrest,Chennai,539976,74,submitted
+SX-100424,phishing,Kolkata,278205,47,investigating
+SX-100425,counterfeit,Kolkata,677183,25,verified
+SX-100426,phishing,Lucknow,688046,63,investigating
+SX-100427,digital_arrest,Kolkata,118884,29,investigating
+SX-100428,upi_fraud,Chennai,99686,80,investigating
+SX-100429,scam_call,Kolkata,569560,76,submitted
+SX-100430,digital_arrest,Bengaluru,521047,78,submitted
+SX-100431,counterfeit,Pune,659615,28,submitted
+SX-100432,upi_fraud,Lucknow,217925,56,submitted
+SX-100433,counterfeit,Kolkata,581976,63,submitted
+SX-100434,scam_call,Bengaluru,278614,66,verified
+SX-100435,upi_fraud,Chennai,156978,63,resolved
+SX-100436,phishing,Bengaluru,317179,31,verified
+SX-100437,digital_arrest,Central Delhi,89079,68,investigating
+SX-100438,digital_arrest,Mumbai,358769,72,investigating
+SX-100439,upi_fraud,Kolkata,751054,90,verified
+SX-100440,digital_arrest,Jaipur,679582,92,verified
+SX-100441,upi_fraud,Lucknow,778974,37,verified
+SX-100442,phishing,Chennai,626010,84,verified
+SX-100443,phishing,Central Delhi,265318,67,investigating
+SX-100444,digital_arrest,Mumbai,173661,97,verified
+SX-100445,scam_call,Pune,505371,74,resolved
+SX-100446,scam_call,Bengaluru,763185,68,submitted
+SX-100447,upi_fraud,Bengaluru,359242,64,resolved
+SX-100448,digital_arrest,Chennai,198269,69,resolved
+SX-100449,counterfeit,Central Delhi,481193,34,verified
+SX-100450,scam_call,Central Delhi,748031,69,submitted
+SX-100451,counterfeit,Central Delhi,252756,79,investigating
+SX-100452,upi_fraud,Chennai,181449,71,submitted
+SX-100453,phishing,Mumbai,505404,54,verified
+SX-100454,scam_call,Lucknow,418382,28,investigating
+SX-100455,phishing,Lucknow,200702,89,submitted
+SX-100456,upi_fraud,Jaipur,264292,67,investigating
+SX-100457,digital_arrest,Pune,76134,88,resolved
+SX-100458,scam_call,Bengaluru,270439,91,investigating
+SX-100459,digital_arrest,Pune,588516,75,submitted
+SX-100460,digital_arrest,Bengaluru,471544,89,investigating
+SX-100461,upi_fraud,Mumbai,426913,50,resolved
+SX-100462,digital_arrest,Bengaluru,445873,84,resolved
+SX-100463,digital_arrest,Bengaluru,333276,91,verified
+SX-100464,phishing,Jaipur,131725,39,investigating
+SX-100465,scam_call,Pune,260227,46,submitted
+SX-100466,upi_fraud,Jaipur,598817,55,investigating
+SX-100467,upi_fraud,Mumbai,767129,42,submitted
+SX-100468,scam_call,Bengaluru,468689,36,resolved
+SX-100469,phishing,Lucknow,433436,51,resolved
+SX-100470,scam_call,Lucknow,745879,80,verified
+SX-100471,scam_call,Mumbai,194462,71,investigating
+SX-100472,phishing,Central Delhi,741994,43,submitted
+SX-100473,scam_call,Chennai,162469,32,submitted
+SX-100474,digital_arrest,Chennai,507825,91,submitted
+SX-100475,counterfeit,Kolkata,237203,86,resolved
+SX-100476,upi_fraud,Bengaluru,658532,47,submitted
+SX-100477,digital_arrest,Central Delhi,511941,69,verified
+SX-100478,upi_fraud,Mumbai,409831,67,resolved
+SX-100479,scam_call,Kolkata,794405,99,investigating
+SX-100480,scam_call,Bengaluru,386576,94,investigating
+SX-100481,scam_call,Chennai,591550,46,resolved
+SX-100482,phishing,Bengaluru,497117,16,investigating
+SX-100483,digital_arrest,Bengaluru,663422,46,investigating
+SX-100484,phishing,Bengaluru,337878,66,investigating
+SX-100485,counterfeit,Bengaluru,403649,51,verified
+SX-100486,scam_call,Kolkata,279066,68,submitted
+SX-100487,scam_call,Central Delhi,151045,43,resolved
+SX-100488,upi_fraud,Lucknow,420785,16,submitted
+SX-100489,digital_arrest,Lucknow,611247,27,investigating
+SX-100490,upi_fraud,Central Delhi,423928,97,resolved
+SX-100491,upi_fraud,Pune,781728,50,verified
+SX-100492,phishing,Pune,450915,27,investigating
+SX-100493,scam_call,Chennai,451226,60,investigating
+SX-100494,upi_fraud,Central Delhi,396911,36,submitted
+SX-100495,phishing,Pune,725899,38,submitted
+SX-100496,upi_fraud,Chennai,392074,67,investigating
+SX-100497,counterfeit,Bengaluru,428292,69,investigating
+SX-100498,scam_call,Mumbai,231829,77,verified
+SX-100499,upi_fraud,Bengaluru,534059,69,submitted
+SX-100500,phishing,Mumbai,373845,20,investigating
+SX-100501,phishing,Pune,717143,85,resolved
+SX-100502,phishing,Kolkata,87422,38,resolved
+SX-100503,counterfeit,Jaipur,776744,34,submitted
+SX-100504,scam_call,Mumbai,136714,23,investigating
+SX-100505,phishing,Lucknow,52824,85,verified
+SX-100506,digital_arrest,Lucknow,375189,69,resolved
+SX-100507,phishing,Central Delhi,135740,85,submitted
+SX-100508,phishing,Pune,625367,19,verified
+SX-100509,upi_fraud,Bengaluru,353969,47,verified
+SX-100510,upi_fraud,Mumbai,493306,78,investigating
+SX-100511,upi_fraud,Pune,438562,60,submitted
+SX-100512,counterfeit,Chennai,264621,38,verified
+SX-100513,digital_arrest,Kolkata,617297,93,investigating
+SX-100514,counterfeit,Pune,580499,22,investigating
+SX-100515,counterfeit,Bengaluru,103130,51,resolved
+SX-100516,digital_arrest,Mumbai,673061,68,submitted
+SX-100517,digital_arrest,Kolkata,739769,41,investigating
+SX-100518,digital_arrest,Central Delhi,597297,21,verified
+SX-100519,digital_arrest,Mumbai,161938,97,submitted
+SX-100520,upi_fraud,Lucknow,54753,93,verified
+SX-100521,counterfeit,Central Delhi,240509,96,verified
+SX-100522,phishing,Pune,353693,62,investigating
+SX-100523,counterfeit,Jaipur,655307,17,resolved
+SX-100524,digital_arrest,Mumbai,769959,67,resolved
+SX-100525,phishing,Jaipur,467505,25,investigating
+SX-100526,upi_fraud,Jaipur,391021,20,investigating
+SX-100527,counterfeit,Bengaluru,608654,76,resolved
+SX-100528,digital_arrest,Lucknow,755018,62,submitted
+SX-100529,upi_fraud,Kolkata,511318,98,submitted
+SX-100530,upi_fraud,Kolkata,240402,56,verified
+SX-100531,upi_fraud,Pune,345836,42,verified
+SX-100532,counterfeit,Pune,55251,93,resolved
+SX-100533,upi_fraud,Lucknow,104493,87,verified
+SX-100534,scam_call,Chennai,141986,48,investigating
+SX-100535,phishing,Chennai,275185,42,verified
+SX-100536,counterfeit,Lucknow,458327,16,verified
+SX-100537,counterfeit,Lucknow,212043,31,submitted
+SX-100538,phishing,Pune,516051,19,investigating
+SX-100539,digital_arrest,Mumbai,768308,31,submitted
+SX-100540,scam_call,Chennai,318177,65,submitted
+SX-100541,scam_call,Jaipur,225814,57,submitted
+SX-100542,counterfeit,Pune,354297,36,submitted
+SX-100543,digital_arrest,Chennai,61285,76,investigating
+SX-100544,counterfeit,Lucknow,621663,97,verified
+SX-100545,digital_arrest,Lucknow,307120,27,resolved
+SX-100546,counterfeit,Lucknow,344917,40,resolved
+SX-100547,digital_arrest,Pune,504951,29,submitted
+SX-100548,phishing,Jaipur,388548,64,submitted
+SX-100549,upi_fraud,Jaipur,386593,37,investigating
+SX-100550,phishing,Jaipur,356809,18,submitted
+SX-100551,scam_call,Central Delhi,712978,51,investigating
+SX-100552,counterfeit,Bengaluru,197397,21,submitted
+SX-100553,scam_call,Mumbai,735081,75,investigating
+SX-100554,phishing,Bengaluru,583092,25,resolved
+SX-100555,scam_call,Mumbai,734945,50,investigating
+SX-100556,phishing,Lucknow,395954,69,investigating
+SX-100557,upi_fraud,Central Delhi,577436,16,investigating
+SX-100558,counterfeit,Mumbai,547637,66,resolved
+SX-100559,digital_arrest,Chennai,253631,69,verified
+SX-100560,digital_arrest,Pune,281850,53,resolved
+SX-100561,scam_call,Lucknow,399004,22,verified
+SX-100562,counterfeit,Lucknow,583952,27,investigating
+SX-100563,digital_arrest,Central Delhi,331917,19,investigating
+SX-100564,upi_fraud,Mumbai,725838,20,resolved
+SX-100565,digital_arrest,Kolkata,784855,23,investigating
+SX-100566,scam_call,Lucknow,67652,34,resolved
+SX-100567,digital_arrest,Chennai,740088,24,investigating
+SX-100568,counterfeit,Chennai,260897,80,resolved
+SX-100569,digital_arrest,Bengaluru,452183,33,investigating
+SX-100570,counterfeit,Chennai,268201,45,resolved
+SX-100571,scam_call,Jaipur,200973,39,investigating
+SX-100572,scam_call,Bengaluru,682760,19,investigating
+SX-100573,digital_arrest,Lucknow,112866,69,investigating
+SX-100574,digital_arrest,Central Delhi,271668,66,verified
+SX-100575,scam_call,Central Delhi,774555,75,verified
+SX-100576,scam_call,Kolkata,707282,49,investigating
+SX-100577,phishing,Pune,418500,16,verified
+SX-100578,scam_call,Jaipur,603143,71,resolved
+SX-100579,scam_call,Pune,77698,35,investigating
+SX-100580,digital_arrest,Mumbai,507754,60,submitted
+SX-100581,scam_call,Mumbai,294139,29,resolved
+SX-100582,digital_arrest,Bengaluru,724878,30,submitted
+SX-100583,scam_call,Lucknow,375132,58,submitted
+SX-100584,upi_fraud,Lucknow,730245,42,submitted
+SX-100585,counterfeit,Chennai,138021,56,resolved
+SX-100586,counterfeit,Mumbai,279403,38,submitted
+SX-100587,counterfeit,Chennai,621873,93,submitted
+SX-100588,counterfeit,Pune,416087,81,investigating
+SX-100589,counterfeit,Central Delhi,555669,22,verified
+SX-100590,phishing,Mumbai,98413,32,resolved
+SX-100591,scam_call,Kolkata,102050,44,submitted
+SX-100592,digital_arrest,Lucknow,170513,97,verified
+SX-100593,counterfeit,Pune,720242,64,submitted
+SX-100594,scam_call,Lucknow,679419,33,submitted
+SX-100595,phishing,Central Delhi,349697,49,submitted
+SX-100596,phishing,Lucknow,25402,52,submitted
+SX-100597,phishing,Pune,724578,85,submitted
+SX-100598,upi_fraud,Pune,745877,56,investigating
+SX-100599,digital_arrest,Kolkata,585834,65,resolved
+SX-100600,counterfeit,Bengaluru,62920,23,resolved
+SX-100601,phishing,Lucknow,184871,62,submitted
+SX-100602,phishing,Bengaluru,740477,73,investigating
+SX-100603,digital_arrest,Bengaluru,772159,86,verified
+SX-100604,phishing,Chennai,72178,89,investigating
+SX-100605,upi_fraud,Jaipur,469031,70,resolved
+SX-100606,upi_fraud,Central Delhi,416794,58,submitted
+SX-100607,upi_fraud,Chennai,499490,62,investigating
+SX-100608,phishing,Lucknow,743053,53,resolved
+SX-100609,digital_arrest,Jaipur,394284,93,submitted
+SX-100610,phishing,Mumbai,732174,77,investigating
+SX-100611,scam_call,Bengaluru,475645,26,resolved
+SX-100612,digital_arrest,Kolkata,278853,32,verified
+SX-100613,counterfeit,Kolkata,556951,92,resolved
+SX-100614,upi_fraud,Mumbai,160367,37,verified
+SX-100615,upi_fraud,Lucknow,793940,87,verified
+SX-100616,counterfeit,Lucknow,213029,16,resolved
+SX-100617,upi_fraud,Chennai,602806,93,investigating
+SX-100618,scam_call,Pune,707678,44,resolved
+SX-100619,phishing,Mumbai,175138,55,investigating
+SX-100620,counterfeit,Kolkata,538887,68,resolved
+SX-100621,counterfeit,Lucknow,593846,49,investigating
+SX-100622,scam_call,Kolkata,555637,77,submitted
+SX-100623,counterfeit,Bengaluru,230130,44,investigating
+SX-100624,phishing,Kolkata,413280,44,submitted
+SX-100625,scam_call,Kolkata,717792,34,verified
+SX-100626,phishing,Pune,253388,74,submitted
+SX-100627,upi_fraud,Pune,328446,78,verified
+SX-100628,counterfeit,Pune,568061,73,investigating
+SX-100629,phishing,Mumbai,126488,25,investigating
+SX-100630,digital_arrest,Central Delhi,607636,66,verified
+SX-100631,scam_call,Kolkata,108192,64,submitted
+SX-100632,scam_call,Mumbai,529790,27,investigating
+SX-100633,scam_call,Lucknow,554298,70,verified
+SX-100634,phishing,Chennai,102750,47,investigating
+SX-100635,digital_arrest,Bengaluru,423367,28,investigating
+SX-100636,digital_arrest,Jaipur,220863,52,verified
+SX-100637,digital_arrest,Lucknow,725719,71,submitted
+SX-100638,upi_fraud,Lucknow,124011,26,verified
+SX-100639,upi_fraud,Mumbai,259010,70,submitted
+SX-100640,upi_fraud,Jaipur,256324,23,submitted
+SX-100641,upi_fraud,Pune,425426,91,resolved
+SX-100642,digital_arrest,Kolkata,442044,96,resolved
+SX-100643,scam_call,Jaipur,584129,47,investigating
+SX-100644,upi_fraud,Central Delhi,634202,17,investigating
+SX-100645,upi_fraud,Pune,786302,67,verified
+SX-100646,upi_fraud,Pune,482110,34,investigating
+SX-100647,upi_fraud,Jaipur,681144,72,submitted
+SX-100648,phishing,Lucknow,176726,72,verified
+SX-100649,phishing,Pune,784802,31,investigating
+SX-100650,scam_call,Mumbai,648806,82,verified
+SX-100651,phishing,Central Delhi,613882,50,investigating
+SX-100652,upi_fraud,Chennai,581496,20,resolved
+SX-100653,upi_fraud,Kolkata,594599,48,investigating
+SX-100654,scam_call,Jaipur,550037,90,investigating
+SX-100655,upi_fraud,Central Delhi,328527,94,investigating
+SX-100656,phishing,Jaipur,771406,24,investigating
+SX-100657,digital_arrest,Pune,20371,55,resolved
+SX-100658,digital_arrest,Chennai,125675,78,investigating
+SX-100659,upi_fraud,Lucknow,197439,63,investigating
+SX-100660,scam_call,Lucknow,564739,62,verified
+SX-100661,phishing,Lucknow,112371,54,verified
+SX-100662,digital_arrest,Lucknow,718523,87,verified
+SX-100663,counterfeit,Pune,389757,52,submitted
+SX-100664,scam_call,Mumbai,179126,84,investigating
+SX-100665,phishing,Chennai,242149,88,investigating
+SX-100666,scam_call,Lucknow,312098,87,submitted
+SX-100667,digital_arrest,Central Delhi,499705,91,verified
+SX-100668,phishing,Kolkata,597691,94,investigating
+SX-100669,phishing,Chennai,538060,34,resolved
+SX-100670,phishing,Jaipur,430077,17,submitted
+SX-100671,scam_call,Kolkata,374030,87,submitted
+SX-100672,digital_arrest,Kolkata,206436,42,resolved
+SX-100673,upi_fraud,Central Delhi,104699,33,resolved
+SX-100674,upi_fraud,Central Delhi,644208,56,submitted
+SX-100675,digital_arrest,Kolkata,630107,69,verified
+SX-100676,scam_call,Pune,191644,94,investigating
+SX-100677,digital_arrest,Central Delhi,505579,84,investigating
+SX-100678,digital_arrest,Lucknow,625203,52,submitted
+SX-100679,phishing,Central Delhi,380648,81,submitted
+SX-100680,scam_call,Bengaluru,619736,37,submitted
+SX-100681,phishing,Central Delhi,602818,25,verified
+SX-100682,digital_arrest,Bengaluru,589920,58,verified
+SX-100683,upi_fraud,Chennai,454453,27,verified
+SX-100684,scam_call,Chennai,510503,25,resolved
+SX-100685,phishing,Jaipur,184346,45,investigating
+SX-100686,scam_call,Jaipur,690648,60,investigating
+SX-100687,upi_fraud,Pune,681228,78,submitted
+SX-100688,digital_arrest,Bengaluru,537528,48,resolved
+SX-100689,upi_fraud,Lucknow,400546,50,verified
+SX-100690,phishing,Mumbai,381512,81,resolved
+SX-100691,scam_call,Jaipur,71404,39,investigating
+SX-100692,counterfeit,Bengaluru,326780,37,verified
+SX-100693,phishing,Bengaluru,250415,83,investigating
+SX-100694,digital_arrest,Pune,238478,65,investigating
+SX-100695,counterfeit,Lucknow,65044,37,resolved
+SX-100696,digital_arrest,Central Delhi,556520,77,submitted
+SX-100697,scam_call,Jaipur,568131,18,submitted
+SX-100698,digital_arrest,Bengaluru,428998,65,submitted
+SX-100699,upi_fraud,Pune,350136,75,verified
+SX-100700,scam_call,Bengaluru,292588,80,verified
+SX-100701,counterfeit,Kolkata,239185,59,verified
+SX-100702,scam_call,Kolkata,244394,24,investigating
+SX-100703,digital_arrest,Kolkata,499152,50,verified
+SX-100704,scam_call,Lucknow,251934,26,investigating
+SX-100705,digital_arrest,Kolkata,269468,90,verified
+SX-100706,upi_fraud,Jaipur,395759,38,verified
+SX-100707,upi_fraud,Lucknow,58987,34,resolved
+SX-100708,digital_arrest,Kolkata,140661,37,investigating
+SX-100709,scam_call,Jaipur,70478,52,resolved
+SX-100710,phishing,Kolkata,100880,28,verified
+SX-100711,phishing,Bengaluru,493852,83,verified
+SX-100712,scam_call,Lucknow,497691,37,verified
+SX-100713,counterfeit,Central Delhi,59668,68,resolved
+SX-100714,counterfeit,Kolkata,417235,25,verified
+SX-100715,scam_call,Pune,543357,72,submitted
+SX-100716,counterfeit,Jaipur,787195,33,verified
+SX-100717,counterfeit,Jaipur,471231,81,resolved
+SX-100718,digital_arrest,Kolkata,478244,52,investigating
+SX-100719,digital_arrest,Bengaluru,351592,47,submitted
+SX-100720,upi_fraud,Lucknow,533101,47,verified
+SX-100721,scam_call,Kolkata,322981,37,verified
+SX-100722,counterfeit,Kolkata,339,35,resolved
+SX-100723,digital_arrest,Chennai,702934,70,resolved
+SX-100724,phishing,Central Delhi,788019,80,verified
+SX-100725,digital_arrest,Kolkata,645375,93,submitted
+SX-100726,upi_fraud,Chennai,549403,96,verified
+SX-100727,digital_arrest,Lucknow,676468,38,resolved
+SX-100728,phishing,Lucknow,4545,57,investigating
+SX-100729,phishing,Jaipur,467570,90,resolved
+SX-100730,phishing,Pune,115183,44,verified
+SX-100731,scam_call,Lucknow,791423,95,resolved
+SX-100732,phishing,Mumbai,587016,57,investigating
+SX-100733,digital_arrest,Kolkata,106804,22,resolved
+SX-100734,scam_call,Lucknow,749452,98,resolved
+SX-100735,digital_arrest,Central Delhi,73002,43,submitted
+SX-100736,scam_call,Mumbai,734706,53,investigating
+SX-100737,counterfeit,Pune,337628,68,investigating
+SX-100738,counterfeit,Lucknow,723572,55,submitted
+SX-100739,scam_call,Jaipur,388836,57,verified
+SX-100740,phishing,Jaipur,17571,63,resolved
+SX-100741,upi_fraud,Jaipur,496110,83,submitted
+SX-100742,phishing,Chennai,160226,64,resolved
+SX-100743,upi_fraud,Bengaluru,509756,89,verified
+SX-100744,counterfeit,Bengaluru,554137,45,submitted
+SX-100745,counterfeit,Central Delhi,24362,93,investigating
+SX-100746,scam_call,Jaipur,634407,56,resolved
+SX-100747,upi_fraud,Jaipur,449394,29,resolved
+SX-100748,scam_call,Pune,336391,63,submitted
+SX-100749,digital_arrest,Mumbai,526338,92,verified
+SX-100750,digital_arrest,Chennai,582074,47,investigating
+SX-100751,scam_call,Bengaluru,740307,88,verified
+SX-100752,digital_arrest,Jaipur,685977,26,investigating
+SX-100753,scam_call,Central Delhi,601824,31,resolved
+SX-100754,digital_arrest,Kolkata,192221,50,investigating
+SX-100755,upi_fraud,Bengaluru,354098,82,submitted
+SX-100756,phishing,Jaipur,532382,87,investigating
+SX-100757,upi_fraud,Mumbai,777278,82,resolved
+SX-100758,upi_fraud,Lucknow,618518,54,investigating
+SX-100759,digital_arrest,Chennai,602794,57,investigating
+SX-100760,upi_fraud,Mumbai,231014,79,verified
+SX-100761,phishing,Kolkata,542673,44,verified
+SX-100762,digital_arrest,Mumbai,758553,79,investigating
+SX-100763,scam_call,Bengaluru,176744,91,submitted
+SX-100764,counterfeit,Mumbai,349289,72,submitted
+SX-100765,digital_arrest,Bengaluru,53995,77,submitted
+SX-100766,digital_arrest,Jaipur,300765,30,verified
+SX-100767,counterfeit,Lucknow,112890,53,verified
+SX-100768,phishing,Mumbai,769294,57,submitted
+SX-100769,upi_fraud,Lucknow,8451,25,submitted
+SX-100770,phishing,Chennai,664785,66,investigating
+SX-100771,phishing,Kolkata,603695,26,investigating
+SX-100772,counterfeit,Kolkata,524547,58,investigating
+SX-100773,counterfeit,Lucknow,479739,45,resolved
+SX-100774,scam_call,Chennai,429350,68,resolved
+SX-100775,digital_arrest,Central Delhi,46166,97,resolved
+SX-100776,upi_fraud,Chennai,138991,73,resolved
+SX-100777,counterfeit,Bengaluru,488281,59,verified
+SX-100778,phishing,Mumbai,633446,22,resolved
+SX-100779,digital_arrest,Lucknow,69591,66,investigating
+SX-100780,phishing,Chennai,569641,62,resolved
+SX-100781,upi_fraud,Lucknow,182612,62,verified
+SX-100782,counterfeit,Pune,423639,23,resolved
+SX-100783,upi_fraud,Pune,366280,71,investigating
+SX-100784,upi_fraud,Kolkata,493498,84,resolved
+SX-100785,phishing,Lucknow,748679,44,investigating
+SX-100786,digital_arrest,Pune,383228,86,resolved
+SX-100787,scam_call,Mumbai,316801,27,investigating
+SX-100788,phishing,Lucknow,171435,44,verified
+SX-100789,digital_arrest,Bengaluru,473400,96,verified
+SX-100790,scam_call,Mumbai,449526,88,submitted
+SX-100791,upi_fraud,Chennai,576419,82,verified
+SX-100792,upi_fraud,Mumbai,440756,41,resolved
+SX-100793,scam_call,Jaipur,562498,19,verified
+SX-100794,counterfeit,Central Delhi,323895,35,submitted
+SX-100795,upi_fraud,Chennai,739589,44,investigating
+SX-100796,counterfeit,Chennai,667075,62,investigating
+SX-100797,scam_call,Kolkata,682014,85,investigating
+SX-100798,scam_call,Chennai,131005,28,investigating
+SX-100799,scam_call,Lucknow,292551,29,resolved
+SX-100800,scam_call,Jaipur,538392,41,submitted
+SX-100801,upi_fraud,Lucknow,525997,55,investigating
+SX-100802,upi_fraud,Jaipur,145862,38,resolved
+SX-100803,digital_arrest,Jaipur,201457,19,resolved
+SX-100804,counterfeit,Chennai,501362,66,investigating
+SX-100805,scam_call,Mumbai,261805,64,resolved
+SX-100806,digital_arrest,Chennai,790197,36,verified
+SX-100807,counterfeit,Jaipur,127205,86,investigating
+SX-100808,phishing,Bengaluru,679397,91,submitted
+SX-100809,upi_fraud,Jaipur,308074,51,submitted
+SX-100810,phishing,Lucknow,467086,37,investigating
+SX-100811,counterfeit,Lucknow,384210,71,resolved
+SX-100812,counterfeit,Central Delhi,79493,47,verified
+SX-100813,upi_fraud,Central Delhi,532036,99,submitted
+SX-100814,phishing,Chennai,189308,46,verified
+SX-100815,upi_fraud,Lucknow,437604,84,resolved
+SX-100816,counterfeit,Kolkata,580206,25,submitted
+SX-100817,scam_call,Mumbai,558900,72,submitted
+SX-100818,phishing,Pune,616794,79,investigating
+SX-100819,scam_call,Bengaluru,419904,90,submitted
+SX-100820,counterfeit,Bengaluru,500743,59,investigating
+SX-100821,digital_arrest,Kolkata,641113,38,submitted
+SX-100822,counterfeit,Mumbai,572482,74,verified
+SX-100823,upi_fraud,Chennai,707291,71,submitted
+SX-100824,phishing,Chennai,23509,17,submitted
+SX-100825,digital_arrest,Mumbai,344694,81,resolved
+SX-100826,digital_arrest,Mumbai,394398,44,verified
+SX-100827,upi_fraud,Mumbai,77570,56,resolved
+SX-100828,counterfeit,Pune,399664,52,resolved
+SX-100829,digital_arrest,Lucknow,148887,15,resolved
+SX-100830,phishing,Chennai,465582,55,submitted
+SX-100831,scam_call,Bengaluru,143265,86,submitted
+SX-100832,digital_arrest,Chennai,700981,51,submitted
+SX-100833,phishing,Bengaluru,665663,40,verified
+SX-100834,counterfeit,Central Delhi,371076,21,resolved
+SX-100835,counterfeit,Pune,480671,94,submitted
+SX-100836,upi_fraud,Jaipur,100908,24,resolved
+SX-100837,scam_call,Chennai,481496,70,resolved
+SX-100838,scam_call,Pune,416980,18,resolved
+SX-100839,phishing,Mumbai,508064,43,investigating
+SX-100840,phishing,Kolkata,633460,60,submitted
+SX-100841,upi_fraud,Central Delhi,422803,76,submitted
+SX-100842,counterfeit,Lucknow,167898,83,submitted
+SX-100843,phishing,Central Delhi,529915,59,investigating
+SX-100844,phishing,Jaipur,739343,18,investigating
+SX-100845,counterfeit,Chennai,754194,83,submitted
+SX-100846,digital_arrest,Bengaluru,253827,84,submitted
+SX-100847,scam_call,Lucknow,748611,89,submitted
+SX-100848,upi_fraud,Chennai,480669,22,submitted
+SX-100849,scam_call,Bengaluru,767188,46,verified
+SX-100850,digital_arrest,Bengaluru,717604,38,submitted
+SX-100851,upi_fraud,Mumbai,595551,47,verified
+SX-100852,counterfeit,Pune,138201,63,verified
+SX-100853,phishing,Kolkata,43810,68,investigating
+SX-100854,digital_arrest,Mumbai,373857,70,verified
+SX-100855,scam_call,Kolkata,148243,48,investigating
+SX-100856,phishing,Mumbai,193212,29,investigating
+SX-100857,upi_fraud,Central Delhi,233310,54,resolved
+SX-100858,scam_call,Mumbai,12390,42,resolved
+SX-100859,upi_fraud,Lucknow,111133,64,submitted
+SX-100860,counterfeit,Bengaluru,47614,25,submitted
+SX-100861,phishing,Bengaluru,1021,66,submitted
+SX-100862,upi_fraud,Central Delhi,645184,86,verified
+SX-100863,scam_call,Bengaluru,665813,21,resolved
+SX-100864,upi_fraud,Lucknow,494797,58,verified
+SX-100865,digital_arrest,Lucknow,330392,77,resolved
+SX-100866,counterfeit,Mumbai,402436,55,investigating
+SX-100867,upi_fraud,Mumbai,21426,53,submitted
+SX-100868,scam_call,Central Delhi,121855,59,verified
+SX-100869,scam_call,Central Delhi,38705,60,resolved
+SX-100870,upi_fraud,Kolkata,40484,84,resolved
+SX-100871,scam_call,Lucknow,65501,29,investigating
+SX-100872,upi_fraud,Lucknow,47826,41,verified
+SX-100873,counterfeit,Chennai,167018,54,submitted
+SX-100874,phishing,Mumbai,304176,96,verified
+SX-100875,counterfeit,Pune,530932,55,resolved
+SX-100876,scam_call,Bengaluru,61896,67,submitted
+SX-100877,digital_arrest,Chennai,567671,78,verified
+SX-100878,counterfeit,Kolkata,139953,88,submitted
+SX-100879,scam_call,Lucknow,151975,60,resolved
+SX-100880,upi_fraud,Chennai,512999,68,resolved
+SX-100881,scam_call,Mumbai,563770,63,investigating
+SX-100882,phishing,Mumbai,244879,23,investigating
+SX-100883,phishing,Kolkata,433126,29,verified
+SX-100884,phishing,Central Delhi,715320,71,investigating
+SX-100885,scam_call,Bengaluru,71847,69,investigating
+SX-100886,upi_fraud,Mumbai,517468,75,resolved
+SX-100887,digital_arrest,Bengaluru,71318,55,verified
+SX-100888,scam_call,Pune,198611,45,investigating
+SX-100889,scam_call,Pune,716726,43,verified
+SX-100890,phishing,Central Delhi,256994,99,resolved
+SX-100891,phishing,Jaipur,293203,30,submitted
+SX-100892,digital_arrest,Mumbai,531668,47,investigating
+SX-100893,counterfeit,Bengaluru,8708,18,submitted
+SX-100894,digital_arrest,Lucknow,653082,54,submitted
+SX-100895,scam_call,Central Delhi,654655,35,investigating
+SX-100896,scam_call,Bengaluru,789982,32,resolved
+SX-100897,digital_arrest,Chennai,205407,72,resolved
+SX-100898,upi_fraud,Chennai,313240,97,resolved
+SX-100899,phishing,Bengaluru,157460,58,investigating
+SX-100900,upi_fraud,Kolkata,453623,94,investigating
+SX-100901,scam_call,Jaipur,31121,20,verified
+SX-100902,upi_fraud,Lucknow,603348,48,investigating
+SX-100903,counterfeit,Mumbai,68859,96,submitted
+SX-100904,digital_arrest,Lucknow,252714,29,submitted
+SX-100905,counterfeit,Lucknow,777071,94,resolved
+SX-100906,upi_fraud,Central Delhi,773886,59,submitted
+SX-100907,counterfeit,Kolkata,375924,68,verified
+SX-100908,upi_fraud,Bengaluru,458662,66,submitted
+SX-100909,phishing,Central Delhi,329055,23,investigating
+SX-100910,scam_call,Pune,493758,78,investigating
+SX-100911,counterfeit,Lucknow,713768,34,resolved
+SX-100912,counterfeit,Mumbai,744979,50,investigating
+SX-100913,scam_call,Pune,36630,55,investigating
+SX-100914,digital_arrest,Lucknow,539426,72,submitted
+SX-100915,scam_call,Kolkata,150231,21,resolved
+SX-100916,scam_call,Lucknow,621851,85,submitted
+SX-100917,phishing,Chennai,272730,33,submitted
+SX-100918,upi_fraud,Lucknow,154024,26,submitted
+SX-100919,digital_arrest,Bengaluru,132700,17,verified
+SX-100920,scam_call,Central Delhi,570820,92,investigating
+SX-100921,phishing,Lucknow,301594,42,investigating
+SX-100922,phishing,Mumbai,28999,67,investigating
+SX-100923,scam_call,Central Delhi,294806,67,investigating
+SX-100924,phishing,Jaipur,481184,62,resolved
+SX-100925,scam_call,Chennai,233485,73,verified
+SX-100926,phishing,Lucknow,620588,86,submitted
+SX-100927,upi_fraud,Chennai,105359,98,submitted
+SX-100928,digital_arrest,Pune,383705,92,verified
+SX-100929,upi_fraud,Bengaluru,205464,51,submitted
+SX-100930,upi_fraud,Lucknow,479392,31,resolved
+SX-100931,upi_fraud,Kolkata,438478,49,submitted
+SX-100932,phishing,Jaipur,346155,80,verified
+SX-100933,phishing,Central Delhi,13856,16,submitted
+SX-100934,counterfeit,Kolkata,530782,76,resolved
+SX-100935,upi_fraud,Bengaluru,202340,59,verified
+SX-100936,counterfeit,Mumbai,696399,95,investigating
+SX-100937,upi_fraud,Bengaluru,183982,30,resolved
+SX-100938,scam_call,Mumbai,271702,96,resolved
+SX-100939,scam_call,Central Delhi,480070,82,investigating
+SX-100940,counterfeit,Pune,708182,79,resolved
+SX-100941,digital_arrest,Pune,462146,31,investigating
+SX-100942,scam_call,Lucknow,740571,16,verified
+SX-100943,upi_fraud,Jaipur,133121,97,investigating
+SX-100944,digital_arrest,Chennai,11073,92,investigating
+SX-100945,counterfeit,Pune,419777,51,investigating
+SX-100946,digital_arrest,Lucknow,334019,28,resolved
+SX-100947,counterfeit,Pune,781407,67,submitted
+SX-100948,digital_arrest,Chennai,531566,98,verified
+SX-100949,counterfeit,Lucknow,209867,65,resolved
+SX-100950,counterfeit,Bengaluru,430953,66,resolved
+SX-100951,scam_call,Pune,781284,89,resolved
+SX-100952,digital_arrest,Bengaluru,567918,67,resolved
+SX-100953,digital_arrest,Kolkata,678792,91,investigating
+SX-100954,counterfeit,Bengaluru,537476,24,submitted
+SX-100955,scam_call,Kolkata,364192,30,verified
+SX-100956,upi_fraud,Lucknow,667401,25,investigating
+SX-100957,phishing,Mumbai,31172,17,submitted
+SX-100958,scam_call,Kolkata,697722,20,resolved
+SX-100959,upi_fraud,Mumbai,115035,43,submitted
+SX-100960,digital_arrest,Lucknow,676434,37,investigating
+SX-100961,scam_call,Kolkata,624425,99,verified
+SX-100962,upi_fraud,Chennai,379506,47,resolved
+SX-100963,digital_arrest,Central Delhi,764715,38,verified
+SX-100964,digital_arrest,Jaipur,569851,30,investigating
+SX-100965,phishing,Bengaluru,195886,95,submitted
+SX-100966,digital_arrest,Mumbai,438278,16,verified
+SX-100967,phishing,Central Delhi,540349,88,submitted
+SX-100968,upi_fraud,Mumbai,90999,44,investigating
+SX-100969,counterfeit,Mumbai,210844,34,investigating
+SX-100970,phishing,Pune,338114,84,submitted
+SX-100971,phishing,Chennai,5368,32,resolved
+SX-100972,scam_call,Bengaluru,17196,58,investigating
+SX-100973,phishing,Jaipur,555386,23,submitted
+SX-100974,scam_call,Bengaluru,57234,22,verified
+SX-100975,upi_fraud,Pune,566127,49,resolved
+SX-100976,digital_arrest,Central Delhi,576886,26,submitted
+SX-100977,upi_fraud,Mumbai,461033,83,submitted
+SX-100978,scam_call,Central Delhi,631159,25,investigating
+SX-100979,digital_arrest,Chennai,686590,34,resolved
+SX-100980,digital_arrest,Jaipur,182721,90,investigating
+SX-100981,upi_fraud,Mumbai,615391,97,investigating
+SX-100982,upi_fraud,Central Delhi,496254,75,verified
+SX-100983,phishing,Mumbai,91549,69,verified
+SX-100984,digital_arrest,Lucknow,157199,27,resolved
+SX-100985,digital_arrest,Chennai,618661,46,submitted
+SX-100986,counterfeit,Lucknow,343491,96,verified
+SX-100987,upi_fraud,Jaipur,77193,59,submitted
+SX-100988,digital_arrest,Central Delhi,421139,18,investigating
+SX-100989,upi_fraud,Jaipur,521770,44,verified
+SX-100990,counterfeit,Chennai,463795,66,resolved
+SX-100991,digital_arrest,Mumbai,237953,75,submitted
+SX-100992,scam_call,Pune,404236,70,verified
+SX-100993,counterfeit,Chennai,248890,49,verified
+SX-100994,upi_fraud,Bengaluru,226593,66,resolved
+SX-100995,upi_fraud,Chennai,776640,40,verified
+SX-100996,counterfeit,Pune,484313,42,investigating
+SX-100997,counterfeit,Lucknow,540147,47,investigating
+SX-100998,upi_fraud,Lucknow,201271,20,investigating
+SX-100999,counterfeit,Jaipur,677422,55,resolved
+SX-101000,digital_arrest,Chennai,584061,89,investigating
+SX-101001,digital_arrest,Bengaluru,214356,89,submitted
+SX-101002,phishing,Pune,402316,22,submitted
+SX-101003,phishing,Pune,510835,58,investigating
+SX-101004,scam_call,Kolkata,445727,75,verified
+SX-101005,counterfeit,Jaipur,778681,44,resolved
+SX-101006,phishing,Lucknow,722218,82,resolved
+SX-101007,digital_arrest,Bengaluru,264749,84,submitted
+SX-101008,upi_fraud,Central Delhi,23188,34,resolved
+SX-101009,digital_arrest,Jaipur,377877,79,resolved
+SX-101010,phishing,Central Delhi,519643,76,submitted
+SX-101011,scam_call,Kolkata,119914,17,verified
+SX-101012,scam_call,Bengaluru,693637,69,verified
+SX-101013,counterfeit,Central Delhi,348327,21,submitted
+SX-101014,counterfeit,Pune,331829,19,verified
+SX-101015,upi_fraud,Pune,133683,22,investigating
+SX-101016,digital_arrest,Central Delhi,359067,50,resolved
+SX-101017,scam_call,Mumbai,152174,78,resolved
+SX-101018,upi_fraud,Mumbai,244916,65,submitted
+SX-101019,upi_fraud,Mumbai,767951,51,submitted
+SX-101020,counterfeit,Pune,387917,61,submitted
+SX-101021,counterfeit,Jaipur,189375,31,submitted
+SX-101022,upi_fraud,Jaipur,461104,90,verified
+SX-101023,phishing,Central Delhi,104756,69,resolved
+SX-101024,digital_arrest,Bengaluru,435768,53,investigating
+SX-101025,upi_fraud,Mumbai,6019,79,resolved
+SX-101026,upi_fraud,Jaipur,651704,73,resolved
+SX-101027,upi_fraud,Jaipur,266803,40,investigating
+SX-101028,phishing,Lucknow,600386,97,verified
+SX-101029,upi_fraud,Chennai,369268,70,submitted
+SX-101030,digital_arrest,Jaipur,667089,39,verified
+SX-101031,counterfeit,Chennai,558913,32,verified
+SX-101032,scam_call,Bengaluru,771666,46,investigating
+SX-101033,digital_arrest,Mumbai,119485,72,investigating
+SX-101034,counterfeit,Central Delhi,421270,21,verified
+SX-101035,digital_arrest,Lucknow,791289,25,submitted
+SX-101036,upi_fraud,Bengaluru,776434,25,verified
+SX-101037,scam_call,Pune,678520,93,submitted
+SX-101038,counterfeit,Jaipur,664317,48,resolved
+SX-101039,counterfeit,Lucknow,27942,73,submitted
+SX-101040,phishing,Pune,245661,36,investigating
+SX-101041,phishing,Lucknow,509453,98,submitted
+SX-101042,upi_fraud,Pune,205248,92,verified
+SX-101043,phishing,Mumbai,94936,57,resolved
+SX-101044,scam_call,Pune,453423,81,investigating
+SX-101045,upi_fraud,Chennai,368401,98,resolved
+SX-101046,counterfeit,Kolkata,575514,16,investigating
+SX-101047,counterfeit,Bengaluru,81394,94,resolved
+SX-101048,phishing,Jaipur,119205,21,verified
+SX-101049,digital_arrest,Chennai,382753,96,investigating
+SX-101050,scam_call,Kolkata,539917,63,investigating
+SX-101051,digital_arrest,Mumbai,87056,41,submitted
+SX-101052,upi_fraud,Kolkata,327979,96,submitted
+SX-101053,phishing,Chennai,317463,39,investigating
+SX-101054,phishing,Lucknow,774447,53,submitted
+SX-101055,scam_call,Kolkata,60857,93,verified
+SX-101056,upi_fraud,Bengaluru,409903,75,verified
+SX-101057,counterfeit,Chennai,682300,62,investigating
+SX-101058,scam_call,Kolkata,167968,16,resolved
+SX-101059,phishing,Lucknow,677870,97,resolved
+SX-101060,phishing,Kolkata,718977,39,submitted
+SX-101061,digital_arrest,Jaipur,502538,83,resolved
+SX-101062,counterfeit,Bengaluru,473012,46,investigating
+SX-101063,counterfeit,Lucknow,513840,62,resolved
+SX-101064,digital_arrest,Bengaluru,286818,25,resolved
+SX-101065,phishing,Chennai,388359,84,verified
+SX-101066,digital_arrest,Lucknow,457363,76,submitted
+SX-101067,digital_arrest,Jaipur,310028,85,investigating
+SX-101068,upi_fraud,Mumbai,432870,56,submitted
+SX-101069,phishing,Jaipur,688756,49,resolved
+SX-101070,phishing,Bengaluru,528981,17,resolved
+SX-101071,scam_call,Jaipur,775773,26,submitted
+SX-101072,counterfeit,Chennai,24879,61,resolved
+SX-101073,upi_fraud,Chennai,307400,32,investigating
+SX-101074,upi_fraud,Bengaluru,144222,29,submitted
+SX-101075,scam_call,Pune,414415,43,submitted
+SX-101076,counterfeit,Pune,789303,79,investigating
+SX-101077,upi_fraud,Mumbai,287128,76,submitted
+SX-101078,counterfeit,Pune,713360,15,investigating
+SX-101079,counterfeit,Jaipur,277237,82,verified
+SX-101080,scam_call,Lucknow,157859,85,resolved
+SX-101081,phishing,Jaipur,136221,30,resolved
+SX-101082,counterfeit,Lucknow,438304,87,resolved
+SX-101083,counterfeit,Kolkata,455203,93,submitted
+SX-101084,counterfeit,Mumbai,369137,56,submitted
+SX-101085,counterfeit,Chennai,337405,74,resolved
+SX-101086,upi_fraud,Central Delhi,411666,18,investigating
+SX-101087,scam_call,Chennai,2193,93,resolved
+SX-101088,scam_call,Lucknow,534356,71,investigating
+SX-101089,upi_fraud,Bengaluru,679665,34,investigating
+SX-101090,upi_fraud,Bengaluru,250097,97,resolved
+SX-101091,digital_arrest,Mumbai,172120,83,investigating
+SX-101092,phishing,Kolkata,333351,59,investigating
+SX-101093,scam_call,Mumbai,548107,26,submitted
+SX-101094,scam_call,Central Delhi,274753,52,submitted
+SX-101095,digital_arrest,Lucknow,441304,40,resolved
+SX-101096,phishing,Central Delhi,521650,25,investigating
+SX-101097,upi_fraud,Bengaluru,150582,86,verified
+SX-101098,phishing,Lucknow,74075,88,resolved
+SX-101099,phishing,Jaipur,460849,30,investigating
+SX-101100,upi_fraud,Kolkata,536142,60,investigating
+SX-101101,counterfeit,Bengaluru,110808,94,submitted
+SX-101102,counterfeit,Mumbai,390176,34,submitted
+SX-101103,counterfeit,Central Delhi,424741,70,investigating
+SX-101104,phishing,Lucknow,372765,21,resolved
+SX-101105,phishing,Jaipur,504003,57,resolved
+SX-101106,counterfeit,Mumbai,180342,73,submitted
+SX-101107,counterfeit,Central Delhi,222227,29,verified
+SX-101108,scam_call,Bengaluru,422217,43,investigating
+SX-101109,digital_arrest,Mumbai,353638,35,investigating
+SX-101110,counterfeit,Chennai,599666,97,investigating
+SX-101111,counterfeit,Mumbai,613963,64,resolved
+SX-101112,counterfeit,Kolkata,466265,95,verified
+SX-101113,counterfeit,Lucknow,642301,56,verified
+SX-101114,upi_fraud,Mumbai,198387,57,submitted
+SX-101115,counterfeit,Jaipur,289681,94,verified
+SX-101116,counterfeit,Chennai,224292,28,verified
+SX-101117,phishing,Chennai,677130,75,resolved
+SX-101118,counterfeit,Lucknow,678850,22,submitted
+SX-101119,phishing,Central Delhi,696360,82,submitted
+SX-101120,digital_arrest,Jaipur,530880,28,resolved
+SX-101121,digital_arrest,Lucknow,690737,87,submitted
+SX-101122,phishing,Lucknow,316121,67,submitted
+SX-101123,upi_fraud,Pune,177514,33,verified
+SX-101124,counterfeit,Lucknow,669607,69,investigating
+SX-101125,digital_arrest,Lucknow,220197,21,resolved
+SX-101126,phishing,Pune,436839,37,submitted
+SX-101127,digital_arrest,Kolkata,375975,42,resolved
+SX-101128,upi_fraud,Jaipur,445686,99,submitted
+SX-101129,counterfeit,Bengaluru,266060,37,verified
+SX-101130,digital_arrest,Mumbai,535669,83,investigating
+SX-101131,upi_fraud,Bengaluru,59711,18,investigating
+SX-101132,counterfeit,Lucknow,313561,34,investigating
+SX-101133,digital_arrest,Chennai,667930,70,submitted
+SX-101134,counterfeit,Lucknow,214129,90,resolved
+SX-101135,phishing,Kolkata,653408,58,investigating
+SX-101136,upi_fraud,Jaipur,434938,82,investigating
+SX-101137,digital_arrest,Pune,251300,36,resolved
+SX-101138,counterfeit,Pune,360764,30,investigating
+SX-101139,counterfeit,Kolkata,662268,87,submitted
+SX-101140,counterfeit,Lucknow,332426,90,verified
+SX-101141,upi_fraud,Bengaluru,556217,17,resolved
+SX-101142,counterfeit,Kolkata,108464,23,verified
+SX-101143,scam_call,Pune,21767,76,investigating
+SX-101144,digital_arrest,Chennai,569861,17,resolved
+SX-101145,scam_call,Chennai,38614,46,verified
+SX-101146,phishing,Chennai,735053,49,verified
+SX-101147,digital_arrest,Chennai,576196,64,resolved
+SX-101148,upi_fraud,Mumbai,784694,25,verified
+SX-101149,phishing,Mumbai,746879,34,investigating
+SX-101150,phishing,Pune,463967,79,verified
+SX-101151,counterfeit,Central Delhi,152687,90,investigating
+SX-101152,digital_arrest,Chennai,736353,85,submitted
+SX-101153,digital_arrest,Jaipur,273234,86,investigating
+SX-101154,digital_arrest,Pune,237172,71,resolved
+SX-101155,upi_fraud,Kolkata,96047,67,submitted
+SX-101156,phishing,Pune,70912,32,resolved
+SX-101157,digital_arrest,Central Delhi,548471,62,resolved
+SX-101158,phishing,Bengaluru,666987,60,submitted
+SX-101159,phishing,Bengaluru,763349,58,resolved
+SX-101160,phishing,Lucknow,434844,41,investigating
+SX-101161,upi_fraud,Central Delhi,463649,97,verified
+SX-101162,counterfeit,Lucknow,303219,90,verified
+SX-101163,counterfeit,Pune,617051,48,investigating
+SX-101164,scam_call,Kolkata,92234,51,verified
+SX-101165,scam_call,Pune,201341,37,resolved
+SX-101166,counterfeit,Bengaluru,587269,78,investigating
+SX-101167,digital_arrest,Pune,605812,77,investigating
+SX-101168,digital_arrest,Bengaluru,615199,68,submitted
+SX-101169,phishing,Mumbai,332854,51,submitted
+SX-101170,digital_arrest,Kolkata,159004,41,verified
+SX-101171,counterfeit,Jaipur,143321,98,resolved
+SX-101172,digital_arrest,Chennai,66909,73,verified
+SX-101173,digital_arrest,Central Delhi,551419,68,resolved
+SX-101174,phishing,Jaipur,777988,55,submitted
+SX-101175,counterfeit,Bengaluru,515293,68,resolved
+SX-101176,counterfeit,Jaipur,3952,89,investigating
+SX-101177,scam_call,Mumbai,494238,64,verified
+SX-101178,scam_call,Central Delhi,50431,55,investigating
+SX-101179,counterfeit,Bengaluru,491501,22,investigating
+SX-101180,digital_arrest,Chennai,597768,18,verified
+SX-101181,digital_arrest,Pune,471105,83,submitted
+SX-101182,upi_fraud,Central Delhi,4205,75,resolved
+SX-101183,counterfeit,Central Delhi,482828,51,investigating
+SX-101184,digital_arrest,Pune,165469,97,investigating
+SX-101185,scam_call,Kolkata,630648,51,resolved
+SX-101186,digital_arrest,Kolkata,151771,23,resolved
+SX-101187,scam_call,Bengaluru,546300,86,resolved
+SX-101188,counterfeit,Jaipur,787568,63,verified
+SX-101189,phishing,Pune,739682,44,resolved
+SX-101190,scam_call,Lucknow,387348,84,investigating
+SX-101191,phishing,Mumbai,629378,76,resolved
+SX-101192,digital_arrest,Mumbai,87830,59,verified
+SX-101193,upi_fraud,Lucknow,404977,52,verified
+SX-101194,counterfeit,Central Delhi,346499,93,verified
+SX-101195,upi_fraud,Lucknow,122564,58,investigating
+SX-101196,digital_arrest,Mumbai,245986,28,submitted
+SX-101197,scam_call,Jaipur,652605,37,resolved
+SX-101198,counterfeit,Central Delhi,26452,36,verified
+SX-101199,scam_call,Mumbai,293625,35,investigating
+SX-101200,digital_arrest,Central Delhi,228091,84,submitted
+SX-101201,phishing,Lucknow,623605,86,investigating
+SX-101202,upi_fraud,Chennai,730874,23,verified
+SX-101203,counterfeit,Mumbai,415607,91,investigating
+SX-101204,counterfeit,Chennai,486561,89,investigating
+SX-101205,counterfeit,Lucknow,40457,66,submitted
+SX-101206,upi_fraud,Central Delhi,254703,51,submitted
+SX-101207,scam_call,Kolkata,172388,66,resolved
+SX-101208,counterfeit,Lucknow,633168,77,resolved
+SX-101209,phishing,Kolkata,631453,78,resolved
+SX-101210,phishing,Chennai,463485,25,investigating
+SX-101211,counterfeit,Pune,234667,87,resolved
+SX-101212,digital_arrest,Lucknow,371638,67,verified
+SX-101213,scam_call,Lucknow,25975,84,resolved
+SX-101214,scam_call,Pune,183394,60,resolved
+SX-101215,phishing,Pune,200439,38,resolved
+SX-101216,phishing,Pune,679578,85,verified
+SX-101217,phishing,Lucknow,745290,81,investigating
+SX-101218,digital_arrest,Mumbai,498925,81,verified
+SX-101219,counterfeit,Chennai,212682,95,investigating
+SX-101220,scam_call,Lucknow,62645,61,verified
+SX-101221,counterfeit,Lucknow,135059,46,submitted
+SX-101222,upi_fraud,Pune,548304,59,resolved
+SX-101223,upi_fraud,Bengaluru,352782,90,verified
+SX-101224,phishing,Chennai,223045,37,verified
+SX-101225,scam_call,Mumbai,300903,54,resolved
+SX-101226,scam_call,Lucknow,787870,48,submitted
+SX-101227,digital_arrest,Mumbai,646630,41,resolved
+SX-101228,upi_fraud,Lucknow,467528,72,submitted
+SX-101229,digital_arrest,Kolkata,168097,79,investigating
+SX-101230,upi_fraud,Jaipur,208764,87,resolved
+SX-101231,counterfeit,Bengaluru,407043,69,verified
+SX-101232,counterfeit,Bengaluru,147323,70,resolved
+SX-101233,digital_arrest,Chennai,573184,83,verified
+SX-101234,upi_fraud,Lucknow,215337,92,resolved
+SX-101235,scam_call,Pune,13014,90,submitted
+SX-101236,counterfeit,Kolkata,140374,85,investigating
+SX-101237,phishing,Mumbai,284301,89,verified
+SX-101238,digital_arrest,Central Delhi,769019,75,resolved
+SX-101239,phishing,Kolkata,63591,84,resolved
+SX-101240,upi_fraud,Jaipur,777270,76,verified
+SX-101241,counterfeit,Chennai,393596,86,resolved
+SX-101242,digital_arrest,Mumbai,753922,21,resolved
+SX-101243,digital_arrest,Chennai,488025,56,verified
+SX-101244,counterfeit,Bengaluru,617160,46,verified
+SX-101245,counterfeit,Kolkata,542919,84,investigating
+SX-101246,counterfeit,Chennai,82583,87,verified
+SX-101247,digital_arrest,Pune,660703,97,resolved
+SX-101248,upi_fraud,Chennai,455614,78,resolved
+SX-101249,digital_arrest,Jaipur,492855,57,verified
+SX-101250,digital_arrest,Bengaluru,155432,60,investigating
+SX-101251,counterfeit,Jaipur,40005,56,investigating
+SX-101252,scam_call,Kolkata,213568,51,verified
+SX-101253,scam_call,Mumbai,670752,21,submitted
+SX-101254,scam_call,Pune,797278,89,verified
+SX-101255,upi_fraud,Bengaluru,640726,30,submitted
+SX-101256,upi_fraud,Mumbai,391469,51,resolved
+SX-101257,digital_arrest,Jaipur,123784,76,verified
+SX-101258,scam_call,Central Delhi,256372,74,investigating
+SX-101259,phishing,Central Delhi,393331,48,verified
+SX-101260,scam_call,Central Delhi,345258,83,verified
+SX-101261,upi_fraud,Chennai,438975,96,submitted
+SX-101262,scam_call,Chennai,441444,78,submitted
+SX-101263,phishing,Jaipur,578953,95,resolved
+SX-101264,phishing,Kolkata,246975,56,submitted
+SX-101265,digital_arrest,Mumbai,347603,56,verified
+SX-101266,scam_call,Chennai,38058,32,resolved
+SX-101267,counterfeit,Central Delhi,203670,45,resolved
+SX-101268,scam_call,Kolkata,301770,83,resolved
+SX-101269,counterfeit,Jaipur,786012,15,investigating
+SX-101270,scam_call,Pune,29969,52,investigating
+SX-101271,scam_call,Mumbai,277830,88,investigating
+SX-101272,digital_arrest,Lucknow,82873,83,submitted
+SX-101273,scam_call,Mumbai,137475,81,submitted
+SX-101274,phishing,Mumbai,614835,67,submitted
+SX-101275,phishing,Mumbai,424190,95,verified
+SX-101276,scam_call,Jaipur,711670,47,verified
+SX-101277,digital_arrest,Chennai,643126,53,verified
+SX-101278,phishing,Mumbai,208674,72,resolved
+SX-101279,phishing,Lucknow,157683,54,verified
+SX-101280,counterfeit,Kolkata,501957,75,resolved
+SX-101281,counterfeit,Kolkata,361881,81,submitted
+SX-101282,digital_arrest,Chennai,793830,31,verified
+SX-101283,phishing,Chennai,669631,96,resolved
+SX-101284,upi_fraud,Bengaluru,713280,47,submitted
+SX-101285,scam_call,Pune,31358,18,resolved
+SX-101286,counterfeit,Chennai,318730,82,verified
+SX-101287,digital_arrest,Central Delhi,630331,27,submitted
+SX-101288,phishing,Pune,398426,34,verified
+SX-101289,counterfeit,Lucknow,17945,93,resolved
+SX-101290,phishing,Mumbai,52988,39,investigating
+SX-101291,counterfeit,Mumbai,262684,28,investigating
+SX-101292,phishing,Central Delhi,636005,15,investigating
+SX-101293,counterfeit,Mumbai,306517,76,submitted
+SX-101294,counterfeit,Chennai,345259,86,investigating
+SX-101295,scam_call,Pune,205855,98,verified
+SX-101296,digital_arrest,Bengaluru,201251,85,resolved
+SX-101297,digital_arrest,Lucknow,701423,34,submitted
+SX-101298,scam_call,Mumbai,374489,89,verified
+SX-101299,upi_fraud,Bengaluru,30181,81,investigating
+SX-101300,counterfeit,Central Delhi,559400,80,verified
+SX-101301,phishing,Bengaluru,74214,35,submitted
+SX-101302,scam_call,Jaipur,692546,72,resolved
+SX-101303,scam_call,Central Delhi,45065,55,investigating
+SX-101304,upi_fraud,Kolkata,66800,58,verified
+SX-101305,digital_arrest,Mumbai,439160,79,resolved
+SX-101306,upi_fraud,Mumbai,467987,98,investigating
+SX-101307,phishing,Central Delhi,629609,57,verified
+SX-101308,scam_call,Kolkata,98452,49,investigating
+SX-101309,scam_call,Kolkata,581284,91,resolved
+SX-101310,upi_fraud,Central Delhi,168729,83,verified
+SX-101311,scam_call,Lucknow,415504,67,submitted
+SX-101312,counterfeit,Jaipur,105879,32,investigating
+SX-101313,scam_call,Central Delhi,769149,53,verified
+SX-101314,upi_fraud,Mumbai,427257,63,resolved
+SX-101315,counterfeit,Bengaluru,573060,82,submitted
+SX-101316,scam_call,Pune,14542,60,verified
+SX-101317,digital_arrest,Central Delhi,471368,81,submitted
+SX-101318,digital_arrest,Bengaluru,548319,77,verified
+SX-101319,upi_fraud,Mumbai,110091,16,verified
+SX-101320,scam_call,Lucknow,427880,80,resolved
+SX-101321,phishing,Central Delhi,294456,59,verified
+SX-101322,phishing,Lucknow,579249,83,investigating
+SX-101323,scam_call,Bengaluru,46882,72,investigating
+SX-101324,counterfeit,Pune,636980,66,verified
+SX-101325,digital_arrest,Central Delhi,599097,76,verified
+SX-101326,phishing,Mumbai,629497,75,investigating
+SX-101327,phishing,Lucknow,299437,88,verified
+SX-101328,scam_call,Jaipur,247152,27,submitted
+SX-101329,upi_fraud,Chennai,286028,86,verified
+SX-101330,upi_fraud,Lucknow,18159,52,investigating
+SX-101331,upi_fraud,Central Delhi,370919,87,investigating
+SX-101332,upi_fraud,Jaipur,172409,21,resolved
+SX-101333,phishing,Chennai,58805,70,submitted
+SX-101334,counterfeit,Jaipur,153366,81,verified
+SX-101335,counterfeit,Kolkata,691968,60,investigating
+SX-101336,counterfeit,Chennai,252098,32,resolved
+SX-101337,upi_fraud,Mumbai,80606,29,submitted
+SX-101338,upi_fraud,Chennai,541574,70,verified
+SX-101339,digital_arrest,Jaipur,125136,30,investigating
+SX-101340,counterfeit,Jaipur,2118,79,submitted
+SX-101341,phishing,Lucknow,692458,82,submitted
+SX-101342,upi_fraud,Bengaluru,130331,45,investigating
+SX-101343,counterfeit,Pune,195104,75,investigating
+SX-101344,upi_fraud,Bengaluru,467312,40,verified
+SX-101345,counterfeit,Mumbai,274012,34,verified
+SX-101346,counterfeit,Jaipur,143731,17,investigating
+SX-101347,phishing,Kolkata,292934,32,verified
+SX-101348,phishing,Lucknow,521288,16,submitted
+SX-101349,counterfeit,Kolkata,624117,72,verified
+SX-101350,digital_arrest,Bengaluru,630434,38,resolved
+SX-101351,phishing,Lucknow,724983,59,investigating
+SX-101352,upi_fraud,Kolkata,790179,27,resolved
+SX-101353,scam_call,Mumbai,290811,79,investigating
+SX-101354,upi_fraud,Chennai,49244,60,resolved
+SX-101355,phishing,Jaipur,606564,20,verified
+SX-101356,upi_fraud,Central Delhi,128168,26,submitted
+SX-101357,upi_fraud,Kolkata,489227,20,submitted
+SX-101358,phishing,Pune,473943,80,investigating
+SX-101359,counterfeit,Bengaluru,656936,49,investigating
+SX-101360,upi_fraud,Central Delhi,566659,19,resolved
+SX-101361,phishing,Central Delhi,644288,62,resolved
+SX-101362,digital_arrest,Jaipur,574439,15,verified
+SX-101363,counterfeit,Chennai,474631,56,verified
+SX-101364,upi_fraud,Chennai,583316,62,verified
+SX-101365,upi_fraud,Central Delhi,661017,68,verified
+SX-101366,upi_fraud,Mumbai,547550,89,investigating
+SX-101367,upi_fraud,Kolkata,781737,96,verified
+SX-101368,upi_fraud,Pune,696983,82,verified
+SX-101369,phishing,Chennai,317054,75,investigating
+SX-101370,counterfeit,Bengaluru,285341,36,submitted
+SX-101371,upi_fraud,Chennai,348012,73,verified
+SX-101372,digital_arrest,Kolkata,724940,97,resolved
+SX-101373,digital_arrest,Chennai,175740,52,resolved
+SX-101374,digital_arrest,Chennai,139390,21,submitted
+SX-101375,upi_fraud,Bengaluru,242602,44,submitted
+SX-101376,counterfeit,Mumbai,749912,91,investigating
+SX-101377,phishing,Kolkata,699793,19,submitted
+SX-101378,phishing,Central Delhi,141684,22,verified
+SX-101379,phishing,Pune,125451,81,investigating
+SX-101380,phishing,Pune,765554,19,resolved
+SX-101381,upi_fraud,Lucknow,706789,89,verified
+SX-101382,digital_arrest,Kolkata,154531,26,submitted
+SX-101383,upi_fraud,Jaipur,357774,50,verified
+SX-101384,counterfeit,Pune,508241,79,investigating
+SX-101385,scam_call,Kolkata,40725,49,submitted
+SX-101386,upi_fraud,Lucknow,374895,30,submitted
+SX-101387,upi_fraud,Bengaluru,40353,74,resolved
+SX-101388,upi_fraud,Kolkata,289055,22,investigating
+SX-101389,scam_call,Jaipur,235570,84,submitted
+SX-101390,upi_fraud,Pune,432953,56,submitted
+SX-101391,scam_call,Pune,219992,67,resolved
+SX-101392,counterfeit,Bengaluru,4675,66,verified
+SX-101393,scam_call,Pune,295353,74,verified
+SX-101394,digital_arrest,Bengaluru,698113,42,resolved
+SX-101395,phishing,Chennai,263218,22,submitted
+SX-101396,digital_arrest,Jaipur,717846,82,submitted
+SX-101397,counterfeit,Chennai,627287,77,investigating
+SX-101398,digital_arrest,Jaipur,182967,98,verified
+SX-101399,digital_arrest,Kolkata,639998,37,verified
+SX-101400,digital_arrest,Kolkata,287026,63,submitted
+SX-101401,counterfeit,Lucknow,701638,54,resolved
+SX-101402,upi_fraud,Kolkata,577937,74,resolved
+SX-101403,upi_fraud,Central Delhi,256956,24,investigating
+SX-101404,upi_fraud,Pune,677718,94,verified
+SX-101405,digital_arrest,Pune,273891,62,investigating
+SX-101406,counterfeit,Pune,286900,63,verified
+SX-101407,upi_fraud,Central Delhi,407275,34,verified
+SX-101408,phishing,Pune,68054,40,verified
+SX-101409,upi_fraud,Kolkata,543017,97,resolved
+SX-101410,upi_fraud,Kolkata,248678,51,verified
+SX-101411,upi_fraud,Chennai,64173,43,resolved
+SX-101412,upi_fraud,Jaipur,261977,94,verified
+SX-101413,upi_fraud,Bengaluru,18451,71,investigating
+SX-101414,upi_fraud,Jaipur,387172,58,investigating
+SX-101415,digital_arrest,Bengaluru,581487,15,submitted
+SX-101416,scam_call,Bengaluru,150790,78,investigating
+SX-101417,phishing,Mumbai,270380,60,resolved
+SX-101418,digital_arrest,Pune,417689,66,verified
+SX-101419,upi_fraud,Lucknow,567887,72,resolved
+SX-101420,phishing,Kolkata,338755,25,verified
+SX-101421,counterfeit,Pune,160247,32,resolved
+SX-101422,scam_call,Kolkata,537582,49,resolved
+SX-101423,upi_fraud,Mumbai,756684,74,verified
+SX-101424,phishing,Kolkata,613919,59,verified
+SX-101425,digital_arrest,Mumbai,528155,36,verified
+SX-101426,counterfeit,Lucknow,765064,43,investigating
+SX-101427,upi_fraud,Mumbai,487357,74,verified
+SX-101428,scam_call,Mumbai,188715,34,investigating
+SX-101429,scam_call,Kolkata,382493,24,verified
+SX-101430,phishing,Mumbai,496140,79,submitted
+SX-101431,scam_call,Pune,731846,44,submitted
+SX-101432,phishing,Central Delhi,419498,34,submitted
+SX-101433,scam_call,Jaipur,535149,85,verified
+SX-101434,counterfeit,Central Delhi,336743,89,verified
+SX-101435,upi_fraud,Central Delhi,380531,27,submitted
+SX-101436,scam_call,Mumbai,783865,41,investigating
+SX-101437,upi_fraud,Jaipur,116956,27,verified
+SX-101438,digital_arrest,Jaipur,549240,27,submitted
+SX-101439,digital_arrest,Pune,755609,99,investigating
+SX-101440,scam_call,Central Delhi,131430,77,submitted
+SX-101441,phishing,Central Delhi,76440,26,verified
+SX-101442,phishing,Chennai,377583,54,submitted
+SX-101443,upi_fraud,Pune,693936,24,verified
+SX-101444,upi_fraud,Bengaluru,690109,96,verified
+SX-101445,upi_fraud,Lucknow,704482,18,submitted
+SX-101446,upi_fraud,Central Delhi,542293,64,verified
+SX-101447,scam_call,Kolkata,448313,32,submitted
+SX-101448,phishing,Chennai,337825,62,investigating
+SX-101449,phishing,Lucknow,430753,89,submitted
+SX-101450,scam_call,Bengaluru,277124,98,resolved
+SX-101451,scam_call,Pune,662368,60,investigating
+SX-101452,digital_arrest,Chennai,507596,78,resolved
+SX-101453,phishing,Chennai,162838,41,verified
+SX-101454,phishing,Jaipur,385551,78,resolved
+SX-101455,digital_arrest,Pune,155413,61,submitted
+SX-101456,scam_call,Chennai,409198,44,investigating
+SX-101457,digital_arrest,Lucknow,392294,93,investigating
+SX-101458,counterfeit,Kolkata,548909,47,resolved
+SX-101459,scam_call,Chennai,150140,60,investigating
+SX-101460,phishing,Mumbai,553173,38,submitted
+SX-101461,counterfeit,Kolkata,24835,28,verified
+SX-101462,phishing,Chennai,661325,26,resolved
+SX-101463,digital_arrest,Lucknow,146290,83,resolved
+SX-101464,digital_arrest,Lucknow,648455,65,verified
+SX-101465,phishing,Lucknow,71204,51,verified
+SX-101466,digital_arrest,Central Delhi,411514,17,verified
+SX-101467,scam_call,Chennai,666439,72,verified
+SX-101468,scam_call,Jaipur,764555,75,investigating
+SX-101469,digital_arrest,Bengaluru,288284,81,resolved
+SX-101470,upi_fraud,Jaipur,93957,25,submitted
+SX-101471,counterfeit,Lucknow,83379,96,submitted
+SX-101472,scam_call,Jaipur,239857,49,submitted
+SX-101473,phishing,Jaipur,377505,59,verified
+SX-101474,counterfeit,Mumbai,662153,45,resolved
+SX-101475,digital_arrest,Pune,635656,70,verified
+SX-101476,counterfeit,Chennai,269908,89,submitted
+SX-101477,scam_call,Chennai,430036,45,verified
+SX-101478,digital_arrest,Bengaluru,542786,70,resolved
+SX-101479,scam_call,Central Delhi,771531,54,submitted
+SX-101480,upi_fraud,Kolkata,476693,43,resolved
+SX-101481,phishing,Bengaluru,509341,15,verified
+SX-101482,digital_arrest,Lucknow,318700,17,resolved
+SX-101483,counterfeit,Bengaluru,187460,28,resolved
+SX-101484,counterfeit,Lucknow,157961,22,verified
+SX-101485,scam_call,Kolkata,309497,86,submitted
+SX-101486,digital_arrest,Pune,251362,60,resolved
+SX-101487,digital_arrest,Bengaluru,599941,20,investigating
+SX-101488,upi_fraud,Lucknow,669912,57,verified
+SX-101489,phishing,Bengaluru,245180,28,resolved
+SX-101490,phishing,Lucknow,378201,82,resolved
+SX-101491,counterfeit,Mumbai,288044,47,resolved
+SX-101492,counterfeit,Mumbai,56576,94,submitted
+SX-101493,upi_fraud,Jaipur,449581,49,verified
+SX-101494,upi_fraud,Central Delhi,380513,83,verified
+SX-101495,counterfeit,Pune,448587,81,investigating
+SX-101496,upi_fraud,Jaipur,218817,54,resolved
+SX-101497,phishing,Central Delhi,739821,47,verified
+SX-101498,digital_arrest,Jaipur,687978,69,investigating
+SX-101499,digital_arrest,Central Delhi,271233,21,submitted
+SX-101500,phishing,Jaipur,164648,67,submitted
+SX-101501,counterfeit,Central Delhi,698288,47,verified
+SX-101502,digital_arrest,Lucknow,74456,59,submitted
+SX-101503,upi_fraud,Pune,669720,47,investigating
+SX-101504,digital_arrest,Lucknow,547463,21,investigating
+SX-101505,digital_arrest,Pune,591831,52,investigating
+SX-101506,phishing,Pune,321730,85,resolved
+SX-101507,counterfeit,Central Delhi,548758,81,verified
+SX-101508,digital_arrest,Lucknow,55132,59,verified
+SX-101509,digital_arrest,Chennai,428676,63,investigating
+SX-101510,phishing,Bengaluru,385104,84,resolved
+SX-101511,counterfeit,Pune,205024,49,investigating
+SX-101512,counterfeit,Jaipur,685178,34,verified
+SX-101513,scam_call,Jaipur,348067,88,investigating
+SX-101514,phishing,Mumbai,586998,56,verified
+SX-101515,phishing,Central Delhi,399706,91,verified
+SX-101516,upi_fraud,Central Delhi,509702,87,investigating
+SX-101517,phishing,Pune,613883,34,resolved
+SX-101518,counterfeit,Jaipur,692251,97,submitted
+SX-101519,digital_arrest,Pune,644024,62,submitted
+SX-101520,digital_arrest,Mumbai,575151,57,submitted
+SX-101521,digital_arrest,Jaipur,359361,15,investigating
+SX-101522,phishing,Lucknow,302837,60,verified
+SX-101523,counterfeit,Bengaluru,662582,42,submitted
+SX-101524,phishing,Jaipur,251530,82,submitted
+SX-101525,counterfeit,Central Delhi,716799,53,resolved
+SX-101526,phishing,Lucknow,439480,46,submitted
+SX-101527,scam_call,Central Delhi,267397,37,investigating
+SX-101528,digital_arrest,Pune,542290,39,resolved
+SX-101529,scam_call,Central Delhi,510317,22,submitted
+SX-101530,digital_arrest,Chennai,511900,59,verified
+SX-101531,counterfeit,Pune,247083,91,submitted
+SX-101532,digital_arrest,Mumbai,15955,71,verified
+SX-101533,digital_arrest,Lucknow,303209,21,submitted
+SX-101534,scam_call,Jaipur,752866,81,verified
+SX-101535,digital_arrest,Chennai,39702,84,submitted
+SX-101536,upi_fraud,Kolkata,285149,98,investigating
+SX-101537,scam_call,Pune,9042,67,investigating
+SX-101538,digital_arrest,Pune,390212,15,verified
+SX-101539,upi_fraud,Mumbai,281379,51,resolved
+SX-101540,counterfeit,Mumbai,582297,59,investigating
+SX-101541,digital_arrest,Jaipur,35937,40,resolved
+SX-101542,phishing,Lucknow,70142,76,submitted
+SX-101543,scam_call,Mumbai,412358,52,verified
+SX-101544,phishing,Kolkata,241619,18,verified
+SX-101545,phishing,Jaipur,155811,64,investigating
+SX-101546,counterfeit,Kolkata,342248,87,resolved
+SX-101547,digital_arrest,Kolkata,249923,52,resolved
+SX-101548,scam_call,Kolkata,135119,65,verified
+SX-101549,digital_arrest,Kolkata,685094,32,investigating
+SX-101550,phishing,Kolkata,531931,22,submitted
+SX-101551,phishing,Central Delhi,260393,38,submitted
+SX-101552,counterfeit,Mumbai,643181,76,verified
+SX-101553,phishing,Lucknow,624252,46,submitted
+SX-101554,digital_arrest,Bengaluru,235330,25,resolved
+SX-101555,digital_arrest,Chennai,588342,36,resolved
+SX-101556,upi_fraud,Bengaluru,261388,86,verified
+SX-101557,scam_call,Pune,523564,68,verified
+SX-101558,scam_call,Chennai,191201,57,submitted
+SX-101559,phishing,Kolkata,337984,39,investigating
+SX-101560,counterfeit,Kolkata,60016,30,resolved
+SX-101561,scam_call,Lucknow,37059,21,investigating
+SX-101562,scam_call,Lucknow,736713,86,submitted
+SX-101563,scam_call,Mumbai,169625,31,submitted
+SX-101564,upi_fraud,Pune,310157,33,resolved
+SX-101565,scam_call,Chennai,118660,98,submitted
+SX-101566,counterfeit,Jaipur,496905,97,investigating
+SX-101567,phishing,Pune,565037,15,submitted
+SX-101568,upi_fraud,Central Delhi,165022,87,investigating
+SX-101569,phishing,Chennai,760175,91,resolved
+SX-101570,digital_arrest,Mumbai,711216,17,investigating
+SX-101571,digital_arrest,Kolkata,337414,74,submitted
+SX-101572,phishing,Lucknow,401677,29,verified
+SX-101573,scam_call,Central Delhi,67975,77,submitted
+SX-101574,counterfeit,Mumbai,157443,96,verified
+SX-101575,digital_arrest,Mumbai,712975,22,resolved
+SX-101576,counterfeit,Pune,563350,58,investigating
+SX-101577,scam_call,Lucknow,718241,89,submitted
+SX-101578,counterfeit,Lucknow,92928,30,submitted
+SX-101579,phishing,Mumbai,565494,40,submitted
+SX-101580,scam_call,Chennai,660372,98,submitted
+SX-101581,scam_call,Mumbai,557909,25,resolved
+SX-101582,upi_fraud,Chennai,550240,60,investigating
+SX-101583,phishing,Central Delhi,457494,18,resolved
+SX-101584,upi_fraud,Mumbai,275580,97,verified
+SX-101585,upi_fraud,Kolkata,611850,30,investigating
+SX-101586,upi_fraud,Kolkata,732735,93,investigating
+SX-101587,upi_fraud,Pune,174515,79,verified
+SX-101588,phishing,Jaipur,381651,80,verified
+SX-101589,upi_fraud,Kolkata,495786,79,submitted
+SX-101590,digital_arrest,Mumbai,427448,26,verified
+SX-101591,digital_arrest,Pune,536237,49,verified
+SX-101592,digital_arrest,Jaipur,619435,99,resolved
+SX-101593,phishing,Lucknow,196352,94,resolved
+SX-101594,scam_call,Bengaluru,587524,22,verified
+SX-101595,counterfeit,Lucknow,62734,58,investigating
+SX-101596,upi_fraud,Lucknow,273110,80,resolved
+SX-101597,counterfeit,Mumbai,560041,68,investigating
+SX-101598,counterfeit,Lucknow,289491,62,submitted
+SX-101599,counterfeit,Bengaluru,465026,29,investigating
+SX-101600,scam_call,Central Delhi,389211,53,investigating
+SX-101601,upi_fraud,Chennai,496531,38,resolved
+SX-101602,counterfeit,Pune,312332,62,investigating
+SX-101603,scam_call,Bengaluru,141371,64,resolved
+SX-101604,digital_arrest,Mumbai,215384,61,verified
+SX-101605,counterfeit,Kolkata,614495,64,investigating
+SX-101606,scam_call,Central Delhi,461316,26,verified
+SX-101607,scam_call,Lucknow,713372,76,resolved
+SX-101608,digital_arrest,Kolkata,287490,64,verified
+SX-101609,counterfeit,Chennai,324543,76,resolved
+SX-101610,scam_call,Central Delhi,511227,16,verified
+SX-101611,scam_call,Pune,723992,70,submitted
+SX-101612,digital_arrest,Jaipur,186665,85,submitted
+SX-101613,phishing,Chennai,255042,38,resolved
+SX-101614,phishing,Mumbai,254513,48,verified
+SX-101615,phishing,Pune,18011,47,investigating
+SX-101616,scam_call,Lucknow,379440,98,investigating
+SX-101617,counterfeit,Jaipur,755059,69,verified
+SX-101618,scam_call,Jaipur,306534,32,resolved
+SX-101619,digital_arrest,Pune,207454,49,verified
+SX-101620,digital_arrest,Pune,117026,89,submitted
+SX-101621,scam_call,Pune,211115,77,verified
+SX-101622,upi_fraud,Kolkata,472907,68,verified
+SX-101623,upi_fraud,Chennai,700605,93,resolved
+SX-101624,upi_fraud,Kolkata,540438,30,submitted
+SX-101625,digital_arrest,Chennai,211185,32,investigating
+SX-101626,phishing,Pune,375846,16,submitted
+SX-101627,scam_call,Lucknow,520160,57,investigating
+SX-101628,scam_call,Mumbai,255735,77,resolved
+SX-101629,digital_arrest,Kolkata,157889,77,verified
+SX-101630,digital_arrest,Pune,648352,56,verified
+SX-101631,upi_fraud,Kolkata,666304,84,verified
+SX-101632,upi_fraud,Bengaluru,271846,50,submitted
+SX-101633,upi_fraud,Kolkata,195603,26,submitted
+SX-101634,counterfeit,Jaipur,416656,57,submitted
+SX-101635,phishing,Bengaluru,573535,18,verified
+SX-101636,upi_fraud,Lucknow,406393,90,submitted
+SX-101637,scam_call,Jaipur,335233,54,verified
+SX-101638,scam_call,Lucknow,334045,60,verified
+SX-101639,digital_arrest,Mumbai,540267,64,resolved
+SX-101640,scam_call,Lucknow,764940,85,resolved
+SX-101641,scam_call,Bengaluru,797073,41,verified
+SX-101642,scam_call,Chennai,189091,28,resolved
+SX-101643,upi_fraud,Central Delhi,6956,62,verified
+SX-101644,counterfeit,Lucknow,564576,26,submitted
+SX-101645,counterfeit,Kolkata,646628,60,submitted
+SX-101646,phishing,Central Delhi,797240,18,resolved
+SX-101647,counterfeit,Pune,526556,54,investigating
+SX-101648,upi_fraud,Pune,295371,67,resolved
+SX-101649,counterfeit,Chennai,78802,17,verified
+SX-101650,counterfeit,Pune,541559,56,resolved
+SX-101651,upi_fraud,Mumbai,174095,67,submitted
+SX-101652,digital_arrest,Pune,23460,64,verified
+SX-101653,digital_arrest,Pune,168230,89,investigating
+SX-101654,digital_arrest,Central Delhi,539967,18,submitted
+SX-101655,upi_fraud,Pune,317755,58,investigating
+SX-101656,digital_arrest,Bengaluru,162698,69,verified
+SX-101657,upi_fraud,Chennai,315922,27,resolved
+SX-101658,digital_arrest,Mumbai,799435,28,resolved
+SX-101659,phishing,Lucknow,339917,72,submitted
+SX-101660,scam_call,Lucknow,363637,97,submitted
+SX-101661,phishing,Pune,741482,34,resolved
+SX-101662,upi_fraud,Central Delhi,3694,55,resolved
+SX-101663,phishing,Kolkata,640735,83,resolved
+SX-101664,scam_call,Bengaluru,226388,89,investigating
+SX-101665,scam_call,Jaipur,409704,31,resolved
+SX-101666,scam_call,Jaipur,666749,19,submitted
+SX-101667,upi_fraud,Mumbai,666626,46,verified
+SX-101668,scam_call,Mumbai,328095,47,verified
+SX-101669,scam_call,Central Delhi,200007,34,resolved
+SX-101670,counterfeit,Jaipur,121676,73,investigating
+SX-101671,digital_arrest,Jaipur,578684,77,investigating
+SX-101672,phishing,Lucknow,473551,78,submitted
+SX-101673,digital_arrest,Central Delhi,103992,18,resolved
+SX-101674,upi_fraud,Mumbai,741538,35,investigating
+SX-101675,phishing,Mumbai,782255,96,verified
+SX-101676,counterfeit,Lucknow,160359,61,investigating
+SX-101677,scam_call,Mumbai,77224,80,resolved
+SX-101678,scam_call,Lucknow,525151,89,resolved
+SX-101679,upi_fraud,Mumbai,577041,48,verified
+SX-101680,counterfeit,Bengaluru,407077,50,submitted
+SX-101681,phishing,Lucknow,204537,57,submitted
+SX-101682,counterfeit,Mumbai,702445,34,resolved
+SX-101683,upi_fraud,Bengaluru,108329,38,submitted
+SX-101684,scam_call,Mumbai,6138,69,submitted
+SX-101685,counterfeit,Lucknow,646331,94,submitted
+SX-101686,counterfeit,Bengaluru,474046,59,submitted
+SX-101687,digital_arrest,Pune,201896,49,resolved
+SX-101688,upi_fraud,Jaipur,289367,48,investigating
+SX-101689,upi_fraud,Pune,122712,74,investigating
+SX-101690,digital_arrest,Chennai,615039,27,resolved
+SX-101691,counterfeit,Pune,773907,95,resolved
+SX-101692,counterfeit,Bengaluru,779013,36,investigating
+SX-101693,phishing,Kolkata,587258,50,verified
+SX-101694,counterfeit,Bengaluru,28029,62,resolved
+SX-101695,upi_fraud,Pune,192903,16,submitted
+SX-101696,counterfeit,Chennai,137336,82,resolved
+SX-101697,scam_call,Pune,483128,59,verified
+SX-101698,digital_arrest,Mumbai,676185,52,resolved
+SX-101699,counterfeit,Central Delhi,478425,55,investigating
+SX-101700,phishing,Bengaluru,212310,20,investigating
+SX-101701,digital_arrest,Jaipur,674564,15,verified
+SX-101702,phishing,Mumbai,370342,64,submitted
+SX-101703,phishing,Kolkata,21566,33,investigating
+SX-101704,digital_arrest,Chennai,433764,62,resolved
+SX-101705,digital_arrest,Pune,37172,63,verified
+SX-101706,counterfeit,Bengaluru,429250,57,resolved
+SX-101707,counterfeit,Mumbai,1372,15,verified
+SX-101708,scam_call,Mumbai,592327,50,investigating
+SX-101709,counterfeit,Jaipur,102995,16,submitted
+SX-101710,upi_fraud,Bengaluru,779107,62,submitted
+SX-101711,upi_fraud,Chennai,589899,47,verified
+SX-101712,upi_fraud,Pune,318582,98,submitted
+SX-101713,phishing,Lucknow,482977,53,submitted
+SX-101714,scam_call,Kolkata,82156,75,investigating
+SX-101715,upi_fraud,Bengaluru,234578,24,verified
+SX-101716,phishing,Chennai,412684,48,verified
+SX-101717,counterfeit,Pune,102310,44,resolved
+SX-101718,digital_arrest,Mumbai,522657,97,verified
+SX-101719,counterfeit,Chennai,166348,18,investigating
+SX-101720,scam_call,Kolkata,382355,82,submitted
+SX-101721,phishing,Central Delhi,673065,63,resolved
+SX-101722,counterfeit,Chennai,618558,33,investigating
+SX-101723,upi_fraud,Central Delhi,444980,64,resolved
+SX-101724,digital_arrest,Pune,527158,61,verified
+SX-101725,digital_arrest,Jaipur,796135,55,submitted
+SX-101726,digital_arrest,Lucknow,626506,83,verified
+SX-101727,counterfeit,Bengaluru,488374,70,verified
+SX-101728,digital_arrest,Pune,30427,96,resolved
+SX-101729,counterfeit,Lucknow,697124,74,verified
+SX-101730,upi_fraud,Bengaluru,399004,25,verified
+SX-101731,upi_fraud,Pune,726014,24,submitted
+SX-101732,phishing,Bengaluru,661499,17,submitted
+SX-101733,counterfeit,Lucknow,256069,73,resolved
+SX-101734,counterfeit,Bengaluru,745760,86,investigating
+SX-101735,phishing,Bengaluru,543769,19,resolved
+SX-101736,upi_fraud,Central Delhi,56961,26,resolved
+SX-101737,phishing,Chennai,389127,62,submitted
+SX-101738,phishing,Mumbai,196295,34,submitted
+SX-101739,digital_arrest,Jaipur,400423,43,verified
+SX-101740,upi_fraud,Lucknow,259479,18,verified
+SX-101741,upi_fraud,Pune,225939,78,investigating
+SX-101742,phishing,Lucknow,443328,31,verified
+SX-101743,counterfeit,Lucknow,71817,33,resolved
+SX-101744,upi_fraud,Jaipur,256616,56,investigating
+SX-101745,upi_fraud,Mumbai,28875,36,investigating
+SX-101746,upi_fraud,Central Delhi,444026,17,investigating
+SX-101747,phishing,Central Delhi,169803,15,verified
+SX-101748,counterfeit,Central Delhi,402223,21,verified
+SX-101749,phishing,Central Delhi,159683,59,investigating
+SX-101750,counterfeit,Lucknow,551323,45,submitted
+SX-101751,counterfeit,Pune,454546,25,resolved
+SX-101752,upi_fraud,Central Delhi,21191,74,investigating
+SX-101753,digital_arrest,Bengaluru,563452,78,investigating
+SX-101754,scam_call,Kolkata,184597,61,resolved
+SX-101755,counterfeit,Kolkata,396409,88,resolved
+SX-101756,phishing,Mumbai,165708,90,investigating
+SX-101757,scam_call,Central Delhi,648830,91,submitted
+SX-101758,phishing,Bengaluru,354069,84,investigating
+SX-101759,upi_fraud,Bengaluru,549182,54,investigating
+SX-101760,upi_fraud,Bengaluru,752,94,investigating
+SX-101761,phishing,Jaipur,360135,34,submitted
+SX-101762,phishing,Pune,137017,60,verified
+SX-101763,phishing,Kolkata,504868,70,submitted
+SX-101764,counterfeit,Bengaluru,20880,60,submitted
+SX-101765,scam_call,Central Delhi,754457,65,verified
+SX-101766,digital_arrest,Lucknow,146206,15,investigating
+SX-101767,upi_fraud,Chennai,485350,45,verified
+SX-101768,scam_call,Lucknow,240086,55,verified
+SX-101769,upi_fraud,Mumbai,391689,71,resolved
+SX-101770,counterfeit,Chennai,154069,50,resolved
+SX-101771,upi_fraud,Kolkata,310995,87,investigating
+SX-101772,phishing,Pune,745786,33,resolved
+SX-101773,upi_fraud,Bengaluru,99214,39,resolved
+SX-101774,upi_fraud,Jaipur,128312,16,resolved
+SX-101775,counterfeit,Jaipur,348332,79,submitted
+SX-101776,scam_call,Kolkata,300659,55,investigating
+SX-101777,upi_fraud,Kolkata,392383,90,investigating
+SX-101778,digital_arrest,Chennai,146308,69,resolved
+SX-101779,scam_call,Lucknow,120964,68,resolved
+SX-101780,counterfeit,Bengaluru,30790,29,resolved
+SX-101781,phishing,Bengaluru,753115,44,submitted
+SX-101782,counterfeit,Central Delhi,395453,69,resolved
+SX-101783,counterfeit,Jaipur,85664,74,resolved
+SX-101784,upi_fraud,Jaipur,591137,79,resolved
+SX-101785,digital_arrest,Bengaluru,551589,94,verified
+SX-101786,upi_fraud,Chennai,671017,89,submitted
+SX-101787,phishing,Bengaluru,203377,18,submitted
+SX-101788,scam_call,Central Delhi,503574,38,investigating
+SX-101789,counterfeit,Lucknow,127694,54,resolved
+SX-101790,scam_call,Jaipur,530745,78,resolved
+SX-101791,scam_call,Pune,58315,34,verified
+SX-101792,phishing,Mumbai,598960,39,submitted
+SX-101793,scam_call,Bengaluru,382354,88,submitted
+SX-101794,upi_fraud,Chennai,713656,62,submitted
+SX-101795,phishing,Chennai,327604,38,investigating
+SX-101796,upi_fraud,Kolkata,751053,76,submitted
+SX-101797,digital_arrest,Chennai,677971,33,investigating
+SX-101798,digital_arrest,Mumbai,284323,69,submitted
+SX-101799,upi_fraud,Mumbai,174059,79,investigating
+SX-101800,phishing,Kolkata,274909,54,verified
+SX-101801,upi_fraud,Central Delhi,640955,95,investigating
+SX-101802,digital_arrest,Jaipur,162880,26,investigating
+SX-101803,phishing,Kolkata,752999,73,verified
+SX-101804,phishing,Kolkata,118960,94,resolved
+SX-101805,counterfeit,Central Delhi,82340,72,submitted
+SX-101806,phishing,Kolkata,333650,63,resolved
+SX-101807,counterfeit,Central Delhi,237344,53,resolved
+SX-101808,digital_arrest,Bengaluru,225992,67,submitted
+SX-101809,digital_arrest,Pune,213092,99,submitted
+SX-101810,scam_call,Pune,612273,92,verified
+SX-101811,phishing,Kolkata,537763,58,resolved
+SX-101812,digital_arrest,Central Delhi,594732,18,resolved
+SX-101813,phishing,Jaipur,541707,58,submitted
+SX-101814,upi_fraud,Bengaluru,268429,98,investigating
+SX-101815,phishing,Pune,652977,27,investigating
+SX-101816,counterfeit,Jaipur,606685,29,resolved
+SX-101817,upi_fraud,Central Delhi,145151,44,submitted
+SX-101818,digital_arrest,Pune,617999,92,investigating
+SX-101819,phishing,Chennai,529650,41,resolved
+SX-101820,phishing,Bengaluru,336243,30,investigating
+SX-101821,counterfeit,Kolkata,711713,63,submitted
+SX-101822,phishing,Lucknow,208105,63,verified
+SX-101823,upi_fraud,Pune,481281,95,verified
+SX-101824,upi_fraud,Bengaluru,227711,55,investigating
+SX-101825,counterfeit,Bengaluru,513072,95,verified
+SX-101826,upi_fraud,Mumbai,480903,37,submitted
+SX-101827,scam_call,Lucknow,588444,68,resolved
+SX-101828,counterfeit,Central Delhi,221959,55,resolved
+SX-101829,digital_arrest,Jaipur,124650,79,resolved
+SX-101830,counterfeit,Central Delhi,764256,87,resolved
+SX-101831,digital_arrest,Kolkata,125185,73,investigating
+SX-101832,counterfeit,Lucknow,200295,18,resolved
+SX-101833,phishing,Central Delhi,171113,81,resolved
+SX-101834,phishing,Pune,288246,96,investigating
+SX-101835,upi_fraud,Chennai,365976,67,resolved
+SX-101836,scam_call,Pune,574035,61,verified
+SX-101837,counterfeit,Bengaluru,642807,68,resolved
+SX-101838,digital_arrest,Jaipur,409550,69,investigating
+SX-101839,digital_arrest,Pune,597842,35,investigating
+SX-101840,digital_arrest,Mumbai,508171,56,verified
+SX-101841,phishing,Mumbai,178744,91,verified
+SX-101842,upi_fraud,Central Delhi,427640,17,investigating
+SX-101843,digital_arrest,Pune,251696,63,verified
+SX-101844,counterfeit,Jaipur,658078,95,investigating
+SX-101845,phishing,Pune,378729,81,investigating
+SX-101846,counterfeit,Pune,375081,66,verified
+SX-101847,digital_arrest,Mumbai,155512,26,resolved
+SX-101848,upi_fraud,Lucknow,341293,90,resolved
+SX-101849,upi_fraud,Chennai,771877,28,resolved
+SX-101850,phishing,Pune,617884,93,verified
+SX-101851,upi_fraud,Kolkata,346036,85,resolved
+SX-101852,phishing,Mumbai,764434,91,resolved
+SX-101853,counterfeit,Central Delhi,714374,53,submitted
+SX-101854,counterfeit,Pune,72533,59,verified
+SX-101855,counterfeit,Lucknow,607376,97,investigating
+SX-101856,counterfeit,Lucknow,286148,21,verified
+SX-101857,upi_fraud,Mumbai,35528,81,investigating
+SX-101858,phishing,Bengaluru,775900,71,verified
+SX-101859,digital_arrest,Jaipur,546333,39,submitted
+SX-101860,digital_arrest,Kolkata,437041,42,investigating
+SX-101861,upi_fraud,Mumbai,651839,24,investigating
+SX-101862,upi_fraud,Chennai,731603,89,resolved
+SX-101863,digital_arrest,Mumbai,184151,86,resolved
+SX-101864,counterfeit,Jaipur,377996,52,investigating
+SX-101865,digital_arrest,Lucknow,151546,78,submitted
+SX-101866,scam_call,Mumbai,718083,70,investigating
+SX-101867,scam_call,Pune,553555,45,resolved
+SX-101868,counterfeit,Lucknow,116292,85,verified
+SX-101869,digital_arrest,Kolkata,348821,44,resolved
+SX-101870,counterfeit,Chennai,167947,23,investigating
+SX-101871,upi_fraud,Chennai,24075,67,verified
+SX-101872,digital_arrest,Pune,493694,15,investigating
+SX-101873,phishing,Kolkata,8232,40,investigating
+SX-101874,phishing,Mumbai,342288,56,investigating
+SX-101875,phishing,Kolkata,785321,20,verified
+SX-101876,upi_fraud,Pune,644263,61,verified
+SX-101877,upi_fraud,Lucknow,490296,47,resolved
+SX-101878,digital_arrest,Central Delhi,332671,72,resolved
+SX-101879,digital_arrest,Jaipur,526199,71,submitted
+SX-101880,counterfeit,Jaipur,495388,28,submitted
+SX-101881,scam_call,Jaipur,534938,54,submitted
+SX-101882,scam_call,Chennai,189686,53,verified
+SX-101883,digital_arrest,Pune,33137,66,submitted
+SX-101884,digital_arrest,Kolkata,79091,55,investigating
+SX-101885,phishing,Kolkata,562584,67,verified
+SX-101886,digital_arrest,Chennai,568174,61,resolved
+SX-101887,counterfeit,Mumbai,346823,62,investigating
+SX-101888,phishing,Central Delhi,496693,72,submitted
+SX-101889,counterfeit,Chennai,671016,21,resolved
+SX-101890,digital_arrest,Kolkata,587462,87,resolved
+SX-101891,scam_call,Kolkata,665741,28,submitted
+SX-101892,digital_arrest,Bengaluru,187346,78,submitted
+SX-101893,digital_arrest,Kolkata,552656,59,submitted
+SX-101894,phishing,Jaipur,137418,69,resolved
+SX-101895,counterfeit,Jaipur,131,20,verified
+SX-101896,upi_fraud,Jaipur,770750,25,submitted
+SX-101897,digital_arrest,Jaipur,55526,63,resolved
+SX-101898,phishing,Pune,549773,18,investigating
+SX-101899,upi_fraud,Chennai,238122,68,resolved
+SX-101900,digital_arrest,Lucknow,475852,46,investigating
+SX-101901,upi_fraud,Mumbai,189890,94,investigating
+SX-101902,scam_call,Mumbai,526255,77,investigating
+SX-101903,phishing,Chennai,451530,75,submitted
+SX-101904,digital_arrest,Kolkata,427686,89,resolved
+SX-101905,counterfeit,Pune,425158,85,investigating
+SX-101906,upi_fraud,Lucknow,449175,78,submitted
+SX-101907,scam_call,Pune,669281,50,investigating
+SX-101908,counterfeit,Pune,176678,47,resolved
+SX-101909,counterfeit,Pune,595440,79,investigating
+SX-101910,phishing,Pune,150809,94,investigating
+SX-101911,scam_call,Bengaluru,415730,57,submitted
+SX-101912,upi_fraud,Lucknow,395055,18,verified
+SX-101913,phishing,Mumbai,189268,52,submitted
+SX-101914,scam_call,Mumbai,231260,43,investigating
+SX-101915,upi_fraud,Chennai,76361,43,investigating
+SX-101916,scam_call,Mumbai,108378,67,submitted
+SX-101917,digital_arrest,Chennai,457417,33,investigating
+SX-101918,scam_call,Kolkata,216183,56,submitted
+SX-101919,digital_arrest,Lucknow,749198,86,investigating
+SX-101920,scam_call,Chennai,605130,73,submitted
+SX-101921,digital_arrest,Jaipur,111680,24,investigating
+SX-101922,counterfeit,Bengaluru,697052,44,investigating
+SX-101923,upi_fraud,Lucknow,411342,91,resolved
+SX-101924,digital_arrest,Bengaluru,267519,88,investigating
+SX-101925,upi_fraud,Jaipur,211748,94,verified
+SX-101926,upi_fraud,Pune,451496,47,resolved
+SX-101927,scam_call,Pune,36599,56,investigating
+SX-101928,upi_fraud,Central Delhi,702153,93,investigating
+SX-101929,phishing,Pune,505698,45,verified
+SX-101930,digital_arrest,Central Delhi,622443,56,investigating
+SX-101931,counterfeit,Chennai,301992,25,submitted
+SX-101932,upi_fraud,Jaipur,488529,68,submitted
+SX-101933,counterfeit,Kolkata,71664,62,investigating
+SX-101934,counterfeit,Central Delhi,392785,66,resolved
+SX-101935,scam_call,Kolkata,316923,90,verified
+SX-101936,counterfeit,Pune,595745,74,submitted
+SX-101937,digital_arrest,Lucknow,37060,27,resolved
+SX-101938,digital_arrest,Mumbai,243399,73,verified
+SX-101939,upi_fraud,Pune,196653,36,verified
+SX-101940,phishing,Jaipur,9392,32,investigating
+SX-101941,upi_fraud,Bengaluru,89701,49,submitted
+SX-101942,scam_call,Lucknow,724430,31,resolved
+SX-101943,upi_fraud,Chennai,534356,52,verified
+SX-101944,phishing,Chennai,131747,73,submitted
+SX-101945,digital_arrest,Bengaluru,416275,76,resolved
+SX-101946,phishing,Lucknow,100839,59,verified
+SX-101947,phishing,Lucknow,489484,80,verified
+SX-101948,phishing,Kolkata,481620,31,resolved
+SX-101949,scam_call,Chennai,395004,58,verified
+SX-101950,digital_arrest,Chennai,239163,75,verified
+SX-101951,upi_fraud,Pune,101858,50,submitted
+SX-101952,scam_call,Lucknow,241243,53,submitted
+SX-101953,counterfeit,Pune,537885,42,verified
+SX-101954,scam_call,Jaipur,793068,16,resolved
+SX-101955,phishing,Kolkata,165528,91,submitted
+SX-101956,upi_fraud,Chennai,250888,95,submitted
+SX-101957,phishing,Central Delhi,584616,24,resolved
+SX-101958,upi_fraud,Lucknow,21305,21,investigating
+SX-101959,digital_arrest,Lucknow,649645,69,resolved
+SX-101960,digital_arrest,Kolkata,692464,84,submitted
+SX-101961,scam_call,Chennai,771561,58,resolved
+SX-101962,upi_fraud,Central Delhi,698266,76,verified
+SX-101963,counterfeit,Central Delhi,182382,42,investigating
+SX-101964,digital_arrest,Pune,658913,39,resolved
+SX-101965,scam_call,Mumbai,109567,51,resolved
+SX-101966,upi_fraud,Bengaluru,219387,63,verified
+SX-101967,upi_fraud,Lucknow,453409,35,resolved
+SX-101968,scam_call,Central Delhi,776615,22,investigating
+SX-101969,upi_fraud,Mumbai,134731,53,verified
+SX-101970,upi_fraud,Bengaluru,55673,35,verified
+SX-101971,digital_arrest,Chennai,137707,91,verified
+SX-101972,upi_fraud,Central Delhi,79236,18,submitted
+SX-101973,counterfeit,Pune,251763,59,resolved
+SX-101974,upi_fraud,Bengaluru,134902,50,verified
+SX-101975,upi_fraud,Pune,670019,44,verified
+SX-101976,counterfeit,Jaipur,282840,42,investigating
+SX-101977,scam_call,Bengaluru,569091,34,submitted
+SX-101978,phishing,Pune,126693,47,resolved
+SX-101979,phishing,Mumbai,400189,83,resolved
+SX-101980,upi_fraud,Kolkata,403639,93,verified
+SX-101981,scam_call,Bengaluru,551446,27,submitted
+SX-101982,counterfeit,Mumbai,136003,92,verified
+SX-101983,digital_arrest,Bengaluru,213686,56,verified
+SX-101984,scam_call,Pune,140709,61,verified
+SX-101985,digital_arrest,Bengaluru,39347,93,resolved
+SX-101986,scam_call,Pune,251489,27,submitted
+SX-101987,counterfeit,Chennai,498380,94,verified
+SX-101988,phishing,Chennai,399993,34,investigating
+SX-101989,phishing,Bengaluru,73479,35,resolved
+SX-101990,upi_fraud,Mumbai,298960,66,resolved
+SX-101991,digital_arrest,Pune,543433,46,submitted
+SX-101992,phishing,Bengaluru,695307,74,verified
+SX-101993,digital_arrest,Central Delhi,393725,84,verified
+SX-101994,counterfeit,Pune,79852,15,resolved
+SX-101995,phishing,Chennai,592484,37,investigating
+SX-101996,scam_call,Pune,91077,60,resolved
+SX-101997,counterfeit,Mumbai,96847,28,verified
+SX-101998,upi_fraud,Lucknow,597439,68,verified
+SX-101999,phishing,Central Delhi,11990,80,submitted
+SX-102000,counterfeit,Chennai,137415,63,submitted
+SX-102001,upi_fraud,Bengaluru,554074,60,verified
+SX-102002,phishing,Chennai,785999,80,resolved
+SX-102003,counterfeit,Central Delhi,370979,71,investigating
+SX-102004,scam_call,Bengaluru,698534,98,investigating
+SX-102005,counterfeit,Bengaluru,183648,23,verified
+SX-102006,scam_call,Bengaluru,781638,86,submitted
+SX-102007,counterfeit,Jaipur,730397,97,resolved
+SX-102008,scam_call,Pune,596303,31,investigating
+SX-102009,scam_call,Chennai,120907,28,verified
+SX-102010,counterfeit,Kolkata,170029,17,investigating
+SX-102011,counterfeit,Mumbai,51747,84,resolved
+SX-102012,digital_arrest,Lucknow,503635,83,verified
+SX-102013,upi_fraud,Mumbai,14904,31,submitted
+SX-102014,upi_fraud,Kolkata,565690,37,resolved
+SX-102015,upi_fraud,Central Delhi,374766,45,investigating
+SX-102016,upi_fraud,Lucknow,506275,92,resolved
+SX-102017,digital_arrest,Kolkata,252297,41,investigating
+SX-102018,counterfeit,Jaipur,52961,30,investigating
+SX-102019,counterfeit,Central Delhi,779370,31,submitted
+SX-102020,upi_fraud,Mumbai,400756,54,investigating
+SX-102021,counterfeit,Bengaluru,738078,71,investigating
+SX-102022,scam_call,Kolkata,332518,23,submitted
+SX-102023,upi_fraud,Mumbai,674543,85,verified
+SX-102024,digital_arrest,Lucknow,315813,76,investigating
+SX-102025,scam_call,Chennai,563173,49,submitted
+SX-102026,digital_arrest,Central Delhi,23777,47,submitted
+SX-102027,upi_fraud,Bengaluru,211205,76,verified
+SX-102028,counterfeit,Jaipur,236658,23,verified
+SX-102029,upi_fraud,Lucknow,86115,35,verified
+SX-102030,scam_call,Pune,315607,25,resolved
+SX-102031,phishing,Kolkata,72692,72,verified
+SX-102032,upi_fraud,Kolkata,357540,23,submitted
+SX-102033,upi_fraud,Chennai,5635,43,verified
+SX-102034,counterfeit,Pune,383881,36,resolved
+SX-102035,phishing,Central Delhi,82353,71,resolved
+SX-102036,counterfeit,Mumbai,208167,97,submitted
+SX-102037,digital_arrest,Pune,525121,50,resolved
+SX-102038,scam_call,Kolkata,685948,85,submitted
+SX-102039,digital_arrest,Pune,35686,95,investigating
+SX-102040,upi_fraud,Jaipur,571284,40,investigating
+SX-102041,scam_call,Central Delhi,426160,25,verified
+SX-102042,scam_call,Pune,1074,63,resolved
+SX-102043,digital_arrest,Chennai,158933,95,investigating
+SX-102044,counterfeit,Bengaluru,571338,58,resolved
+SX-102045,upi_fraud,Kolkata,532914,82,submitted
+SX-102046,phishing,Central Delhi,130716,42,submitted
+SX-102047,digital_arrest,Central Delhi,700381,45,verified
+SX-102048,upi_fraud,Pune,521892,55,submitted
+SX-102049,phishing,Jaipur,507095,95,submitted
+SX-102050,upi_fraud,Central Delhi,467367,98,verified
+SX-102051,phishing,Mumbai,237153,94,resolved
+SX-102052,digital_arrest,Lucknow,28629,44,verified
+SX-102053,digital_arrest,Central Delhi,201900,38,resolved
+SX-102054,upi_fraud,Pune,650442,81,resolved
+SX-102055,counterfeit,Lucknow,790581,66,resolved
+SX-102056,scam_call,Pune,241054,79,verified
+SX-102057,digital_arrest,Chennai,749704,94,verified
+SX-102058,digital_arrest,Jaipur,237462,91,investigating
+SX-102059,counterfeit,Chennai,193256,27,investigating
+SX-102060,digital_arrest,Pune,777254,51,submitted
+SX-102061,phishing,Chennai,765864,98,resolved
+SX-102062,counterfeit,Bengaluru,729831,38,resolved
+SX-102063,digital_arrest,Kolkata,182234,55,resolved
+SX-102064,phishing,Central Delhi,380016,54,submitted
+SX-102065,scam_call,Chennai,491706,32,submitted
+SX-102066,digital_arrest,Jaipur,6593,50,submitted
+SX-102067,upi_fraud,Bengaluru,644591,30,verified
+SX-102068,phishing,Mumbai,712557,75,verified
+SX-102069,scam_call,Jaipur,168505,34,verified
+SX-102070,phishing,Central Delhi,714033,22,investigating
+SX-102071,digital_arrest,Bengaluru,276277,83,verified
+SX-102072,digital_arrest,Pune,583636,57,resolved
+SX-102073,upi_fraud,Pune,45277,44,verified
+SX-102074,counterfeit,Bengaluru,331258,98,submitted
+SX-102075,phishing,Jaipur,232968,49,verified
+SX-102076,counterfeit,Central Delhi,82633,31,verified
+SX-102077,counterfeit,Mumbai,677588,52,submitted
+SX-102078,digital_arrest,Chennai,516556,58,investigating
+SX-102079,counterfeit,Central Delhi,771494,28,investigating
+SX-102080,phishing,Bengaluru,799477,54,investigating
+SX-102081,phishing,Bengaluru,234821,19,verified
+SX-102082,scam_call,Chennai,627187,67,investigating
+SX-102083,upi_fraud,Kolkata,492991,80,resolved
+SX-102084,counterfeit,Jaipur,174853,73,investigating
+SX-102085,phishing,Kolkata,315066,90,submitted
+SX-102086,scam_call,Bengaluru,206583,25,investigating
+SX-102087,counterfeit,Bengaluru,225319,91,investigating
+SX-102088,phishing,Pune,16640,68,submitted
+SX-102089,scam_call,Jaipur,210923,15,investigating
+SX-102090,scam_call,Kolkata,423515,98,submitted
+SX-102091,upi_fraud,Central Delhi,2761,89,verified
+SX-102092,digital_arrest,Chennai,271924,95,verified
+SX-102093,scam_call,Kolkata,722283,80,submitted
+SX-102094,scam_call,Central Delhi,34925,27,submitted
+SX-102095,upi_fraud,Kolkata,657854,59,submitted
+SX-102096,scam_call,Central Delhi,243627,31,submitted
+SX-102097,counterfeit,Bengaluru,441776,85,verified
+SX-102098,scam_call,Pune,627774,83,resolved
+SX-102099,counterfeit,Central Delhi,140526,69,investigating
+SX-102100,scam_call,Chennai,44186,90,investigating
+SX-102101,upi_fraud,Chennai,409091,76,verified
+SX-102102,scam_call,Bengaluru,502887,83,investigating
+SX-102103,upi_fraud,Lucknow,789171,73,submitted
+SX-102104,digital_arrest,Kolkata,155753,44,investigating
+SX-102105,scam_call,Lucknow,547963,54,verified
+SX-102106,counterfeit,Lucknow,36643,77,submitted
+SX-102107,digital_arrest,Kolkata,751337,22,verified
+SX-102108,upi_fraud,Central Delhi,155993,80,resolved
+SX-102109,scam_call,Kolkata,608241,82,verified
+SX-102110,upi_fraud,Central Delhi,240263,62,investigating
+SX-102111,counterfeit,Pune,89403,33,verified
+SX-102112,digital_arrest,Jaipur,533032,61,verified
+SX-102113,digital_arrest,Jaipur,613292,74,submitted
+SX-102114,phishing,Mumbai,548057,35,submitted
+SX-102115,digital_arrest,Bengaluru,186032,92,resolved
+SX-102116,phishing,Lucknow,773744,66,submitted
+SX-102117,digital_arrest,Pune,70807,67,verified
+SX-102118,counterfeit,Kolkata,81453,84,verified
+SX-102119,scam_call,Central Delhi,699498,82,investigating
+SX-102120,digital_arrest,Lucknow,352498,74,submitted
+SX-102121,scam_call,Pune,265643,34,resolved
+SX-102122,digital_arrest,Bengaluru,792102,88,submitted
+SX-102123,counterfeit,Bengaluru,765327,57,investigating
+SX-102124,scam_call,Lucknow,385881,16,submitted
+SX-102125,phishing,Lucknow,231079,59,investigating
+SX-102126,digital_arrest,Kolkata,517407,52,verified
+SX-102127,phishing,Mumbai,668008,44,resolved
+SX-102128,counterfeit,Lucknow,693576,35,verified
+SX-102129,phishing,Central Delhi,637048,56,submitted
+SX-102130,digital_arrest,Bengaluru,656569,55,investigating
+SX-102131,scam_call,Jaipur,499486,87,investigating
+SX-102132,digital_arrest,Pune,787309,87,resolved
+SX-102133,digital_arrest,Kolkata,496244,73,investigating
+SX-102134,digital_arrest,Bengaluru,271982,23,verified
+SX-102135,counterfeit,Mumbai,607761,54,verified
+SX-102136,digital_arrest,Pune,368945,38,resolved
+SX-102137,upi_fraud,Kolkata,48195,31,resolved
+SX-102138,counterfeit,Chennai,240709,47,submitted
+SX-102139,upi_fraud,Chennai,250582,44,verified
+SX-102140,digital_arrest,Kolkata,64037,59,investigating
+SX-102141,phishing,Central Delhi,211520,65,verified
+SX-102142,upi_fraud,Central Delhi,765276,38,investigating
+SX-102143,counterfeit,Kolkata,361932,79,submitted
+SX-102144,phishing,Lucknow,64820,63,investigating
+SX-102145,upi_fraud,Lucknow,699326,85,investigating
+SX-102146,phishing,Mumbai,662853,77,investigating
+SX-102147,phishing,Lucknow,459623,49,resolved
+SX-102148,counterfeit,Pune,62569,50,submitted
+SX-102149,counterfeit,Chennai,555389,37,resolved
+SX-102150,digital_arrest,Central Delhi,787434,49,investigating
+SX-102151,counterfeit,Bengaluru,547612,26,investigating
+SX-102152,counterfeit,Kolkata,690599,78,investigating
+SX-102153,scam_call,Bengaluru,211834,16,submitted
+SX-102154,counterfeit,Central Delhi,600993,22,verified
+SX-102155,scam_call,Lucknow,447838,48,investigating
+SX-102156,scam_call,Chennai,742216,69,submitted
+SX-102157,digital_arrest,Pune,703991,89,investigating
+SX-102158,upi_fraud,Kolkata,470653,61,investigating
+SX-102159,counterfeit,Central Delhi,494851,90,verified
+SX-102160,phishing,Bengaluru,564564,21,submitted
+SX-102161,digital_arrest,Kolkata,666921,90,resolved
+SX-102162,phishing,Pune,449732,95,investigating
+SX-102163,phishing,Bengaluru,548409,62,verified
+SX-102164,counterfeit,Chennai,281428,20,verified
+SX-102165,digital_arrest,Kolkata,175558,34,verified
+SX-102166,counterfeit,Jaipur,102068,42,resolved
+SX-102167,phishing,Jaipur,634071,75,investigating
+SX-102168,counterfeit,Bengaluru,66046,68,submitted
+SX-102169,scam_call,Central Delhi,338440,28,investigating
+SX-102170,upi_fraud,Pune,538371,44,submitted
+SX-102171,phishing,Mumbai,570163,54,resolved
+SX-102172,phishing,Chennai,380599,86,investigating
+SX-102173,digital_arrest,Central Delhi,606845,32,verified
+SX-102174,scam_call,Mumbai,778462,69,resolved
+SX-102175,counterfeit,Central Delhi,586692,85,investigating
+SX-102176,phishing,Jaipur,313688,68,resolved
+SX-102177,digital_arrest,Bengaluru,342918,43,investigating
+SX-102178,scam_call,Pune,90925,94,verified
+SX-102179,scam_call,Lucknow,728331,75,investigating
+SX-102180,phishing,Chennai,325210,18,verified
+SX-102181,phishing,Jaipur,90800,35,resolved
+SX-102182,upi_fraud,Lucknow,462176,76,resolved
+SX-102183,digital_arrest,Pune,642138,63,verified
+SX-102184,upi_fraud,Jaipur,614859,78,submitted
+SX-102185,upi_fraud,Kolkata,422710,58,resolved
+SX-102186,digital_arrest,Chennai,257666,80,submitted
+SX-102187,phishing,Pune,218896,92,verified
+SX-102188,phishing,Jaipur,370760,39,resolved
+SX-102189,scam_call,Pune,283416,24,verified
+SX-102190,counterfeit,Kolkata,502761,76,investigating
+SX-102191,phishing,Mumbai,321970,17,resolved
+SX-102192,scam_call,Chennai,186822,72,verified
+SX-102193,phishing,Bengaluru,109998,34,submitted
+SX-102194,counterfeit,Kolkata,733552,81,resolved
+SX-102195,upi_fraud,Chennai,498458,62,submitted
+SX-102196,scam_call,Jaipur,309861,85,verified
+SX-102197,upi_fraud,Mumbai,677017,40,submitted
+SX-102198,digital_arrest,Mumbai,209397,76,resolved
+SX-102199,counterfeit,Mumbai,216113,53,investigating
+SX-102200,counterfeit,Chennai,402540,57,resolved
+SX-102201,scam_call,Jaipur,282623,76,submitted
+SX-102202,digital_arrest,Pune,360392,39,resolved
+SX-102203,digital_arrest,Jaipur,74542,86,verified
+SX-102204,counterfeit,Pune,42087,31,resolved
+SX-102205,scam_call,Bengaluru,196346,99,verified
+SX-102206,counterfeit,Bengaluru,151206,42,investigating
+SX-102207,scam_call,Mumbai,725197,82,resolved
+SX-102208,upi_fraud,Pune,173955,50,submitted
+SX-102209,scam_call,Jaipur,447112,23,verified
+SX-102210,phishing,Chennai,367664,95,submitted
+SX-102211,phishing,Bengaluru,10875,82,verified
+SX-102212,scam_call,Chennai,781629,15,verified
+SX-102213,digital_arrest,Chennai,135722,94,verified
+SX-102214,scam_call,Kolkata,671230,32,submitted
+SX-102215,digital_arrest,Kolkata,312851,93,resolved
+SX-102216,upi_fraud,Pune,573888,94,submitted
+SX-102217,digital_arrest,Central Delhi,687991,77,submitted
+SX-102218,digital_arrest,Chennai,225590,73,submitted
+SX-102219,counterfeit,Chennai,248744,46,investigating
+SX-102220,upi_fraud,Jaipur,104470,69,investigating
+SX-102221,scam_call,Jaipur,566516,76,submitted
+SX-102222,counterfeit,Pune,219665,64,resolved
+SX-102223,scam_call,Lucknow,530739,85,investigating
+SX-102224,counterfeit,Mumbai,604800,24,investigating
+SX-102225,scam_call,Chennai,379201,68,verified
+SX-102226,upi_fraud,Mumbai,745865,40,investigating
+SX-102227,phishing,Lucknow,110155,81,investigating
+SX-102228,upi_fraud,Mumbai,779920,54,investigating
+SX-102229,upi_fraud,Lucknow,477668,80,resolved
+SX-102230,digital_arrest,Kolkata,577328,72,submitted
+SX-102231,scam_call,Pune,720510,78,verified
+SX-102232,phishing,Kolkata,788604,38,resolved
+SX-102233,upi_fraud,Lucknow,337780,31,investigating
+SX-102234,digital_arrest,Lucknow,723630,16,investigating
+SX-102235,scam_call,Bengaluru,573428,86,resolved
+SX-102236,digital_arrest,Bengaluru,257186,90,investigating
+SX-102237,scam_call,Kolkata,620873,60,investigating
+SX-102238,upi_fraud,Kolkata,395584,24,investigating
+SX-102239,phishing,Pune,493719,31,resolved
+SX-102240,scam_call,Kolkata,398580,71,verified
+SX-102241,upi_fraud,Mumbai,587296,19,verified
+SX-102242,scam_call,Pune,36112,73,submitted
+SX-102243,counterfeit,Central Delhi,449888,95,investigating
+SX-102244,phishing,Lucknow,437316,66,submitted
+SX-102245,counterfeit,Mumbai,261844,82,submitted
+SX-102246,digital_arrest,Chennai,627594,20,submitted
+SX-102247,upi_fraud,Kolkata,182358,30,resolved
+SX-102248,counterfeit,Kolkata,176269,58,resolved
+SX-102249,counterfeit,Central Delhi,597640,19,verified
+SX-102250,upi_fraud,Chennai,185831,63,submitted
+SX-102251,digital_arrest,Jaipur,210652,28,verified
+SX-102252,digital_arrest,Central Delhi,438757,25,investigating
+SX-102253,phishing,Chennai,339138,45,submitted
+SX-102254,upi_fraud,Central Delhi,60168,23,verified
+SX-102255,upi_fraud,Kolkata,194020,91,investigating
+SX-102256,phishing,Chennai,71900,59,resolved
+SX-102257,upi_fraud,Lucknow,577997,82,investigating
+SX-102258,digital_arrest,Mumbai,696399,46,resolved
+SX-102259,upi_fraud,Central Delhi,141464,19,submitted
+SX-102260,scam_call,Pune,9519,34,submitted
+SX-102261,counterfeit,Kolkata,712126,89,resolved
+SX-102262,upi_fraud,Jaipur,549977,37,investigating
+SX-102263,digital_arrest,Jaipur,54521,48,investigating
+SX-102264,scam_call,Central Delhi,538815,86,submitted
+SX-102265,digital_arrest,Kolkata,80965,79,investigating
+SX-102266,counterfeit,Jaipur,493962,40,verified
+SX-102267,upi_fraud,Lucknow,691859,16,verified
+SX-102268,scam_call,Jaipur,607735,20,submitted
+SX-102269,counterfeit,Jaipur,614043,83,verified
+SX-102270,upi_fraud,Chennai,197930,18,investigating
+SX-102271,digital_arrest,Jaipur,253164,27,resolved
+SX-102272,counterfeit,Chennai,218478,40,verified
+SX-102273,phishing,Mumbai,318438,30,resolved
+SX-102274,phishing,Central Delhi,473866,81,investigating
+SX-102275,upi_fraud,Mumbai,357709,74,verified
+SX-102276,counterfeit,Bengaluru,788578,70,submitted
+SX-102277,phishing,Mumbai,713063,41,verified
+SX-102278,upi_fraud,Pune,279824,33,resolved
+SX-102279,counterfeit,Jaipur,33471,91,submitted
+SX-102280,phishing,Central Delhi,582370,98,submitted
+SX-102281,digital_arrest,Pune,625911,77,submitted
+SX-102282,upi_fraud,Pune,217281,55,submitted
+SX-102283,phishing,Kolkata,512462,15,verified
+SX-102284,phishing,Mumbai,93686,74,submitted
+SX-102285,counterfeit,Chennai,541443,76,resolved
+SX-102286,scam_call,Pune,209402,52,verified
+SX-102287,scam_call,Mumbai,493032,29,submitted
+SX-102288,upi_fraud,Chennai,322882,65,resolved
+SX-102289,scam_call,Jaipur,121352,33,submitted
+SX-102290,digital_arrest,Kolkata,682397,46,resolved
+SX-102291,counterfeit,Lucknow,210970,31,verified
+SX-102292,phishing,Chennai,226039,78,verified
+SX-102293,upi_fraud,Pune,124335,21,submitted
+SX-102294,upi_fraud,Jaipur,579128,90,submitted
+SX-102295,counterfeit,Chennai,739395,84,submitted
+SX-102296,upi_fraud,Lucknow,336727,21,investigating
+SX-102297,digital_arrest,Pune,156509,67,resolved
+SX-102298,scam_call,Central Delhi,769370,28,submitted
+SX-102299,phishing,Central Delhi,730057,48,verified
+SX-102300,phishing,Kolkata,577240,93,submitted
+SX-102301,upi_fraud,Central Delhi,409439,92,submitted
+SX-102302,scam_call,Central Delhi,678763,24,verified
+SX-102303,counterfeit,Lucknow,633419,80,investigating
+SX-102304,counterfeit,Kolkata,181540,56,investigating
+SX-102305,upi_fraud,Chennai,513144,82,submitted
+SX-102306,scam_call,Kolkata,719775,94,submitted
+SX-102307,digital_arrest,Jaipur,738743,73,investigating
+SX-102308,phishing,Bengaluru,604234,72,submitted
+SX-102309,phishing,Kolkata,405500,83,verified
+SX-102310,phishing,Kolkata,115783,48,verified
+SX-102311,upi_fraud,Bengaluru,431369,83,submitted
+SX-102312,upi_fraud,Central Delhi,28343,30,resolved
+SX-102313,scam_call,Chennai,308125,26,investigating
+SX-102314,scam_call,Lucknow,645023,71,resolved
+SX-102315,digital_arrest,Kolkata,726992,96,investigating
+SX-102316,upi_fraud,Bengaluru,604515,19,investigating
+SX-102317,counterfeit,Kolkata,675841,56,submitted
+SX-102318,counterfeit,Jaipur,546600,48,investigating
+SX-102319,scam_call,Bengaluru,710734,85,verified
+SX-102320,phishing,Jaipur,593813,31,resolved
+SX-102321,digital_arrest,Pune,472536,31,resolved
+SX-102322,phishing,Chennai,740347,16,resolved
+SX-102323,phishing,Bengaluru,689953,91,resolved
+SX-102324,phishing,Mumbai,86099,64,resolved
+SX-102325,phishing,Bengaluru,413955,25,verified
+SX-102326,scam_call,Kolkata,700118,50,investigating
+SX-102327,digital_arrest,Jaipur,130295,87,resolved
+SX-102328,counterfeit,Bengaluru,198355,62,submitted
+SX-102329,digital_arrest,Pune,293615,68,investigating
+SX-102330,phishing,Mumbai,222241,98,submitted
+SX-102331,digital_arrest,Chennai,295904,50,verified
+SX-102332,digital_arrest,Bengaluru,600355,70,submitted
+SX-102333,upi_fraud,Central Delhi,218035,42,investigating
+SX-102334,scam_call,Central Delhi,17543,74,verified
+SX-102335,scam_call,Jaipur,428826,62,verified
+SX-102336,counterfeit,Central Delhi,531354,73,resolved
+SX-102337,scam_call,Mumbai,260093,64,verified
+SX-102338,upi_fraud,Central Delhi,495258,68,resolved
+SX-102339,scam_call,Mumbai,114786,62,verified
+SX-102340,digital_arrest,Lucknow,275786,25,resolved
+SX-102341,digital_arrest,Bengaluru,167758,20,verified
+SX-102342,upi_fraud,Jaipur,54901,91,submitted
+SX-102343,upi_fraud,Chennai,558982,27,investigating
+SX-102344,phishing,Bengaluru,350834,45,investigating
+SX-102345,phishing,Bengaluru,90511,98,resolved
+SX-102346,counterfeit,Pune,746016,76,investigating
+SX-102347,scam_call,Mumbai,307879,16,resolved
+SX-102348,upi_fraud,Jaipur,7551,28,resolved
+SX-102349,upi_fraud,Jaipur,637413,59,verified
+SX-102350,phishing,Chennai,243479,36,resolved
+SX-102351,phishing,Jaipur,635786,22,verified
+SX-102352,upi_fraud,Bengaluru,655575,63,investigating
+SX-102353,upi_fraud,Mumbai,464973,61,resolved
+SX-102354,upi_fraud,Pune,283677,35,submitted
+SX-102355,scam_call,Mumbai,44376,52,investigating
+SX-102356,upi_fraud,Bengaluru,723160,49,investigating
+SX-102357,phishing,Lucknow,518636,60,verified
+SX-102358,digital_arrest,Central Delhi,541334,72,investigating
+SX-102359,scam_call,Pune,722894,88,investigating
+SX-102360,counterfeit,Central Delhi,226399,47,resolved
+SX-102361,counterfeit,Pune,339575,73,investigating
+SX-102362,upi_fraud,Mumbai,210694,49,verified
+SX-102363,digital_arrest,Mumbai,779144,60,submitted
+SX-102364,digital_arrest,Central Delhi,175523,56,investigating
+SX-102365,upi_fraud,Pune,325976,99,verified
+SX-102366,digital_arrest,Central Delhi,572666,70,investigating
+SX-102367,counterfeit,Mumbai,404688,43,submitted
+SX-102368,digital_arrest,Chennai,524874,59,resolved
+SX-102369,scam_call,Chennai,367131,38,submitted
+SX-102370,upi_fraud,Mumbai,747096,21,resolved
+SX-102371,digital_arrest,Lucknow,81071,79,submitted
+SX-102372,upi_fraud,Jaipur,390436,24,submitted
+SX-102373,counterfeit,Lucknow,384733,69,resolved
+SX-102374,digital_arrest,Jaipur,199748,76,submitted
+SX-102375,digital_arrest,Chennai,284368,67,resolved
+SX-102376,phishing,Lucknow,551206,68,resolved
+SX-102377,scam_call,Lucknow,553617,23,investigating
+SX-102378,scam_call,Pune,100425,46,investigating
+SX-102379,phishing,Bengaluru,562824,71,resolved
+SX-102380,scam_call,Central Delhi,38581,51,resolved
+SX-102381,counterfeit,Mumbai,182383,30,investigating
+SX-102382,phishing,Chennai,395642,98,submitted
+SX-102383,upi_fraud,Kolkata,137125,76,verified
+SX-102384,phishing,Chennai,675211,22,investigating
+SX-102385,scam_call,Jaipur,377086,38,submitted
+SX-102386,scam_call,Chennai,359278,39,verified
+SX-102387,upi_fraud,Chennai,198221,81,submitted
+SX-102388,digital_arrest,Pune,349348,38,verified
+SX-102389,counterfeit,Bengaluru,188025,37,submitted
+SX-102390,scam_call,Bengaluru,213367,28,submitted
+SX-102391,upi_fraud,Bengaluru,109007,66,verified
+SX-102392,phishing,Kolkata,203180,78,submitted
+SX-102393,scam_call,Lucknow,398900,28,investigating
+SX-102394,scam_call,Chennai,397110,44,submitted
+SX-102395,scam_call,Pune,697570,55,verified
+SX-102396,scam_call,Kolkata,367560,70,investigating
+SX-102397,digital_arrest,Mumbai,728048,41,submitted
+SX-102398,digital_arrest,Central Delhi,727890,19,verified
+SX-102399,phishing,Bengaluru,132275,42,verified
+SX-102400,phishing,Jaipur,383483,46,resolved
+SX-102401,upi_fraud,Jaipur,753100,80,resolved
+SX-102402,scam_call,Lucknow,521071,99,verified
+SX-102403,counterfeit,Lucknow,258784,84,verified
+SX-102404,counterfeit,Chennai,353153,88,investigating
+SX-102405,digital_arrest,Chennai,261893,59,resolved
+SX-102406,upi_fraud,Mumbai,160242,59,resolved
+SX-102407,phishing,Pune,187529,28,investigating
+SX-102408,digital_arrest,Kolkata,361332,34,verified
+SX-102409,scam_call,Chennai,164166,37,resolved
+SX-102410,phishing,Kolkata,702143,30,submitted
+SX-102411,scam_call,Chennai,693291,37,submitted
+SX-102412,upi_fraud,Jaipur,198423,65,verified
+SX-102413,digital_arrest,Lucknow,409958,19,resolved
+SX-102414,digital_arrest,Kolkata,363831,68,submitted
+SX-102415,phishing,Kolkata,414146,99,resolved
+SX-102416,digital_arrest,Central Delhi,7018,23,submitted
+SX-102417,digital_arrest,Pune,766437,51,verified
+SX-102418,digital_arrest,Pune,375584,43,submitted
+SX-102419,phishing,Kolkata,307202,78,submitted
+SX-102420,digital_arrest,Chennai,34578,58,verified
+SX-102421,scam_call,Central Delhi,581343,84,investigating
+SX-102422,phishing,Pune,719183,51,verified
+SX-102423,counterfeit,Pune,654001,43,resolved
+SX-102424,counterfeit,Pune,113990,92,verified
+SX-102425,phishing,Central Delhi,697966,28,resolved
+SX-102426,phishing,Lucknow,515072,66,resolved
+SX-102427,phishing,Bengaluru,350983,53,resolved
+SX-102428,upi_fraud,Chennai,239912,72,investigating
+SX-102429,upi_fraud,Mumbai,625751,78,submitted
+SX-102430,phishing,Kolkata,302781,83,resolved
+SX-102431,scam_call,Lucknow,511740,46,resolved
+SX-102432,digital_arrest,Mumbai,391079,65,investigating
+SX-102433,counterfeit,Bengaluru,199863,75,resolved
+SX-102434,digital_arrest,Lucknow,744789,53,investigating
+SX-102435,upi_fraud,Jaipur,435209,47,investigating
+SX-102436,phishing,Mumbai,743909,37,submitted
+SX-102437,phishing,Kolkata,796916,34,investigating
+SX-102438,counterfeit,Jaipur,453643,97,submitted
+SX-102439,counterfeit,Kolkata,172519,64,submitted
+SX-102440,digital_arrest,Pune,657553,34,investigating
+SX-102441,upi_fraud,Mumbai,29101,69,investigating
+SX-102442,digital_arrest,Lucknow,300141,21,resolved
+SX-102443,scam_call,Bengaluru,624483,91,verified
+SX-102444,phishing,Jaipur,582793,28,verified
+SX-102445,phishing,Pune,116047,69,investigating
+SX-102446,phishing,Mumbai,435023,67,submitted
+SX-102447,digital_arrest,Pune,268411,84,submitted
+SX-102448,phishing,Jaipur,213543,21,submitted
+SX-102449,upi_fraud,Kolkata,622055,49,submitted
+SX-102450,scam_call,Pune,119105,83,submitted
+SX-102451,upi_fraud,Pune,711780,29,submitted
+SX-102452,counterfeit,Central Delhi,458279,37,resolved
+SX-102453,scam_call,Kolkata,796939,94,resolved
+SX-102454,upi_fraud,Kolkata,58534,77,resolved
+SX-102455,upi_fraud,Mumbai,707163,80,investigating
+SX-102456,upi_fraud,Lucknow,707830,81,submitted
+SX-102457,counterfeit,Chennai,217706,59,verified
+SX-102458,digital_arrest,Lucknow,555117,19,investigating
+SX-102459,counterfeit,Lucknow,374708,96,investigating
+SX-102460,counterfeit,Lucknow,712231,37,investigating
+SX-102461,digital_arrest,Central Delhi,576687,49,resolved
+SX-102462,phishing,Chennai,557568,23,investigating
+SX-102463,upi_fraud,Jaipur,203419,77,investigating
+SX-102464,counterfeit,Chennai,240364,75,investigating
+SX-102465,counterfeit,Bengaluru,177113,31,investigating
+SX-102466,digital_arrest,Bengaluru,342074,76,investigating
+SX-102467,scam_call,Mumbai,60009,52,investigating
+SX-102468,scam_call,Chennai,716040,58,resolved
+SX-102469,counterfeit,Mumbai,211144,50,verified
+SX-102470,scam_call,Bengaluru,38300,77,verified
+SX-102471,scam_call,Jaipur,681005,41,verified
+SX-102472,upi_fraud,Lucknow,405584,81,resolved
+SX-102473,scam_call,Chennai,287639,99,resolved
+SX-102474,phishing,Chennai,215227,37,verified
+SX-102475,phishing,Pune,628766,17,verified
+SX-102476,upi_fraud,Kolkata,544248,48,investigating
+SX-102477,digital_arrest,Jaipur,544535,22,submitted
+SX-102478,counterfeit,Lucknow,13028,71,investigating
+SX-102479,counterfeit,Central Delhi,357704,80,verified
+SX-102480,scam_call,Jaipur,775367,76,resolved
+SX-102481,scam_call,Kolkata,378226,57,verified
+SX-102482,counterfeit,Mumbai,68162,25,resolved
+SX-102483,upi_fraud,Pune,494644,18,verified
+SX-102484,digital_arrest,Pune,524511,88,resolved
+SX-102485,scam_call,Central Delhi,580310,20,verified
+SX-102486,upi_fraud,Lucknow,33811,79,resolved
+SX-102487,scam_call,Bengaluru,457504,87,investigating
+SX-102488,phishing,Central Delhi,6052,47,submitted
+SX-102489,counterfeit,Bengaluru,27585,43,resolved
+SX-102490,counterfeit,Jaipur,198878,92,verified
+SX-102491,digital_arrest,Chennai,361624,63,submitted
+SX-102492,scam_call,Kolkata,267073,65,investigating
+SX-102493,counterfeit,Pune,77732,18,verified
+SX-102494,scam_call,Lucknow,277666,84,verified
+SX-102495,phishing,Kolkata,133960,92,verified
+SX-102496,phishing,Bengaluru,321951,95,verified
+SX-102497,upi_fraud,Jaipur,740438,72,submitted
+SX-102498,digital_arrest,Chennai,368221,29,submitted
+SX-102499,counterfeit,Mumbai,487254,20,verified
+SX-102500,scam_call,Lucknow,520001,88,verified
+SX-102501,counterfeit,Jaipur,69363,25,verified
+SX-102502,phishing,Central Delhi,360020,30,investigating
+SX-102503,digital_arrest,Pune,63523,97,investigating
+SX-102504,scam_call,Bengaluru,647880,45,resolved
+SX-102505,upi_fraud,Jaipur,369468,50,submitted
+SX-102506,counterfeit,Pune,736691,37,verified
+SX-102507,counterfeit,Bengaluru,532357,25,resolved
+SX-102508,scam_call,Kolkata,495775,67,verified
+SX-102509,upi_fraud,Pune,595718,98,verified
+SX-102510,digital_arrest,Bengaluru,271583,89,investigating
+SX-102511,digital_arrest,Lucknow,691156,17,resolved
+SX-102512,scam_call,Pune,328195,51,submitted
+SX-102513,upi_fraud,Lucknow,241385,56,verified
+SX-102514,upi_fraud,Central Delhi,541546,45,investigating
+SX-102515,phishing,Chennai,215691,20,investigating
+SX-102516,phishing,Mumbai,278833,47,submitted
+SX-102517,counterfeit,Bengaluru,540536,59,submitted
+SX-102518,counterfeit,Lucknow,602144,83,investigating
+SX-102519,counterfeit,Mumbai,63280,81,investigating
+SX-102520,upi_fraud,Mumbai,321674,63,investigating
+SX-102521,upi_fraud,Jaipur,396957,48,resolved
+SX-102522,counterfeit,Bengaluru,699711,51,resolved
+SX-102523,counterfeit,Jaipur,414866,24,submitted
+SX-102524,scam_call,Kolkata,725692,36,investigating
+SX-102525,scam_call,Pune,141483,36,verified
+SX-102526,phishing,Central Delhi,478991,84,verified
+SX-102527,counterfeit,Central Delhi,440446,78,resolved
+SX-102528,scam_call,Mumbai,731019,94,verified
+SX-102529,scam_call,Chennai,356802,73,investigating
+SX-102530,digital_arrest,Mumbai,778065,17,submitted
+SX-102531,digital_arrest,Kolkata,426956,63,resolved
+SX-102532,phishing,Chennai,618217,90,verified
+SX-102533,scam_call,Mumbai,471476,24,resolved
+SX-102534,counterfeit,Mumbai,127470,66,submitted
+SX-102535,upi_fraud,Mumbai,260720,51,investigating
+SX-102536,phishing,Lucknow,625077,77,submitted
+SX-102537,counterfeit,Lucknow,61401,98,resolved
+SX-102538,scam_call,Pune,265125,61,investigating
+SX-102539,phishing,Mumbai,179286,54,verified
+SX-102540,digital_arrest,Bengaluru,479192,36,resolved
+SX-102541,digital_arrest,Lucknow,52295,86,submitted
+SX-102542,phishing,Central Delhi,397942,39,submitted
+SX-102543,upi_fraud,Chennai,14607,19,verified
+SX-102544,scam_call,Chennai,764857,15,submitted
+SX-102545,digital_arrest,Chennai,791565,96,resolved
+SX-102546,scam_call,Bengaluru,224021,48,submitted
+SX-102547,digital_arrest,Jaipur,471250,41,verified
+SX-102548,counterfeit,Jaipur,592036,47,investigating
+SX-102549,counterfeit,Lucknow,524155,42,verified
+SX-102550,phishing,Lucknow,398544,41,verified
+SX-102551,digital_arrest,Bengaluru,660119,19,verified
+SX-102552,phishing,Kolkata,372263,71,verified
+SX-102553,counterfeit,Jaipur,535074,54,submitted
+SX-102554,upi_fraud,Bengaluru,284014,85,submitted
+SX-102555,phishing,Central Delhi,30622,92,submitted
+SX-102556,digital_arrest,Mumbai,106998,47,investigating
+SX-102557,scam_call,Kolkata,336042,51,submitted
+SX-102558,counterfeit,Lucknow,10275,87,investigating
+SX-102559,digital_arrest,Kolkata,725172,42,submitted
+SX-102560,scam_call,Bengaluru,686478,68,investigating
+SX-102561,phishing,Lucknow,35305,95,verified
+SX-102562,phishing,Kolkata,680841,18,submitted
+SX-102563,counterfeit,Jaipur,544842,16,submitted
+SX-102564,scam_call,Lucknow,437739,23,investigating
+SX-102565,counterfeit,Lucknow,798205,29,investigating
+SX-102566,scam_call,Mumbai,573005,81,resolved
+SX-102567,digital_arrest,Jaipur,709865,19,investigating
+SX-102568,phishing,Central Delhi,780182,17,submitted
+SX-102569,phishing,Bengaluru,363334,23,resolved
+SX-102570,counterfeit,Bengaluru,421442,31,investigating
+SX-102571,digital_arrest,Pune,630883,76,resolved
+SX-102572,scam_call,Kolkata,771342,85,resolved
+SX-102573,upi_fraud,Chennai,589449,87,investigating
+SX-102574,digital_arrest,Kolkata,382120,90,verified
+SX-102575,counterfeit,Lucknow,607270,86,verified
+SX-102576,phishing,Mumbai,179079,80,submitted
+SX-102577,upi_fraud,Central Delhi,677458,36,investigating
+SX-102578,upi_fraud,Lucknow,347133,67,resolved
+SX-102579,counterfeit,Pune,610339,32,investigating
+SX-102580,counterfeit,Bengaluru,622399,93,resolved
+SX-102581,digital_arrest,Bengaluru,491903,78,verified
+SX-102582,upi_fraud,Bengaluru,281691,38,submitted
+SX-102583,scam_call,Kolkata,730143,78,submitted
+SX-102584,upi_fraud,Jaipur,128535,71,submitted
+SX-102585,counterfeit,Chennai,502004,47,investigating
+SX-102586,upi_fraud,Bengaluru,159387,91,submitted
+SX-102587,upi_fraud,Lucknow,25807,73,submitted
+SX-102588,counterfeit,Jaipur,447229,98,resolved
+SX-102589,phishing,Kolkata,658017,86,resolved
+SX-102590,phishing,Kolkata,168547,36,submitted
+SX-102591,phishing,Bengaluru,327913,70,resolved
+SX-102592,upi_fraud,Lucknow,479485,99,verified
+SX-102593,counterfeit,Jaipur,480830,17,investigating
+SX-102594,phishing,Kolkata,408752,43,investigating
+SX-102595,digital_arrest,Mumbai,692195,53,submitted
+SX-102596,counterfeit,Mumbai,512147,63,verified
+SX-102597,counterfeit,Kolkata,199278,15,resolved
+SX-102598,scam_call,Mumbai,515863,55,resolved
+SX-102599,upi_fraud,Lucknow,702604,36,submitted
+SX-102600,upi_fraud,Jaipur,691373,61,resolved
+SX-102601,scam_call,Kolkata,677973,99,submitted
+SX-102602,scam_call,Jaipur,287789,95,investigating
+SX-102603,upi_fraud,Mumbai,93977,89,submitted
+SX-102604,digital_arrest,Kolkata,531159,94,resolved
+SX-102605,upi_fraud,Bengaluru,504693,39,investigating
+SX-102606,upi_fraud,Mumbai,93179,76,verified
+SX-102607,upi_fraud,Lucknow,645901,37,submitted
+SX-102608,scam_call,Mumbai,140857,91,investigating
+SX-102609,digital_arrest,Lucknow,212099,48,resolved
+SX-102610,phishing,Mumbai,720266,22,verified
+SX-102611,counterfeit,Chennai,695211,45,investigating
+SX-102612,upi_fraud,Mumbai,390434,47,resolved
+SX-102613,scam_call,Mumbai,767783,87,investigating
+SX-102614,phishing,Kolkata,233874,19,verified
+SX-102615,digital_arrest,Kolkata,564648,64,resolved
+SX-102616,counterfeit,Chennai,683675,64,submitted
+SX-102617,counterfeit,Lucknow,769258,31,submitted
+SX-102618,scam_call,Central Delhi,747434,45,verified
+SX-102619,upi_fraud,Bengaluru,426030,15,investigating
+SX-102620,upi_fraud,Pune,629502,28,resolved
+SX-102621,scam_call,Pune,647397,70,resolved
+SX-102622,upi_fraud,Mumbai,126995,20,submitted
+SX-102623,upi_fraud,Mumbai,687845,52,resolved
+SX-102624,digital_arrest,Jaipur,377525,73,submitted
+SX-102625,phishing,Lucknow,224683,93,submitted
+SX-102626,digital_arrest,Jaipur,457146,53,verified
+SX-102627,counterfeit,Lucknow,318675,64,verified
+SX-102628,counterfeit,Kolkata,347105,42,resolved
+SX-102629,upi_fraud,Lucknow,556975,88,verified
+SX-102630,counterfeit,Pune,434177,31,submitted
+SX-102631,phishing,Central Delhi,310077,53,investigating
+SX-102632,digital_arrest,Chennai,9453,73,verified
+SX-102633,phishing,Kolkata,474513,25,submitted
+SX-102634,digital_arrest,Pune,793606,84,investigating
+SX-102635,digital_arrest,Chennai,418041,69,submitted
+SX-102636,phishing,Kolkata,560779,80,investigating
+SX-102637,scam_call,Mumbai,590332,40,submitted
+SX-102638,digital_arrest,Mumbai,758908,41,resolved
+SX-102639,upi_fraud,Central Delhi,445050,59,resolved
+SX-102640,digital_arrest,Central Delhi,295623,55,resolved
+SX-102641,scam_call,Chennai,638903,80,verified
+SX-102642,upi_fraud,Pune,501731,80,investigating
+SX-102643,phishing,Jaipur,401108,16,resolved
+SX-102644,digital_arrest,Chennai,195748,64,resolved
+SX-102645,phishing,Pune,286073,21,verified
+SX-102646,counterfeit,Pune,328326,46,resolved
+SX-102647,phishing,Jaipur,458855,88,submitted
+SX-102648,scam_call,Mumbai,218839,96,investigating
+SX-102649,phishing,Mumbai,202031,22,submitted
+SX-102650,digital_arrest,Lucknow,349084,86,submitted
+SX-102651,counterfeit,Kolkata,559914,63,investigating
+SX-102652,digital_arrest,Bengaluru,409960,73,investigating
+SX-102653,digital_arrest,Lucknow,607133,58,resolved
+SX-102654,upi_fraud,Kolkata,240744,74,verified
+SX-102655,upi_fraud,Pune,557755,55,investigating
+SX-102656,counterfeit,Central Delhi,510480,73,investigating
+SX-102657,upi_fraud,Mumbai,231837,26,resolved
+SX-102658,upi_fraud,Kolkata,448367,62,submitted
+SX-102659,upi_fraud,Chennai,662509,34,resolved
+SX-102660,counterfeit,Central Delhi,372871,32,investigating
+SX-102661,upi_fraud,Lucknow,200945,27,submitted
+SX-102662,upi_fraud,Jaipur,434287,95,verified
+SX-102663,scam_call,Jaipur,390211,88,verified
+SX-102664,phishing,Jaipur,12529,37,resolved
+SX-102665,scam_call,Mumbai,500104,34,resolved
+SX-102666,digital_arrest,Jaipur,549017,20,submitted
+SX-102667,upi_fraud,Bengaluru,760786,68,verified
+SX-102668,phishing,Central Delhi,717781,65,verified
+SX-102669,upi_fraud,Mumbai,685949,48,verified
+SX-102670,upi_fraud,Kolkata,304486,59,verified
+SX-102671,phishing,Central Delhi,183565,74,submitted
+SX-102672,upi_fraud,Central Delhi,63922,90,verified
+SX-102673,digital_arrest,Lucknow,691075,53,investigating
+SX-102674,upi_fraud,Pune,198891,89,submitted
+SX-102675,digital_arrest,Pune,58594,65,verified
+SX-102676,scam_call,Pune,664067,58,verified
+SX-102677,digital_arrest,Lucknow,543534,35,submitted
+SX-102678,upi_fraud,Kolkata,87896,96,resolved
+SX-102679,scam_call,Central Delhi,404426,50,investigating
+SX-102680,digital_arrest,Bengaluru,444837,67,investigating
+SX-102681,phishing,Chennai,84213,42,investigating
+SX-102682,counterfeit,Jaipur,314885,59,verified
+SX-102683,upi_fraud,Central Delhi,428316,56,investigating
+SX-102684,scam_call,Lucknow,663023,42,resolved
+SX-102685,scam_call,Pune,758075,63,investigating
+SX-102686,upi_fraud,Lucknow,692682,65,submitted
+SX-102687,upi_fraud,Chennai,205986,55,investigating
+SX-102688,counterfeit,Pune,113529,35,resolved
+SX-102689,counterfeit,Kolkata,719747,91,verified
+SX-102690,scam_call,Kolkata,184416,39,resolved
+SX-102691,phishing,Chennai,534141,36,resolved
+SX-102692,scam_call,Jaipur,285616,68,submitted
+SX-102693,phishing,Bengaluru,108083,47,investigating
+SX-102694,digital_arrest,Lucknow,497179,93,investigating
+SX-102695,digital_arrest,Chennai,683113,62,investigating
+SX-102696,counterfeit,Mumbai,446256,91,resolved
+SX-102697,phishing,Chennai,624490,19,verified
+SX-102698,upi_fraud,Central Delhi,619011,38,verified
+SX-102699,counterfeit,Bengaluru,244810,23,verified
+SX-102700,scam_call,Central Delhi,732527,77,submitted
+SX-102701,digital_arrest,Mumbai,114301,80,verified
+SX-102702,counterfeit,Central Delhi,182924,75,resolved
+SX-102703,digital_arrest,Bengaluru,355725,52,resolved
+SX-102704,upi_fraud,Central Delhi,454543,33,submitted
+SX-102705,scam_call,Bengaluru,17306,77,verified
+SX-102706,phishing,Mumbai,551439,37,investigating
+SX-102707,scam_call,Chennai,598014,93,investigating
+SX-102708,scam_call,Bengaluru,779003,31,resolved
+SX-102709,upi_fraud,Kolkata,759347,43,investigating
+SX-102710,upi_fraud,Bengaluru,634916,50,investigating
+SX-102711,digital_arrest,Lucknow,478837,60,investigating
+SX-102712,upi_fraud,Bengaluru,166826,97,investigating
+SX-102713,digital_arrest,Chennai,359976,31,verified
+SX-102714,phishing,Jaipur,81722,61,resolved
+SX-102715,phishing,Jaipur,746317,97,resolved
+SX-102716,counterfeit,Chennai,530277,26,submitted
+SX-102717,phishing,Central Delhi,126635,90,submitted
+SX-102718,scam_call,Lucknow,195298,76,submitted
+SX-102719,upi_fraud,Mumbai,562809,61,resolved
+SX-102720,phishing,Mumbai,377824,42,verified
+SX-102721,scam_call,Central Delhi,693520,63,submitted
+SX-102722,counterfeit,Kolkata,332977,64,investigating
+SX-102723,upi_fraud,Lucknow,371539,45,verified
+SX-102724,phishing,Jaipur,317463,58,submitted
+SX-102725,upi_fraud,Mumbai,411700,74,resolved
+SX-102726,counterfeit,Chennai,484063,35,verified
+SX-102727,counterfeit,Central Delhi,789173,83,resolved
+SX-102728,scam_call,Jaipur,399834,89,submitted
+SX-102729,phishing,Bengaluru,371178,61,resolved
+SX-102730,phishing,Bengaluru,133349,90,resolved
+SX-102731,digital_arrest,Jaipur,789699,87,resolved
+SX-102732,digital_arrest,Jaipur,585600,79,submitted
+SX-102733,counterfeit,Kolkata,238823,65,resolved
+SX-102734,counterfeit,Chennai,424122,28,investigating
+SX-102735,scam_call,Pune,625624,25,verified
+SX-102736,scam_call,Kolkata,685206,40,investigating
+SX-102737,digital_arrest,Lucknow,38290,15,verified
+SX-102738,scam_call,Kolkata,198541,36,submitted
+SX-102739,counterfeit,Bengaluru,45595,79,investigating
+SX-102740,phishing,Central Delhi,723032,22,resolved
+SX-102741,digital_arrest,Lucknow,553435,36,submitted
+SX-102742,digital_arrest,Lucknow,446101,59,verified
+SX-102743,scam_call,Mumbai,544786,50,verified
+SX-102744,upi_fraud,Chennai,524947,33,verified
+SX-102745,digital_arrest,Central Delhi,672514,39,submitted
+SX-102746,counterfeit,Kolkata,255471,32,verified
+SX-102747,counterfeit,Mumbai,582225,93,verified
+SX-102748,counterfeit,Jaipur,84275,90,resolved
+SX-102749,counterfeit,Chennai,288593,85,resolved
+SX-102750,phishing,Pune,268539,42,resolved
+SX-102751,scam_call,Bengaluru,230052,22,resolved
+SX-102752,upi_fraud,Kolkata,94398,33,investigating
+SX-102753,upi_fraud,Kolkata,128484,17,resolved
+SX-102754,scam_call,Jaipur,605813,41,resolved
+SX-102755,counterfeit,Kolkata,741658,27,investigating
+SX-102756,upi_fraud,Chennai,687917,75,verified
+SX-102757,upi_fraud,Jaipur,479809,90,verified
+SX-102758,digital_arrest,Lucknow,147424,36,resolved
+SX-102759,upi_fraud,Central Delhi,382674,40,verified
+SX-102760,counterfeit,Kolkata,100121,22,resolved
+SX-102761,upi_fraud,Central Delhi,316164,77,verified
+SX-102762,counterfeit,Bengaluru,402825,41,resolved
+SX-102763,scam_call,Chennai,255271,94,verified
+SX-102764,upi_fraud,Pune,656077,73,investigating
+SX-102765,counterfeit,Jaipur,224012,16,investigating
+SX-102766,digital_arrest,Pune,646278,42,verified
+SX-102767,upi_fraud,Central Delhi,612443,32,investigating
+SX-102768,phishing,Pune,384840,62,submitted
+SX-102769,counterfeit,Central Delhi,44656,66,investigating
+SX-102770,scam_call,Mumbai,37087,22,resolved
+SX-102771,upi_fraud,Jaipur,259402,70,resolved
+SX-102772,digital_arrest,Jaipur,103060,91,verified
+SX-102773,upi_fraud,Chennai,181061,69,resolved
+SX-102774,phishing,Jaipur,680837,31,submitted
+SX-102775,phishing,Bengaluru,286947,88,investigating
+SX-102776,digital_arrest,Lucknow,604829,50,resolved
+SX-102777,scam_call,Kolkata,329052,69,investigating
+SX-102778,phishing,Jaipur,42185,50,verified
+SX-102779,upi_fraud,Mumbai,356951,82,investigating
+SX-102780,scam_call,Pune,398647,76,submitted
+SX-102781,scam_call,Central Delhi,250024,27,submitted
+SX-102782,phishing,Chennai,726270,42,verified
+SX-102783,digital_arrest,Mumbai,76371,59,verified
+SX-102784,counterfeit,Chennai,141788,22,investigating
+SX-102785,upi_fraud,Kolkata,591601,22,submitted
+SX-102786,phishing,Chennai,715227,23,verified
+SX-102787,scam_call,Pune,1811,92,investigating
+SX-102788,phishing,Pune,183376,57,resolved
+SX-102789,scam_call,Lucknow,479647,94,verified
+SX-102790,upi_fraud,Kolkata,295254,26,investigating
+SX-102791,upi_fraud,Pune,336671,91,submitted
+SX-102792,phishing,Chennai,232578,15,resolved
+SX-102793,digital_arrest,Central Delhi,559130,56,verified
+SX-102794,counterfeit,Jaipur,752627,19,submitted
+SX-102795,digital_arrest,Pune,272664,85,resolved
+SX-102796,digital_arrest,Jaipur,545037,16,verified
+SX-102797,digital_arrest,Bengaluru,337251,21,verified
+SX-102798,phishing,Chennai,504395,49,resolved
+SX-102799,scam_call,Central Delhi,639130,41,submitted
+SX-102800,counterfeit,Chennai,559669,75,submitted
+SX-102801,upi_fraud,Central Delhi,502903,21,verified
+SX-102802,counterfeit,Jaipur,216369,64,submitted
+SX-102803,upi_fraud,Chennai,232625,84,investigating
+SX-102804,digital_arrest,Kolkata,445126,50,investigating
+SX-102805,upi_fraud,Jaipur,777701,89,submitted
+SX-102806,phishing,Jaipur,524976,64,investigating
+SX-102807,upi_fraud,Bengaluru,529889,54,resolved
+SX-102808,scam_call,Bengaluru,219647,83,verified
+SX-102809,upi_fraud,Chennai,51058,49,submitted
+SX-102810,counterfeit,Pune,440638,80,submitted
+SX-102811,digital_arrest,Lucknow,98767,68,investigating
+SX-102812,digital_arrest,Mumbai,755024,69,investigating
+SX-102813,upi_fraud,Jaipur,421359,65,resolved
+SX-102814,counterfeit,Chennai,126481,23,resolved
+SX-102815,scam_call,Lucknow,189113,17,resolved
+SX-102816,scam_call,Mumbai,629602,60,submitted
+SX-102817,digital_arrest,Kolkata,326762,89,verified
+SX-102818,counterfeit,Lucknow,586191,52,verified
+SX-102819,digital_arrest,Kolkata,488083,48,submitted
+SX-102820,upi_fraud,Central Delhi,303748,95,resolved
+SX-102821,counterfeit,Mumbai,42525,37,investigating
+SX-102822,counterfeit,Lucknow,98971,64,verified
+SX-102823,upi_fraud,Pune,618427,68,submitted
+SX-102824,upi_fraud,Pune,685185,68,submitted
+SX-102825,phishing,Central Delhi,570189,20,investigating
+SX-102826,upi_fraud,Central Delhi,371326,96,submitted
+SX-102827,digital_arrest,Chennai,608220,21,verified
+SX-102828,phishing,Lucknow,68415,15,resolved
+SX-102829,digital_arrest,Bengaluru,641251,95,verified
+SX-102830,counterfeit,Kolkata,619340,59,resolved
+SX-102831,phishing,Chennai,122520,73,submitted
+SX-102832,digital_arrest,Central Delhi,283427,37,resolved
+SX-102833,phishing,Kolkata,6563,88,verified
+SX-102834,digital_arrest,Pune,285095,19,investigating
+SX-102835,counterfeit,Mumbai,48914,75,verified
+SX-102836,digital_arrest,Lucknow,391950,90,verified
+SX-102837,counterfeit,Bengaluru,97431,60,verified
+SX-102838,phishing,Lucknow,484743,92,submitted
+SX-102839,upi_fraud,Mumbai,377535,51,resolved
+SX-102840,counterfeit,Pune,428289,50,submitted
+SX-102841,upi_fraud,Chennai,616752,41,submitted
+SX-102842,digital_arrest,Lucknow,708774,38,verified
+SX-102843,upi_fraud,Lucknow,637609,20,resolved
+SX-102844,counterfeit,Mumbai,141438,17,verified
+SX-102845,counterfeit,Central Delhi,77809,72,investigating
+SX-102846,scam_call,Central Delhi,320918,23,submitted
+SX-102847,upi_fraud,Jaipur,599647,35,resolved
+SX-102848,scam_call,Kolkata,458379,83,investigating
+SX-102849,counterfeit,Bengaluru,569789,77,submitted
+SX-102850,phishing,Mumbai,486703,49,verified
+SX-102851,counterfeit,Mumbai,630657,51,submitted
+SX-102852,phishing,Chennai,577899,19,submitted
+SX-102853,phishing,Mumbai,470674,82,verified
+SX-102854,scam_call,Central Delhi,741700,44,submitted
+SX-102855,phishing,Central Delhi,125463,71,submitted
+SX-102856,scam_call,Pune,37807,23,resolved
+SX-102857,digital_arrest,Mumbai,405277,66,submitted
+SX-102858,digital_arrest,Jaipur,330774,98,investigating
+SX-102859,scam_call,Pune,208664,48,investigating
+SX-102860,upi_fraud,Chennai,655891,87,submitted
+SX-102861,digital_arrest,Lucknow,652908,15,submitted
+SX-102862,phishing,Lucknow,163099,60,submitted
+SX-102863,phishing,Central Delhi,339595,48,submitted
+SX-102864,digital_arrest,Central Delhi,379722,94,resolved
+SX-102865,counterfeit,Jaipur,459728,32,resolved
+SX-102866,phishing,Pune,399234,37,submitted
+SX-102867,counterfeit,Kolkata,271533,87,submitted
+SX-102868,counterfeit,Central Delhi,498621,88,verified
+SX-102869,digital_arrest,Chennai,414952,42,verified
+SX-102870,upi_fraud,Mumbai,658996,20,verified
+SX-102871,phishing,Bengaluru,94834,44,investigating
+SX-102872,scam_call,Jaipur,149084,26,verified
+SX-102873,phishing,Lucknow,483477,20,verified
+SX-102874,digital_arrest,Lucknow,524843,21,resolved
+SX-102875,upi_fraud,Kolkata,211218,60,submitted
+SX-102876,digital_arrest,Lucknow,120434,17,resolved
+SX-102877,phishing,Lucknow,372375,85,submitted
+SX-102878,digital_arrest,Lucknow,759977,47,investigating
+SX-102879,counterfeit,Kolkata,576911,69,verified
+SX-102880,counterfeit,Mumbai,185443,88,verified
+SX-102881,upi_fraud,Kolkata,131014,89,investigating
+SX-102882,upi_fraud,Jaipur,278190,67,resolved
+SX-102883,upi_fraud,Mumbai,98575,37,submitted
+SX-102884,digital_arrest,Kolkata,108351,44,submitted
+SX-102885,upi_fraud,Bengaluru,89766,15,submitted
+SX-102886,phishing,Kolkata,510252,23,investigating
+SX-102887,upi_fraud,Pune,285532,36,verified
+SX-102888,phishing,Pune,35449,63,investigating
+SX-102889,counterfeit,Central Delhi,736796,25,resolved
+SX-102890,digital_arrest,Mumbai,420838,28,investigating
+SX-102891,phishing,Kolkata,669485,20,resolved
+SX-102892,digital_arrest,Jaipur,43621,26,submitted
+SX-102893,scam_call,Central Delhi,770833,40,investigating
+SX-102894,scam_call,Bengaluru,660962,72,resolved
+SX-102895,scam_call,Chennai,275362,79,verified
+SX-102896,phishing,Lucknow,494142,94,resolved
+SX-102897,digital_arrest,Chennai,310712,67,investigating
+SX-102898,upi_fraud,Mumbai,83609,92,verified
+SX-102899,counterfeit,Jaipur,607226,47,verified
+SX-102900,counterfeit,Mumbai,542712,79,submitted
+SX-102901,scam_call,Central Delhi,410279,36,verified
+SX-102902,scam_call,Bengaluru,175670,90,investigating
+SX-102903,scam_call,Chennai,470329,66,verified
+SX-102904,digital_arrest,Mumbai,214579,30,submitted
+SX-102905,digital_arrest,Central Delhi,111054,33,submitted
+SX-102906,scam_call,Central Delhi,685110,47,submitted
+SX-102907,upi_fraud,Jaipur,90812,54,verified
+SX-102908,scam_call,Kolkata,570340,91,resolved
+SX-102909,scam_call,Bengaluru,144581,45,investigating
+SX-102910,upi_fraud,Jaipur,538782,73,resolved
+SX-102911,digital_arrest,Jaipur,473490,27,submitted
+SX-102912,scam_call,Mumbai,521368,74,investigating
+SX-102913,digital_arrest,Jaipur,225517,72,submitted
+SX-102914,digital_arrest,Kolkata,78784,66,submitted
+SX-102915,counterfeit,Pune,432971,18,verified
+SX-102916,digital_arrest,Mumbai,360874,72,submitted
+SX-102917,digital_arrest,Pune,419436,96,resolved
+SX-102918,counterfeit,Central Delhi,559207,92,verified
+SX-102919,scam_call,Kolkata,85951,30,resolved
+SX-102920,phishing,Jaipur,94955,22,investigating
+SX-102921,digital_arrest,Mumbai,182967,82,verified
+SX-102922,upi_fraud,Lucknow,538532,84,resolved
+SX-102923,counterfeit,Jaipur,775324,99,verified
+SX-102924,digital_arrest,Pune,209359,37,investigating
+SX-102925,upi_fraud,Mumbai,502176,40,resolved
+SX-102926,phishing,Chennai,210524,19,submitted
+SX-102927,digital_arrest,Bengaluru,410108,56,investigating
+SX-102928,digital_arrest,Pune,41360,69,resolved
+SX-102929,counterfeit,Pune,788865,60,submitted
+SX-102930,scam_call,Mumbai,216209,92,resolved
+SX-102931,counterfeit,Mumbai,125990,80,resolved
+SX-102932,upi_fraud,Lucknow,247160,51,submitted
+SX-102933,digital_arrest,Jaipur,47532,79,verified
+SX-102934,upi_fraud,Central Delhi,171546,36,resolved
+SX-102935,scam_call,Pune,489974,17,investigating
+SX-102936,digital_arrest,Pune,490843,77,submitted
+SX-102937,upi_fraud,Central Delhi,111756,35,submitted
+SX-102938,counterfeit,Bengaluru,636487,28,investigating
+SX-102939,upi_fraud,Mumbai,200557,37,submitted
+SX-102940,scam_call,Central Delhi,170431,95,resolved
+SX-102941,phishing,Bengaluru,359085,98,resolved
+SX-102942,digital_arrest,Pune,303319,94,resolved
+SX-102943,upi_fraud,Central Delhi,216546,18,submitted
+SX-102944,counterfeit,Mumbai,489033,64,submitted
+SX-102945,digital_arrest,Chennai,347590,63,investigating
+SX-102946,counterfeit,Central Delhi,730410,48,verified
+SX-102947,upi_fraud,Mumbai,390453,64,submitted
+SX-102948,counterfeit,Central Delhi,770361,65,submitted
+SX-102949,digital_arrest,Pune,174768,66,resolved
+SX-102950,counterfeit,Kolkata,46765,37,submitted
+SX-102951,phishing,Central Delhi,30722,34,investigating
+SX-102952,scam_call,Lucknow,17215,32,investigating
+SX-102953,phishing,Central Delhi,409230,88,verified
+SX-102954,phishing,Pune,731866,59,investigating
+SX-102955,upi_fraud,Lucknow,444315,97,resolved
+SX-102956,counterfeit,Chennai,440104,26,verified
+SX-102957,scam_call,Jaipur,598905,73,verified
+SX-102958,upi_fraud,Lucknow,342749,78,investigating
+SX-102959,counterfeit,Chennai,385639,94,investigating
+SX-102960,scam_call,Kolkata,258967,39,verified
+SX-102961,phishing,Central Delhi,470955,56,investigating
+SX-102962,scam_call,Pune,288213,99,verified
+SX-102963,digital_arrest,Mumbai,777102,40,verified
+SX-102964,counterfeit,Kolkata,664855,44,resolved
+SX-102965,counterfeit,Kolkata,63299,67,verified
+SX-102966,scam_call,Lucknow,38723,90,resolved
+SX-102967,digital_arrest,Central Delhi,315701,57,verified
+SX-102968,upi_fraud,Chennai,201960,46,investigating
+SX-102969,counterfeit,Bengaluru,477937,89,submitted
+SX-102970,phishing,Mumbai,25266,37,investigating
+SX-102971,counterfeit,Chennai,165362,90,submitted
+SX-102972,counterfeit,Lucknow,737650,44,investigating
+SX-102973,upi_fraud,Kolkata,484732,62,resolved
+SX-102974,digital_arrest,Central Delhi,485686,84,investigating
+SX-102975,counterfeit,Lucknow,385989,29,verified
+SX-102976,scam_call,Lucknow,28435,20,verified
+SX-102977,upi_fraud,Lucknow,741504,26,verified
+SX-102978,counterfeit,Bengaluru,45084,43,submitted
+SX-102979,digital_arrest,Lucknow,600174,37,resolved
+SX-102980,scam_call,Central Delhi,642948,60,verified
+SX-102981,upi_fraud,Jaipur,251535,78,investigating
+SX-102982,scam_call,Chennai,766976,50,submitted
+SX-102983,counterfeit,Chennai,274836,52,investigating
+SX-102984,counterfeit,Mumbai,256714,23,resolved
+SX-102985,upi_fraud,Jaipur,316096,45,resolved
+SX-102986,counterfeit,Bengaluru,326322,45,investigating
+SX-102987,scam_call,Central Delhi,647656,93,submitted
+SX-102988,digital_arrest,Chennai,148279,20,resolved
+SX-102989,phishing,Kolkata,137871,89,resolved
+SX-102990,scam_call,Kolkata,690974,19,investigating
+SX-102991,phishing,Bengaluru,497067,89,verified
+SX-102992,upi_fraud,Central Delhi,651023,29,resolved
+SX-102993,upi_fraud,Mumbai,221915,65,resolved
+SX-102994,scam_call,Bengaluru,738282,99,verified
+SX-102995,counterfeit,Kolkata,252298,37,resolved
+SX-102996,counterfeit,Chennai,3660,36,verified
+SX-102997,scam_call,Jaipur,89975,41,resolved
+SX-102998,upi_fraud,Pune,647723,78,verified
+SX-102999,phishing,Pune,517846,60,investigating

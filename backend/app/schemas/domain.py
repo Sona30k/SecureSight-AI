@@ -13,6 +13,8 @@ class DigitalArrestRequest(BaseModel):
     duration: int = Field(ge=0, le=86_400)
     video_call: bool = False
     caller_location: str | None = Field(default=None, max_length=150)
+    previous_reports: int = Field(default=0, ge=0, le=10_000)
+    spoof_detected: bool | None = None
 
 
 class DigitalArrestResponse(BaseModel):
@@ -33,6 +35,8 @@ class CurrencyDetectionResponse(BaseModel):
     watermark: bool
     serial_valid: bool
     features: dict[str, float | bool]
+    explanation: list[str] = Field(default_factory=list)
+    model_version: str = "currency-cv-v1.0"
 
 
 class ReportCreate(BaseModel):

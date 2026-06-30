@@ -10,14 +10,23 @@ from app.models import CrimeLocation, FraudReport, ReportStatus, User, UserRole
 
 async def seed():
     async with AsyncSessionLocal() as db:
-        admin = await db.scalar(select(User).where(User.email == "admin@sentinelx.gov.in"))
-        if not admin:
-            admin = User(
-                email="admin@sentinelx.gov.in", full_name="Sentinel Administrator",
-                hashed_password=hash_password("SentinelX!2026"), role=UserRole.administrator,
-            )
-            db.add(admin)
-            await db.flush()
+        demo_users = [
+            ("citizen@sentinelx.demo", "Demo Citizen", UserRole.citizen),
+            ("police@sentinelx.demo", "Demo Police Officer", UserRole.police),
+            ("bank@sentinelx.demo", "Demo Bank Analyst", UserRole.bank),
+            ("telecom@sentinelx.demo", "Demo Telecom Analyst", UserRole.telecom_provider),
+            ("admin@sentinelx.gov.in", "Sentinel Administrator", UserRole.administrator),
+        ]
+        admin = None
+        for email, full_name, role in demo_users:
+            user = await db.scalar(select(User).where(User.email == email))
+            if not user:
+                user = User(email=email, full_name=full_name, hashed_password=hash_password("SentinelX!2026"), role=role)
+                db.add(user)
+                await db.flush()
+            if role == UserRole.administrator:
+                admin = user
+        assert admin is not None
         if not await db.scalar(select(FraudReport).limit(1)):
             db.add_all([
                 FraudReport(title="CBI digital arrest attempt", description="Caller requested an urgent verification transfer and threatened arrest.", category="digital_arrest", location="Central Delhi", status=ReportStatus.investigating, risk_score=94, money_involved=240000, reporter_id=admin.id),
@@ -28,7 +37,7 @@ async def seed():
                 CrimeLocation(latitude=26.9124, longitude=75.7873, district="Jaipur", crime_type="UPI Fraud", occurred_at=datetime.now(timezone.utc)-timedelta(hours=3), risk_score=76, reported_by=admin.id),
             ])
         await db.commit()
-    print("Seed complete. Admin: admin@sentinelx.gov.in / SentinelX!2026")
+    print("Demo seed complete. Accounts use password SentinelX!2026; disable DEMO_MODE outside hackathon environments.")
 
 
 if __name__ == "__main__":

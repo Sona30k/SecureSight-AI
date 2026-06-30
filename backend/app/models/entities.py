@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import enum
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
 
@@ -124,7 +124,7 @@ class AuditLog(Base, UUIDMixin):
     resource_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
     ip_address: Mapped[str | None] = mapped_column(String(64), nullable=True)
     details: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
 
 
 class AIAnalysis(Base, UUIDMixin, TimestampMixin):
@@ -136,3 +136,4 @@ class AIAnalysis(Base, UUIDMixin, TimestampMixin):
     confidence: Mapped[float] = mapped_column(Float, default=0)
     model_version: Mapped[str] = mapped_column(String(50), default="rules-v1")
     processing_ms: Mapped[int] = mapped_column(Integer, default=0)
+    requested_by: Mapped[UUID | None] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)

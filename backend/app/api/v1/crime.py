@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.auth import CurrentUser
 from app.database import get_db
 from app.models import CrimeLocation
+from app.realtime import hub
 from app.schemas import CrimeCreate
 
 router = APIRouter(prefix="/crime", tags=["Crime Intelligence & Heatmap"])
@@ -23,6 +24,7 @@ async def report_crime(payload: CrimeCreate, user: CurrentUser, db: DB):
     )
     db.add(item)
     await db.commit()
+    await hub.broadcast("heatmap", "crime.reported", {"id": str(item.id), "district": item.district, "risk_score": item.risk_score})
     return {"id": item.id, "status": "reported"}
 
 

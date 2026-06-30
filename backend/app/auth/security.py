@@ -1,25 +1,33 @@
+import base64
+import hashlib
+import hmac
+import secrets
 from datetime import datetime, timedelta, timezone
 from typing import Any
 from uuid import UUID
 
 from jose import JWTError, jwt
-from passlib.context import CryptContext
-
 from app.config.settings import settings
-
-pwd_context = CryptContext(
-    schemes=["pbkdf2_sha256"],
-    pbkdf2_sha256__default_rounds=600_000,
-    deprecated="auto",
-)
 
 
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    salt = secrets.token_bytes(16)
+    digest = hashlib.scrypt(password.encode(), salt=salt, n=2**14, r=8, p=1, dklen=32)
+    return f"scrypt$16384$8$1${base64.urlsafe_b64encode(salt).decode()}${base64.urlsafe_b64encode(digest).decode()}"
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+    try:
+        algorithm, n, r, p, salt, expected = hashed.split("$", 5)
+        if algorithm != "scrypt":
+            return False
+        digest = hashlib.scrypt(
+            plain.encode(), salt=base64.urlsafe_b64decode(salt),
+            n=int(n), r=int(r), p=int(p), dklen=32,
+        )
+        return hmac.compare_digest(digest, base64.urlsafe_b64decode(expected))
+    except (ValueError, TypeError):
+        return False
 
 
 def create_token(subject: UUID | str, token_version: int, token_type: str) -> tuple[str, int]:

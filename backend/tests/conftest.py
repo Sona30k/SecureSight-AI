@@ -1,7 +1,8 @@
 import os
 
-os.environ["DATABASE_URL"] = "sqlite+aiosqlite:///./test_sentinelx.db"
+os.environ["DATABASE_URL"] = "sqlite+aiosqlite:////tmp/sentinelx_test.db"
 os.environ["SECRET_KEY"] = "test-secret-that-is-long-enough-for-tests"
+os.environ["DEMO_MODE"] = "true"
 
 import pytest
 from httpx import ASGITransport, AsyncClient

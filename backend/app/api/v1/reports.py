@@ -8,7 +8,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth import CurrentUser
 from app.database import get_db
-from app.models import FraudReport, UserRole
+from app.models import AuditLog, FraudReport, UserRole
+from app.realtime import hub
 from app.schemas import Paginated, ReportCreate, ReportRead, ReportUpdate
 
 router = APIRouter(prefix="/reports", tags=["Citizen Fraud Reports"])
@@ -19,8 +20,11 @@ DB = Annotated[AsyncSession, Depends(get_db)]
 async def create_report(payload: ReportCreate, user: CurrentUser, db: DB):
     report = FraudReport(**payload.model_dump(), reporter_id=user.id)
     db.add(report)
+    await db.flush()
+    db.add(AuditLog(user_id=user.id, action="report.created", resource="fraud_report", resource_id=str(report.id)))
     await db.commit()
     await db.refresh(report)
+    await hub.broadcast("reports", "report.created", {"id": str(report.id), "risk_score": report.risk_score})
     return report
 
 
@@ -68,14 +72,18 @@ async def update_report(report_id: UUID, payload: ReportUpdate, user: CurrentUse
         changes.pop("risk_score", None)
     for key, value in changes.items():
         setattr(report, key, value)
+    db.add(AuditLog(user_id=user.id, action="report.updated", resource="fraud_report", resource_id=str(report.id), details={"fields": list(changes)}))
     await db.commit()
     await db.refresh(report)
+    await hub.broadcast("reports", "report.updated", {"id": str(report.id), "status": report.status.value})
     return report
 
 
 @router.delete("/{report_id}", status_code=204)
 async def delete_report(report_id: UUID, user: CurrentUser, db: DB):
     report = await _get_visible(report_id, user, db)
+    db.add(AuditLog(user_id=user.id, action="report.deleted", resource="fraud_report", resource_id=str(report.id)))
     await db.delete(report)
     await db.commit()
+    await hub.broadcast("reports", "report.deleted", {"id": str(report_id)})
     return Response(status_code=204)

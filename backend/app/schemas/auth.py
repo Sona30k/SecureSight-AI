@@ -37,3 +37,7 @@ class UserRead(BaseModel):
     role: UserRole
     is_active: bool
     created_at: datetime
+
+
+class UserUpdate(BaseModel):
+    full_name: str = Field(min_length=2, max_length=150)

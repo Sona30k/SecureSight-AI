@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth import require_roles
 from app.database import get_db
-from app.models import CounterfeitCase, CrimeLocation, DigitalArrestCase, FraudReport, User, UserRole
+from app.models import CounterfeitCase, CrimeLocation, DigitalArrestCase, FraudReport, ReportStatus, User, UserRole
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
 AnalyticsUser = Annotated[
@@ -21,9 +21,17 @@ async def dashboard(user: AnalyticsUser, db: Annotated[AsyncSession, Depends(get
     now = datetime.now(timezone.utc)
     today = now.replace(hour=0, minute=0, second=0, microsecond=0)
     month = today - timedelta(days=29)
-    today_frauds = await db.scalar(select(func.count(FraudReport.id)).where(FraudReport.created_at >= today)) or 0
-    counterfeit = await db.scalar(select(func.count(CounterfeitCase.id)).where(CounterfeitCase.prediction == "Fake")) or 0
-    money_saved = await db.scalar(select(func.sum(FraudReport.money_involved)).where(FraudReport.status == "resolved")) or 0
+    totals = (await db.execute(select(
+        func.count(FraudReport.id).filter(FraudReport.created_at >= today).label("today_frauds"),
+        func.coalesce(func.sum(FraudReport.money_involved).filter(FraudReport.status == ReportStatus.resolved), 0).label("money_saved"),
+        func.count(FraudReport.id).filter(FraudReport.status.in_([ReportStatus.assigned, ReportStatus.investigating])).label("active_investigations"),
+        func.count(FraudReport.id.distinct()).filter(FraudReport.status == ReportStatus.resolved).label("protected_citizens"),
+    ))).one()
+    case_totals = (await db.execute(select(
+        select(func.count(CounterfeitCase.id)).where(CounterfeitCase.prediction == "Fake").scalar_subquery().label("counterfeit"),
+        select(func.count(DigitalArrestCase.id)).where(DigitalArrestCase.risk_score >= 75).scalar_subquery().label("high_risk_calls"),
+        select(func.count(DigitalArrestCase.id)).scalar_subquery().label("digital_arrest_cases"),
+    ))).one()
     trends = (await db.execute(
         select(func.date(FraudReport.created_at).label("date"), func.count().label("count"))
         .where(FraudReport.created_at >= month).group_by(func.date(FraudReport.created_at)).order_by("date")
@@ -40,12 +48,20 @@ async def dashboard(user: AnalyticsUser, db: Annotated[AsyncSession, Depends(get
             func.sum(case((FraudReport.risk_score >= 80, 1), else_=0)).label("critical"),
         )
     )).one()
+    recent = (await db.scalars(select(FraudReport).order_by(FraudReport.created_at.desc()).limit(6))).all()
     return {
-        "today_frauds": today_frauds,
+        "today_frauds": totals.today_frauds,
         "monthly_trends": [{"date": str(x.date), "count": x.count} for x in trends],
-        "counterfeit_detected": counterfeit,
-        "money_saved": float(money_saved),
+        "counterfeit_detected": case_totals.counterfeit,
+        "money_saved": float(totals.money_saved),
+        "active_investigations": totals.active_investigations,
+        "protected_citizens": totals.protected_citizens,
+        "high_risk_calls": case_totals.high_risk_calls,
         "district_rankings": [{"district": x.district, "incidents": x.incidents} for x in districts],
         "risk_distribution": {k: int(getattr(risks, k) or 0) for k in ("low", "medium", "high", "critical")},
-        "digital_arrest_cases": await db.scalar(select(func.count(DigitalArrestCase.id))) or 0,
+        "digital_arrest_cases": case_totals.digital_arrest_cases,
+        "recent_reports": [
+            {"id": str(item.id), "title": item.title, "category": item.category, "status": item.status.value, "risk_score": item.risk_score, "created_at": item.created_at.isoformat()}
+            for item in recent
+        ],
     }

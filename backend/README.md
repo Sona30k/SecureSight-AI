@@ -22,7 +22,7 @@ cd backend
 cp .env.example .env
 docker compose up --build -d
 docker compose exec api alembic upgrade head
-docker compose exec api python scripts/seed.py
+docker compose exec api python -m scripts.seed
 ```
 
 Open Swagger at `http://localhost:8000/docs`, ReDoc at `/redoc`, health at `/health`, and metrics at `/metrics`.

@@ -1,6 +1,18 @@
 services:
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend.Dockerfile
+      args:
+        VITE_API_URL: /api
+    ports: ["3000:80"]
+    depends_on:
+      api: { condition: service_healthy }
+    restart: unless-stopped
+
   api:
     build: .
+    command: sh scripts/start.sh
     env_file: .env
     ports: ["8000:8000"]
     volumes: ["uploads:/app/storage"]
@@ -15,6 +27,15 @@ services:
     command: celery -A app.tasks.celery_app.celery_app worker --loglevel=info -Q sentinelx
     env_file: .env
     volumes: ["uploads:/app/storage"]
+    depends_on:
+      redis: { condition: service_healthy }
+      postgres: { condition: service_healthy }
+    restart: unless-stopped
+
+  beat:
+    build: .
+    command: celery -A app.tasks.celery_app.celery_app beat --loglevel=info
+    env_file: .env
     depends_on:
       redis: { condition: service_healthy }
       postgres: { condition: service_healthy }

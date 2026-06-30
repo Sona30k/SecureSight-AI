@@ -6,8 +6,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.auth import CurrentUser
 from app.database import get_db
 from app.models import CounterfeitCase
+from app.realtime import hub
 from app.schemas import CurrencyDetectionResponse
-from app.services import ImageProcessingService
+from app.services import AnalysisRecorder, ImageProcessingService
 
 router = APIRouter(prefix="/currency", tags=["Counterfeit Currency"])
 
@@ -18,6 +19,8 @@ async def detect_currency(
     db: Annotated[AsyncSession, Depends(get_db)],
     image: UploadFile = File(..., description="JPEG, PNG or WebP currency note image"),
 ):
+    import time
+    started = time.perf_counter()
     try:
         image_path, result = await ImageProcessingService().process_currency(image)
     except ValueError as exc:
@@ -28,5 +31,11 @@ async def detect_currency(
         serial_valid=result["serial_valid"], analysis=result["features"], submitted_by=user.id,
     )
     db.add(case)
+    await db.flush()
+    await AnalysisRecorder.record(
+        db, module="currency", input_type="image", result=result,
+        user_id=user.id, started_at=started, input_reference=image_path,
+    )
     await db.commit()
+    await hub.broadcast("dashboard", "currency.analyzed", {"case_id": str(case.id), "prediction": result["prediction"]})
     return CurrencyDetectionResponse(case_id=case.id, **result)

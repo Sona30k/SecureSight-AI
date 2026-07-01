@@ -11,17 +11,17 @@ from app.models import CrimeLocation, FraudReport, ReportStatus, User, UserRole
 async def seed():
     async with AsyncSessionLocal() as db:
         demo_users = [
-            ("citizen@sentinelx.demo", "Demo Citizen", UserRole.citizen),
-            ("police@sentinelx.demo", "Demo Police Officer", UserRole.police),
-            ("bank@sentinelx.demo", "Demo Bank Analyst", UserRole.bank),
-            ("telecom@sentinelx.demo", "Demo Telecom Analyst", UserRole.telecom_provider),
-            ("admin@sentinelx.gov.in", "Sentinel Administrator", UserRole.administrator),
+            ("citizen@shieldiq.demo", "Demo Citizen", UserRole.citizen),
+            ("police@shieldiq.demo", "Demo Police Officer", UserRole.police),
+            ("bank@shieldiq.demo", "Demo Bank Analyst", UserRole.bank),
+            ("telecom@shieldiq.demo", "Demo Telecom Analyst", UserRole.telecom_provider),
+            ("admin@shieldiq.gov.in", "ShieldIQ Administrator", UserRole.administrator),
         ]
         admin = None
         for email, full_name, role in demo_users:
             user = await db.scalar(select(User).where(User.email == email))
             if not user:
-                user = User(email=email, full_name=full_name, hashed_password=hash_password("SentinelX!2026"), role=role)
+                user = User(email=email, full_name=full_name, hashed_password=hash_password("ShieldIQ!2026"), role=role)
                 db.add(user)
                 await db.flush()
             if role == UserRole.administrator:
@@ -37,7 +37,7 @@ async def seed():
                 CrimeLocation(latitude=26.9124, longitude=75.7873, district="Jaipur", crime_type="UPI Fraud", occurred_at=datetime.now(timezone.utc)-timedelta(hours=3), risk_score=76, reported_by=admin.id),
             ])
         await db.commit()
-    print("Demo seed complete. Accounts use password SentinelX!2026; disable DEMO_MODE outside hackathon environments.")
+    print("Demo seed complete. Accounts use password ShieldIQ!2026; disable DEMO_MODE outside hackathon environments.")
 
 
 if __name__ == "__main__":

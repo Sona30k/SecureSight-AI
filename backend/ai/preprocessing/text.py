@@ -1,9 +1,12 @@
 import re
 
 SCAM_KEYWORDS = (
-    "digital arrest", "cbi", "money laundering", "aadhaar", "do not disconnect",
-    "transfer immediately", "verification account", "arrest warrant", "share otp",
-    "customs parcel", "police will arrive", "stay on the call", "do not tell anyone",
+    "digital arrest", "cbi", "ed", "income tax", "money laundering", "aadhaar",
+    "arrest", "national security", "do not disconnect", "don't disconnect",
+    "transfer money", "transfer immediately", "bank account", "freeze account",
+    "verification account", "arrest warrant", "otp", "share otp", "customs",
+    "customs parcel", "police verification", "police will arrive", "video call",
+    "stay on the call", "do not tell anyone",
 )
 
 
@@ -13,7 +16,10 @@ def normalize_text(text: str) -> str:
 
 def detect_keywords(text: str) -> list[str]:
     normalized = normalize_text(text)
-    return [keyword for keyword in SCAM_KEYWORDS if keyword in normalized]
+    return [
+        keyword for keyword in SCAM_KEYWORDS
+        if re.search(rf"(?<!\w){re.escape(keyword)}(?!\w)", normalized)
+    ]
 
 
 def text_features(text: str) -> dict[str, float]:

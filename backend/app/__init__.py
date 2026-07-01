@@ -1,1 +1,1 @@
-"""SentinelX backend application."""
+"""ShieldIQ backend application."""

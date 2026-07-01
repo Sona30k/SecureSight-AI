@@ -12,19 +12,109 @@ class DigitalArrestRequest(BaseModel):
     transcript: str = Field(min_length=5, max_length=50_000)
     duration: int = Field(ge=0, le=86_400)
     video_call: bool = False
-    caller_location: str | None = Field(default=None, max_length=150)
-    previous_reports: int = Field(default=0, ge=0, le=10_000)
+    location: str | None = Field(default=None, max_length=150)
+    caller_location: str | None = Field(default=None, max_length=150, exclude=True)
+    country: str | None = Field(default=None, max_length=100)
     spoof_detected: bool | None = None
+
+    @field_validator("caller_number")
+    @classmethod
+    def validate_phone(cls, value: str) -> str:
+        normalized = value.strip().replace(" ", "").replace("-", "")
+        if normalized.startswith("+"):
+            digits = normalized[1:]
+        else:
+            digits = normalized
+        if not digits.isdigit() or not 7 <= len(digits) <= 15:
+            raise ValueError("Caller number must contain 7 to 15 digits")
+        return normalized
+
+    @property
+    def resolved_location(self) -> str | None:
+        return self.location or self.caller_location
+
+
+class ConversationStage(BaseModel):
+    stage: Literal["Introduction", "Authority Claim", "Threat", "Isolation", "Financial Demand", "Money Transfer", "Credential Request"]
+    evidence: str
+    severity: Literal["low", "medium", "high"]
+    order: int
+
+
+class CallerReputationRead(BaseModel):
+    caller_number: str
+    report_count: int
+    average_risk: float
+    reputation_score: int
+    total_victims: int
+    last_seen: datetime | None = None
+    label: str
 
 
 class DigitalArrestResponse(BaseModel):
     case_id: UUID
     risk_score: int = Field(ge=0, le=100)
+    confidence: float = Field(ge=0, le=100)
     scam_probability: float = Field(ge=0, le=1)
+    threat_level: Literal["low", "medium", "high", "critical"]
     detected_keywords: list[str]
     spoof_detected: bool
     recommendation: str
+    explanation: list[str]
+    manipulation_techniques: list[str]
+    psychological_signals: dict[str, float]
+    authority_impersonation: list[str]
+    financial_threats: list[str]
+    conversation_stages: list[ConversationStage]
+    suspicious_spans: list[dict[str, Any]]
+    caller_reputation: CallerReputationRead
     signals: dict[str, Any]
+    model_version: str
+
+
+class DigitalArrestReportCreate(BaseModel):
+    case_id: UUID
+    notes: str | None = Field(default=None, max_length=5000)
+    total_victims: int = Field(default=1, ge=0, le=100_000)
+    bank_accounts: list[str] = Field(default_factory=list, max_length=20)
+    device_ids: list[str] = Field(default_factory=list, max_length=20)
+
+
+class DigitalArrestAction(BaseModel):
+    action: Literal["block", "notify_police", "save_report"]
+    notes: str | None = Field(default=None, max_length=1000)
+
+
+class DigitalArrestHistoryItem(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: UUID
+    caller_number: str
+    duration: int
+    country: str | None
+    caller_location: str | None
+    risk_score: int
+    confidence: float
+    scam_probability: float
+    threat_level: str
+    spoof_detected: bool
+    detected_keywords: list[str]
+    status: str
+    blocked: bool
+    police_notified: bool
+    report_saved: bool
+    created_at: datetime
+
+
+class DigitalArrestDashboard(BaseModel):
+    today_scam_calls: int
+    blocked_calls: int
+    average_risk: float
+    high_risk_numbers: int
+    total_cases: int
+    risk_distribution: dict[str, int]
+    common_keywords: list[dict[str, int | str]]
+    top_numbers: list[dict[str, int | float | str]]
+    daily_cases: list[dict[str, int | str]]
 
 
 class CurrencyDetectionResponse(BaseModel):

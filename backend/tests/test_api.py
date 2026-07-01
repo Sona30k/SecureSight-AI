@@ -23,6 +23,88 @@ async def test_digital_arrest_analysis(client, auth_headers):
     body = response.json()
     assert body["risk_score"] >= 75
     assert body["spoof_detected"] is True
+    assert body["threat_level"] in {"high", "critical"}
+    assert body["conversation_stages"]
+
+
+@pytest.mark.asyncio
+async def test_digital_arrest_case_lifecycle(client, auth_headers):
+    analyzed = await client.post("/digital-arrest/analyze", headers=auth_headers, json={
+        "caller_number": "+919876543210",
+        "transcript": (
+            "I am from CBI. Your Aadhaar is involved in money laundering. Do not disconnect "
+            "this video call. Your bank account will freeze. Transfer money now and share OTP."
+        ),
+        "duration": 720, "video_call": True, "location": "Delhi",
+        "country": "India", "spoof_detected": True,
+    })
+    assert analyzed.status_code == 200
+    result = analyzed.json()
+    assert result["risk_score"] >= 90
+    assert result["scam_probability"] > .8
+    assert {"authority", "threat", "financial"}.issubset({
+        span["category"] for span in result["suspicious_spans"]
+    })
+    assert "Authority impersonation" in result["manipulation_techniques"]
+    case_id = result["case_id"]
+
+    history = await client.get(
+        "/digital-arrest/history", headers=auth_headers,
+        params={"caller_number": "+919876543210"},
+    )
+    assert history.status_code == 200
+    assert history.json()[0]["id"] == case_id
+
+    blocked = await client.post(
+        f"/digital-arrest/{case_id}/actions", headers=auth_headers, json={"action": "block"},
+    )
+    assert blocked.status_code == 200
+    assert blocked.json()["blocked"] is True
+
+    reported = await client.post("/digital-arrest/report", headers=auth_headers, json={
+        "case_id": case_id, "notes": "Citizen ended the call before transferring funds.",
+        "total_victims": 1, "bank_accounts": ["0011223344"], "device_ids": ["device-a"],
+    })
+    assert reported.status_code == 201
+    assert reported.json()["status"] == "reported"
+
+    dashboard = await client.get("/digital-arrest/dashboard", headers=auth_headers)
+    assert dashboard.status_code == 200
+    assert dashboard.json()["total_cases"] == 1
+    assert dashboard.json()["blocked_calls"] == 1
+    assert dashboard.json()["common_keywords"]
+
+    evidence = await client.get(f"/digital-arrest/{case_id}/evidence.pdf", headers=auth_headers)
+    assert evidence.status_code == 200
+    assert evidence.headers["content-type"].startswith("application/pdf")
+    assert evidence.content.startswith(b"%PDF-1.4")
+
+
+@pytest.mark.asyncio
+async def test_digital_arrest_validates_phone_and_scopes_citizen_history(client, auth_headers):
+    invalid = await client.post("/digital-arrest/analyze", headers=auth_headers, json={
+        "caller_number": "not-a-number", "transcript": "This is a sufficiently long transcript.",
+        "duration": 10,
+    })
+    assert invalid.status_code == 422
+
+    officer_case = await client.post("/digital-arrest/analyze", headers=auth_headers, json={
+        "caller_number": "+919111111111", "transcript": "Routine appointment confirmation call.",
+        "duration": 30, "location": "Delhi", "country": "India",
+    })
+    assert officer_case.status_code == 200
+
+    await client.post("/auth/register", json={
+        "email": "citizen@shieldiq.example.com", "full_name": "Citizen Tester",
+        "password": "StrongPass!42", "role": "citizen",
+    })
+    login = await client.post("/auth/login", json={
+        "email": "citizen@shieldiq.example.com", "password": "StrongPass!42",
+    })
+    citizen_headers = {"Authorization": f"Bearer {login.json()['access_token']}"}
+    citizen_history = await client.get("/digital-arrest/history", headers=citizen_headers)
+    assert citizen_history.status_code == 200
+    assert citizen_history.json() == []
 
 
 @pytest.mark.asyncio

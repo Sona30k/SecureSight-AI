@@ -1,4 +1,4 @@
-# SentinelX Code Review
+# ShieldIQ Code Review
 
 Review scope: frontend, API, database models and migrations, authentication/RBAC, uploads, AI integration, async tasks, deployment, tests, and responsive UI.
 

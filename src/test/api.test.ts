@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it } from 'vitest'
-import { errorMessage, tokenStore } from '../lib/api'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { api, errorMessage, services, tokenStore } from '../lib/api'
 
 describe('tokenStore', () => {
   afterEach(() => localStorage.clear())
@@ -13,7 +13,7 @@ describe('tokenStore', () => {
   })
 
   it('recovers safely from malformed storage', () => {
-    localStorage.setItem('sentinelx_tokens', '{broken')
+    localStorage.setItem('shieldiq_tokens', '{broken')
     expect(tokenStore.get()).toBeNull()
   })
 })
@@ -25,5 +25,28 @@ describe('errorMessage', () => {
 
   it('does not expose unknown values', () => {
     expect(errorMessage({ secret:'hidden' })).toBe('Something went wrong.')
+  })
+})
+
+describe('digital arrest API contract', () => {
+  afterEach(() => vi.restoreAllMocks())
+
+  it('sends analysis only to the persistent digital-arrest endpoint', async () => {
+    const response = { case_id:'case-1', risk_score:94 }
+    const post = vi.spyOn(api, 'post').mockResolvedValue({ data:response })
+    const payload = {
+      caller_number:'+919876543210', transcript:'CBI demands an urgent transfer',
+      duration:300, video_call:true, country:'India', spoof_detected:true,
+    }
+    await expect(services.digitalArrest.analyze(payload)).resolves.toEqual(response)
+    expect(post).toHaveBeenCalledWith('/digital-arrest/analyze', payload)
+  })
+
+  it('uses authenticated case action and report endpoints', async () => {
+    const post = vi.spyOn(api, 'post').mockResolvedValue({ data:{ status:'ok' } })
+    await services.digitalArrest.action('case-1', 'block')
+    await services.digitalArrest.report('case-1')
+    expect(post).toHaveBeenNthCalledWith(1, '/digital-arrest/case-1/actions', { action:'block' })
+    expect(post).toHaveBeenNthCalledWith(2, '/digital-arrest/report', { case_id:'case-1', total_victims:1 })
   })
 })

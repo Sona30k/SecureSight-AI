@@ -24,7 +24,7 @@ services:
 
   worker:
     build: .
-    command: celery -A app.tasks.celery_app.celery_app worker --loglevel=info -Q sentinelx
+    command: celery -A app.tasks.celery_app.celery_app worker --loglevel=info -Q shieldiq
     env_file: .env
     volumes: ["uploads:/app/storage"]
     depends_on:
@@ -44,11 +44,11 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: sentinelx
-      POSTGRES_USER: sentinelx
-      POSTGRES_PASSWORD: sentinelx
+      POSTGRES_DB: shieldiq
+      POSTGRES_USER: shieldiq
+      POSTGRES_PASSWORD: shieldiq
     volumes: ["postgres_data:/var/lib/postgresql/data"]
-    healthcheck: { test: ["CMD-SHELL", "pg_isready -U sentinelx"], interval: 5s, timeout: 3s, retries: 10 }
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U shieldiq"], interval: 5s, timeout: 3s, retries: 10 }
 
   redis:
     image: redis:7-alpine
@@ -59,7 +59,7 @@ services:
   neo4j:
     image: neo4j:5-community
     environment:
-      NEO4J_AUTH: neo4j/sentinelx-password
+      NEO4J_AUTH: neo4j/shieldiq-password
       NEO4J_PLUGINS: '[]'
     ports: ["7474:7474", "7687:7687"]
     volumes: ["neo4j_data:/data"]

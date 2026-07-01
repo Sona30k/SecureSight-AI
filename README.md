@@ -1,7 +1,7 @@
-<h1 align="center">SentinelX</h1>
+<h1 align="center">ShieldIQ</h1>
 
 <p align="center">
-  <img src="docs/assets/sentinelx-banner.svg" alt="SentinelX — AI-Powered Digital Public Safety Intelligence Platform" width="100%" />
+  <img src="docs/assets/shieldiq-banner.svg" alt="ShieldIQ — AI-Powered Digital Public Safety Intelligence Platform" width="100%" />
 </p>
 
 <p align="center">
@@ -31,15 +31,15 @@
 </p>
 
 > [!IMPORTANT]
-> SentinelX is a hackathon and research prototype built with synthetic data. It is not a replacement for emergency services, law-enforcement judgment, bank verification, or forensic analysis. Do not use prototype predictions as the sole basis for legal or financial action.
+> ShieldIQ is a hackathon and research prototype built with synthetic data. It is not a replacement for emergency services, law-enforcement judgment, bank verification, or forensic analysis. Do not use prototype predictions as the sole basis for legal or financial action.
 
 ## 🌐 Project overview
 
-**SentinelX** is an AI-powered Digital Public Safety Intelligence Platform designed for citizens, police, banks, telecom providers, and public-sector administrators. It brings fragmented safety signals—suspicious calls, messages, uploaded currency images, complaints, transactions, devices, accounts, and locations—into one explainable intelligence workspace.
+**ShieldIQ** is an AI-powered Digital Public Safety Intelligence Platform designed for citizens, police, banks, telecom providers, and public-sector administrators. It brings fragmented safety signals—suspicious calls, messages, uploaded currency images, complaints, transactions, devices, accounts, and locations—into one explainable intelligence workspace.
 
-The project was motivated by a simple operational gap: modern fraud moves across channels and organizations, while most defenses remain isolated. A scam call may use a spoofed phone number, move money through several UPI IDs, reuse a known device, and target citizens in a rising geographic cluster. If each signal is reviewed separately, the pattern appears only after harm occurs. SentinelX connects those signals early enough to support prevention.
+The project was motivated by a simple operational gap: modern fraud moves across channels and organizations, while most defenses remain isolated. A scam call may use a spoofed phone number, move money through several UPI IDs, reuse a known device, and target citizens in a rising geographic cluster. If each signal is reviewed separately, the pattern appears only after harm occurs. ShieldIQ connects those signals early enough to support prevention.
 
-AI changes this workflow by helping teams triage volume, surface relationships, identify coercive language, inspect visual security features, and rank risk consistently. SentinelX keeps that assistance transparent: every prediction includes a score, confidence, model version, and human-readable contributing factors. The platform is designed around **human oversight**, not autonomous enforcement.
+AI changes this workflow by helping teams triage volume, surface relationships, identify coercive language, inspect visual security features, and rank risk consistently. ShieldIQ keeps that assistance transparent: every prediction includes a score, confidence, model version, and human-readable contributing factors. The platform is designed around **human oversight**, not autonomous enforcement.
 
 ## 🚨 Problem statement
 
@@ -59,11 +59,11 @@ Fraud rarely involves a single identity. Phone numbers, devices, IP addresses, b
 
 Attack methods evolve faster than static blacklists. Campaigns can shift geography, language, accounts, and communication platforms in hours. Existing solutions are often reactive: they record an incident after a loss, investigate one case at a time, and rarely share intelligence across organizational boundaries.
 
-SentinelX introduces a proactive layer. It scores suspicious interactions before action is taken, links recurring entities, predicts emerging hotspots, creates risk alerts, and distributes live updates to role-specific dashboards.
+ShieldIQ introduces a proactive layer. It scores suspicious interactions before action is taken, links recurring entities, predicts emerging hotspots, creates risk alerts, and distributes live updates to role-specific dashboards.
 
 ## ✨ Key features
 
-| Capability | What SentinelX provides |
+| Capability | What ShieldIQ provides |
 |---|---|
 | ✅ Digital Arrest Detection | Hybrid transcript analysis combining scam language, spoofing, duration, video-call pressure, and previous reports |
 | ✅ Counterfeit Detection | Secure image ingestion, visual feature inspection, authenticity prediction, confidence, and evidence metadata |
@@ -169,6 +169,17 @@ flowchart LR
 <summary><strong>Digital Arrest Scam Detection</strong></summary>
 
 The scam pipeline normalizes transcripts, extracts authority, urgency, financial, and coercion features, and detects phrases such as “digital arrest,” “verification account,” or “do not disconnect.” Its portable baseline is deterministic and explainable; a saved IndicBERT or multilingual DistilBERT classifier can be plugged in through the same inference contract. Audio enters through a Whisper-compatible transcription adapter before classification.
+
+The production workflow is exposed through:
+
+- `POST /digital-arrest/analyze` for transcript analysis and persistent case creation
+- `POST /digital-arrest/analyze-audio` for validated Whisper-backed audio intake
+- `POST /digital-arrest/report` and `POST /digital-arrest/{case_id}/actions` for audited response actions
+- `GET /digital-arrest/history` and `GET /digital-arrest/dashboard` for scoped intelligence
+- `GET /digital-arrest/{case_id}/evidence.pdf` for investigation-ready evidence
+- `/ws/digital-arrest` for authenticated live case and risk events
+
+Every prediction creates a case, transcript, risk-analysis, evidence, AI-analysis, and audit record. High-risk calls create alerts, critical calls queue citizen and police notifications, and cases above 80% scam probability are synchronized to Neo4j when it is available.
 </details>
 
 <details>
@@ -290,15 +301,15 @@ Interactive documentation is available at `/docs` (Swagger UI), `/redoc`, and `/
 
 ### Demo accounts
 
-When `DEMO_MODE=true`, all accounts use password `SentinelX!2026`.
+When `DEMO_MODE=true`, all accounts use password `ShieldIQ!2026`.
 
 | Role | Email |
 |---|---|
-| Citizen | `citizen@sentinelx.demo` |
-| Police | `police@sentinelx.demo` |
-| Bank | `bank@sentinelx.demo` |
-| Telecom provider | `telecom@sentinelx.demo` |
-| Administrator | `admin@sentinelx.gov.in` |
+| Citizen | `citizen@shieldiq.demo` |
+| Police | `police@shieldiq.demo` |
+| Bank | `bank@shieldiq.demo` |
+| Telecom provider | `telecom@shieldiq.demo` |
+| Administrator | `admin@shieldiq.gov.in` |
 
 > [!WARNING]
 > Demo mode is rejected by configuration when `ENVIRONMENT=production`. Never publish demo credentials on a production deployment.
@@ -344,7 +355,7 @@ uvicorn app.main:app --reload
 The API runs at `http://localhost:8000`. For lightweight local development without PostgreSQL, use:
 
 ```env
-DATABASE_URL=sqlite+aiosqlite:///./sentinelx.db
+DATABASE_URL=sqlite+aiosqlite:///./shieldiq.db
 ```
 
 Heavy AI providers are optional:
@@ -434,7 +445,7 @@ For production, add TLS, a managed secret store, encrypted object storage, antiv
 
 ## 🔍 Explainable AI
 
-SentinelX predictions are intended to be inspectable. The common result contract includes:
+ShieldIQ predictions are intended to be inspectable. The common result contract includes:
 
 ```json
 {
@@ -455,7 +466,7 @@ The score does not stand alone. Investigators see contributing features, detecte
 
 ## ⚡ Performance and scalability
 
-SentinelX uses async APIs and database sessions, paginated reports, bounded graph responses, grouped analytics queries, gzip compression, request retry/backoff, vendor chunking, and background workers. Redis supports caching and Celery task state. Authenticated WebSocket channels avoid aggressive dashboard polling.
+ShieldIQ uses async APIs and database sessions, paginated reports, bounded graph responses, grouped analytics queries, gzip compression, request retry/backoff, vendor chunking, and background workers. Redis supports caching and Celery task state. Authenticated WebSocket channels avoid aggressive dashboard polling.
 
 For larger deployments:
 
@@ -474,7 +485,7 @@ The architecture can evolve toward microservices, but the current modular monoli
 - **Cross-domain contracts:** NLP, vision, graphs, geospatial data, and reports produce different outputs. A shared prediction contract keeps clients consistent.
 - **Explainability:** Safety decisions require reasons, not only classifications. Rule contributions and optional SHAP adapters preserve transparency.
 - **Portable AI:** Heavy models complicate demos. Replaceable providers allow deterministic baselines while retaining upgrade paths.
-- **Relational and graph data:** PostgreSQL is suited to durable cases and audits; Neo4j is suited to multi-hop relationships. SentinelX defines responsibilities for both.
+- **Relational and graph data:** PostgreSQL is suited to durable cases and audits; Neo4j is suited to multi-hop relationships. ShieldIQ defines responsibilities for both.
 - **Real-time consistency:** Predictions must update dashboards without losing their audit history. Persistence occurs before WebSocket broadcast.
 - **Security versus demo speed:** Demo accounts accelerate evaluation but are prohibited in production configuration.
 - **Synthetic realism:** Generated datasets need meaningful patterns without implying real-world model accuracy.
@@ -489,9 +500,9 @@ The architecture can evolve toward microservices, but the current modular monoli
 | Telecom providers | Scam-number intelligence, spoofing context, and coordinated campaign visibility |
 | Government agencies | Cross-sector trend analysis, hotspot awareness, auditable AI assistance, and policy insight |
 
-## 💡 What makes SentinelX different?
+## 💡 What makes ShieldIQ different?
 
-SentinelX is not only a classifier and not only a dashboard. It combines multimodal intake, explainable AI, graph intelligence, geospatial prediction, case persistence, role-aware operations, real-time updates, and citizen guidance in one coherent workflow. Its replaceable-provider design avoids locking the platform to one model vendor. Its synthetic-first approach makes the project reproducible and safe to demonstrate. Most importantly, it treats AI as an intelligence assistant whose reasoning must remain visible to humans.
+ShieldIQ is not only a classifier and not only a dashboard. It combines multimodal intake, explainable AI, graph intelligence, geospatial prediction, case persistence, role-aware operations, real-time updates, and citizen guidance in one coherent workflow. Its replaceable-provider design avoids locking the platform to one model vendor. Its synthetic-first approach makes the project reproducible and safe to demonstrate. Most importantly, it treats AI as an intelligence assistant whose reasoning must remain visible to humans.
 
 ## 🗺️ Future enhancements
 
@@ -542,7 +553,7 @@ The current suites cover auth, refresh, revocation, RBAC, report CRUD, AI respon
 
 ## 📜 License
 
-SentinelX is available under the [MIT License](LICENSE). You may use, modify, and distribute it subject to the license terms. The software is provided without warranty.
+ShieldIQ is available under the [MIT License](LICENSE). You may use, modify, and distribute it subject to the license terms. The software is provided without warranty.
 
 ## 👥 Team
 
@@ -555,11 +566,11 @@ SentinelX is available under the [MIT License](LICENSE). You may use, modify, an
 
 ## 🙏 Acknowledgements
 
-SentinelX is inspired by the open-source communities advancing artificial intelligence, cybersecurity, computer vision, graph analytics, geospatial intelligence, explainable AI, and responsible digital public safety. Special appreciation goes to the maintainers of FastAPI, React, PostgreSQL, Neo4j, Redis, PyTorch, Hugging Face Transformers, scikit-learn, NetworkX, and the broader ecosystem that makes ambitious prototypes accessible.
+ShieldIQ is inspired by the open-source communities advancing artificial intelligence, cybersecurity, computer vision, graph analytics, geospatial intelligence, explainable AI, and responsible digital public safety. Special appreciation goes to the maintainers of FastAPI, React, PostgreSQL, Neo4j, Redis, PyTorch, Hugging Face Transformers, scikit-learn, NetworkX, and the broader ecosystem that makes ambitious prototypes accessible.
 
 ## 🌟 Vision
 
-Digital safety should be proactive, connected, explainable, and accessible. SentinelX demonstrates how multimodal AI, graph reasoning, real-time intelligence, and human oversight can work together to help citizens and institutions recognize threats before they become irreversible harm.
+Digital safety should be proactive, connected, explainable, and accessible. ShieldIQ demonstrates how multimodal AI, graph reasoning, real-time intelligence, and human oversight can work together to help citizens and institutions recognize threats before they become irreversible harm.
 
 <p align="center">
   <strong>Building safer digital ecosystems—one explainable signal at a time.</strong>

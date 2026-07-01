@@ -7,7 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    app_name: str = "SentinelX Digital Public Safety API"
+    app_name: str = "ShieldIQ Digital Public Safety API"
     app_version: str = "1.0.0"
     environment: str = "development"
     debug: bool = False
@@ -15,11 +15,11 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_minutes: int = 15
     refresh_token_days: int = 7
-    database_url: str = "sqlite+aiosqlite:///./sentinelx.db"
+    database_url: str = "sqlite+aiosqlite:///./shieldiq.db"
     redis_url: str = "redis://localhost:6379/0"
     neo4j_uri: str = "bolt://localhost:7687"
     neo4j_user: str = "neo4j"
-    neo4j_password: str = "sentinelx-password"
+    neo4j_password: str = "shieldiq-password"
     cors_origins: list[str] = Field(default=["http://localhost:5173"])
     storage_path: Path = Path("storage")
     max_upload_mb: int = 10

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
-  <title id="title">SentinelX</title>
+  <title id="title">ShieldIQ</title>
   <desc id="desc">AI-Powered Digital Public Safety Intelligence Platform</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
@@ -22,7 +22,7 @@
     <path d="M55 0 105 18v43c0 37-20 67-50 82C25 128 5 98 5 61V18Z" fill="url(#accent)" filter="url(#glow)"/>
     <path d="m31 65 17 17 34-39" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
-  <text x="235" y="175" fill="#f4f8ff" font-family="Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="-2">Sentinel<tspan fill="#27c9da">X</tspan></text>
+  <text x="235" y="175" fill="#f4f8ff" font-family="Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="-2">Shield<tspan fill="#27c9da">IQ</tspan></text>
   <text x="240" y="225" fill="#9aabc2" font-family="Arial, sans-serif" font-size="23" letter-spacing="4">DIGITAL PUBLIC SAFETY INTELLIGENCE</text>
   <text x="240" y="278" fill="#d8e5f6" font-family="Arial, sans-serif" font-size="20">Detect earlier. Connect threats faster. Protect everyone.</text>
   <circle cx="970" cy="200" r="9" fill="#26d6a4" filter="url(#glow)"/>

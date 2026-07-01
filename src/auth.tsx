@@ -12,8 +12,8 @@ export function AuthProvider({children}:{children:React.ReactNode}){
     const restore=async()=>{if(!tokenStore.get()){setLoading(false);return}try{setUser(await services.auth.me())}catch{tokenStore.clear()}finally{setLoading(false)}}
     void restore()
     const clear=()=>setUser(null)
-    window.addEventListener('sentinelx:logout',clear)
-    return()=>window.removeEventListener('sentinelx:logout',clear)
+    window.addEventListener('shieldiq:logout',clear)
+    return()=>window.removeEventListener('shieldiq:logout',clear)
   },[])
   const login=async(email:string,password:string)=>{await services.auth.login(email,password);const current=await services.auth.me();setUser(current);return current}
   const logout=async()=>{await services.auth.logout();setUser(null)}

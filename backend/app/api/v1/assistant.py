@@ -31,7 +31,7 @@ async def chat(
         raise HTTPException(status_code=413, detail="Attachment exceeds the 25 MB limit")
     try:
         result = await ChatService().chat(text, attachment, content, upload.filename if upload else "")
-    except (ValueError, OSError) as exc:
+    except (ValueError, OSError, EOFError) as exc:
         raise HTTPException(status_code=422, detail=f"Unable to process attachment: {exc}")
     analysis = await AnalysisRecorder.record(
         db, module="assistant", input_type=attachment or "text",

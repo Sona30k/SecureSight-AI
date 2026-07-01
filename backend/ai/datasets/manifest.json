@@ -1,5 +1,9 @@
 {
   "scam_calls": 5000,
+  "digital_arrest_scam_calls": 500,
+  "digital_arrest_normal_calls": 200,
+  "digital_arrest_repeat_numbers": 100,
+  "caller_reputations": 500,
   "fraud_reports": 3000,
   "counterfeit_cases": 2000,
   "crime_incidents": 10000,

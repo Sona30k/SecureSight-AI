@@ -1,4 +1,4 @@
-"""Initial SentinelX schema."""
+"""Initial ShieldIQ schema."""
 from alembic import op
 
 from app.database.base import Base

@@ -3,6 +3,7 @@ from uuid import UUID
 
 import redis.asyncio as redis
 from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
+from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
@@ -27,8 +28,8 @@ from app.schemas import HealthResponse
 from app.utils.logging import configure_logging
 
 configure_logging()
-REQUESTS = Counter("sentinelx_http_requests_total", "HTTP requests", ["method", "path", "status"])
-LATENCY = Histogram("sentinelx_http_request_duration_seconds", "Request duration", ["path"])
+REQUESTS = Counter("shieldiq_http_requests_total", "HTTP requests", ["method", "path", "status"])
+LATENCY = Histogram("shieldiq_http_request_duration_seconds", "Request duration", ["path"])
 limiter = Limiter(key_func=get_remote_address, default_limits=[settings.rate_limit])
 
 
@@ -86,7 +87,7 @@ async def validation_error(request: Request, exc: RequestValidationError):
     return JSONResponse(status_code=422, content={
         "error": "validation_error",
         "message": "The request contains invalid data",
-        "details": exc.errors(),
+        "details": jsonable_encoder(exc.errors()),
         "request_id": request.headers.get("x-request-id"),
     })
 
@@ -121,7 +122,7 @@ async def metrics():
 
 @app.websocket("/ws/{channel}")
 async def websocket_updates(websocket: WebSocket, channel: str, token: str):
-    if channel not in {"dashboard", "alerts", "reports", "graph", "heatmap"}:
+    if channel not in {"dashboard", "alerts", "reports", "graph", "heatmap", "digital-arrest"}:
         await websocket.close(code=4404)
         return
     try:

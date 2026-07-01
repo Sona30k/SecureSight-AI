@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
 
-from sqlalchemy import Boolean, DateTime, Enum, Float, ForeignKey, Index, Integer, JSON, String, Text
+from sqlalchemy import Boolean, DateTime, Enum, Float, ForeignKey, Index, Integer, JSON, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base, TimestampMixin, UUIDMixin
@@ -73,12 +73,75 @@ class DigitalArrestCase(Base, UUIDMixin, TimestampMixin):
     duration: Mapped[int] = mapped_column(Integer)
     video_call: Mapped[bool] = mapped_column(Boolean, default=False)
     caller_location: Mapped[str | None] = mapped_column(String(150), nullable=True)
+    country: Mapped[str | None] = mapped_column(String(100), nullable=True)
     risk_score: Mapped[int] = mapped_column(Integer, index=True)
+    confidence: Mapped[float] = mapped_column(Float, default=0)
     scam_probability: Mapped[float] = mapped_column(Float)
     spoof_detected: Mapped[bool] = mapped_column(Boolean)
+    threat_level: Mapped[str] = mapped_column(String(20), index=True, default="low")
     detected_keywords: Mapped[list[str]] = mapped_column(JSON, default=list)
-    recommendation: Mapped[str] = mapped_column(String(255))
+    explanation: Mapped[list[str]] = mapped_column(JSON, default=list)
+    manipulation_techniques: Mapped[list[str]] = mapped_column(JSON, default=list)
+    psychological_signals: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    conversation_stages: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
+    recommendation: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(30), default="analyzed", index=True)
+    blocked: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+    police_notified: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+    report_saved: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
     analyzed_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+    transcripts: Mapped[list[CallTranscript]] = relationship(back_populates="case", cascade="all, delete-orphan")
+    risk_analyses: Mapped[list[RiskAnalysis]] = relationship(back_populates="case", cascade="all, delete-orphan")
+    evidence: Mapped[list[Evidence]] = relationship(back_populates="case", cascade="all, delete-orphan")
+
+
+class CallTranscript(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "call_transcripts"
+    case_id: Mapped[UUID] = mapped_column(ForeignKey("digital_arrest_cases.id", ondelete="CASCADE"), index=True)
+    sequence: Mapped[int] = mapped_column(Integer, default=1)
+    text: Mapped[str] = mapped_column(Text)
+    source: Mapped[str] = mapped_column(String(20), default="text")
+    language: Mapped[str] = mapped_column(String(20), default="auto")
+    suspicious_spans: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
+    case: Mapped[DigitalArrestCase] = relationship(back_populates="transcripts")
+    __table_args__ = (UniqueConstraint("case_id", "sequence", name="uq_call_transcripts_case_sequence"),)
+
+
+class RiskAnalysis(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "risk_analyses"
+    case_id: Mapped[UUID] = mapped_column(ForeignKey("digital_arrest_cases.id", ondelete="CASCADE"), index=True)
+    risk_score: Mapped[int] = mapped_column(Integer, index=True)
+    scam_probability: Mapped[float] = mapped_column(Float)
+    confidence: Mapped[float] = mapped_column(Float)
+    threat_level: Mapped[str] = mapped_column(String(20), index=True)
+    contributions: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    model_version: Mapped[str] = mapped_column(String(80))
+    case: Mapped[DigitalArrestCase] = relationship(back_populates="risk_analyses")
+
+
+class Evidence(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "digital_arrest_evidence"
+    case_id: Mapped[UUID] = mapped_column(ForeignKey("digital_arrest_cases.id", ondelete="CASCADE"), index=True)
+    evidence_type: Mapped[str] = mapped_column(String(30), index=True)
+    file_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    storage_path: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    content_type: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    sha256: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    metadata_: Mapped[dict[str, Any]] = mapped_column("metadata", JSON, default=dict)
+    case: Mapped[DigitalArrestCase] = relationship(back_populates="evidence")
+
+
+class CallerHistory(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "caller_histories"
+    caller_number: Mapped[str] = mapped_column(String(32), unique=True, index=True)
+    report_count: Mapped[int] = mapped_column(Integer, default=0, index=True)
+    analysis_count: Mapped[int] = mapped_column(Integer, default=0)
+    average_risk: Mapped[float] = mapped_column(Float, default=0)
+    reputation_score: Mapped[int] = mapped_column(Integer, default=100, index=True)
+    total_victims: Mapped[int] = mapped_column(Integer, default=0)
+    last_seen: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
+    last_country: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    spoof_suspicions: Mapped[int] = mapped_column(Integer, default=0)
 
 
 class Notification(Base, UUIDMixin, TimestampMixin):

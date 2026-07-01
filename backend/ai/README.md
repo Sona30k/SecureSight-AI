@@ -1,4 +1,4 @@
-# SentinelX AI/ML
+# ShieldIQ AI/ML
 
 Modular hackathon-ready AI subsystem for scam calls, counterfeit currency, OCR, fraud graphs, hotspot prediction, voice analysis, explainable hybrid risk scoring and citizen assistance.
 

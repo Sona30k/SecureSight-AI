@@ -21,6 +21,16 @@ NORMAL_LINES = [
     "Please call me when you reach home safely.",
     "Your appointment is confirmed for next Monday.",
 ]
+AUTHORITY_LINES = [
+    "This is an officer from {agency}; your identity is under investigation.",
+    "Your Aadhaar has been connected to a money laundering case.",
+    "A parcel held by Customs contains prohibited documents in your name.",
+]
+COERCION_LINES = [
+    "Do not disconnect this video call or discuss the case with anyone.",
+    "Your bank account will be frozen and an arrest team will arrive today.",
+    "Transfer money to the verification account immediately and share the OTP.",
+]
 DISTRICTS = {
     "Central Delhi": (28.632, 77.219), "Jaipur": (26.912, 75.787),
     "Mumbai": (19.076, 72.878), "Pune": (18.521, 73.857),
@@ -53,6 +63,52 @@ def scam_calls(count: int = 5000, seed: int = 42) -> list[dict]:
             "spoof_detected": spoof, "previous_reports": previous, "risk_label": int(scam),
         })
     return rows
+
+
+def digital_arrest_calls(scam_count: int = 500, normal_count: int = 200, repeat_numbers: int = 100, seed: int = 47) -> list[dict]:
+    """Create the documented evaluation set with exact class and repeat-caller counts."""
+    rng = random.Random(seed)
+    agencies = ["CBI", "ED", "Income Tax", "Customs", "Police"]
+    cities = list(DISTRICTS)
+    repeated = [f"+91{7800000000 + index}" for index in range(repeat_numbers)]
+    rows = []
+    for index in range(scam_count):
+        caller = repeated[index % repeat_numbers] if index < repeat_numbers * 3 else f"+91{rng.randint(6000000000, 9999999999)}"
+        transcript = " ".join([
+            rng.choice(AUTHORITY_LINES).format(agency=rng.choice(agencies)),
+            rng.choice(COERCION_LINES), rng.choice(COERCION_LINES),
+        ])
+        rows.append({
+            "case_id": f"DA-S-{index:04}", "caller_number": caller, "transcript": transcript,
+            "duration": rng.randint(180, 2400), "video_call": rng.random() < .72,
+            "location": rng.choice(cities), "country": "India",
+            "spoof_detected": rng.random() < .76, "previous_reports": rng.randint(1, 18),
+            "risk_label": 1, "expected_stage": "Financial Demand",
+        })
+    for index in range(normal_count):
+        rows.append({
+            "case_id": f"DA-N-{index:04}", "caller_number": f"+91{rng.randint(6000000000, 9999999999)}",
+            "transcript": " ".join(rng.sample(NORMAL_LINES, k=2)),
+            "duration": rng.randint(20, 480), "video_call": False,
+            "location": rng.choice(cities), "country": "India",
+            "spoof_detected": False, "previous_reports": 0,
+            "risk_label": 0, "expected_stage": "Introduction",
+        })
+    rng.shuffle(rows)
+    return rows
+
+
+def caller_reputations(rows: list[dict]) -> list[dict]:
+    grouped: dict[str, list[dict]] = {}
+    for row in rows:
+        grouped.setdefault(row["caller_number"], []).append(row)
+    return [{
+        "caller_number": number, "reports": sum(item["risk_label"] for item in items),
+        "average_risk": round(sum(88 if item["risk_label"] else 12 for item in items) / len(items), 1),
+        "last_seen": datetime.now(timezone.utc).isoformat(),
+        "total_victims": sum(item["risk_label"] for item in items),
+        "reputation_score": max(0, 100 - sum(item["risk_label"] for item in items) * 20),
+    } for number, items in grouped.items()]
 
 
 def fraud_reports(count: int = 3000, seed: int = 43) -> list[dict]:
@@ -101,12 +157,21 @@ def fraud_network(nodes: int = 3000, networks: int = 500, seed: int = 46) -> dic
 
 def generate_all(output: Path = settings.datasets_dir) -> dict[str, int]:
     output.mkdir(parents=True, exist_ok=True)
+    digital_arrest = digital_arrest_calls()
     _write_csv(output / "scam_calls.csv", scam_calls())
+    _write_csv(output / "digital_arrest_calls.csv", digital_arrest)
+    _write_csv(output / "caller_reputations.csv", caller_reputations(digital_arrest))
     _write_csv(output / "fraud_reports.csv", fraud_reports())
     _write_csv(output / "counterfeit_cases.csv", counterfeit_cases())
     (output / "crime_incidents.geojson").write_text(json.dumps(crime_geojson()), encoding="utf-8")
     (output / "fraud_network.json").write_text(json.dumps(fraud_network()), encoding="utf-8")
-    manifest = {"scam_calls": 5000, "fraud_reports": 3000, "counterfeit_cases": 2000, "crime_incidents": 10000, "fraud_network_nodes": 3000, "fraud_networks": 500}
+    manifest = {
+        "scam_calls": 5000, "digital_arrest_scam_calls": 500,
+        "digital_arrest_normal_calls": 200, "digital_arrest_repeat_numbers": 100,
+        "caller_reputations": len(caller_reputations(digital_arrest)),
+        "fraud_reports": 3000, "counterfeit_cases": 2000,
+        "crime_incidents": 10000, "fraud_network_nodes": 3000, "fraud_networks": 500,
+    }
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     return manifest
 

@@ -19,7 +19,7 @@ class LocalSafetyProvider(BaseProvider):
     async def generate(self, prompt: str, context: dict[str, Any]) -> str:
         prediction = context.get("prediction", "Unknown")
         risk = context.get("risk_score", 0)
-        return f"SentinelX assessment: {prediction} ({risk}/100 risk). Preserve evidence, do not share OTPs or credentials, and verify requests through official channels."
+        return f"ShieldIQ assessment: {prediction} ({risk}/100 risk). Preserve evidence, do not share OTPs or credentials, and verify requests through official channels."
 
 
 class OpenAIProvider(BaseProvider):

@@ -1,6 +1,6 @@
 import os
 
-os.environ["DATABASE_URL"] = "sqlite+aiosqlite:////tmp/sentinelx_test.db"
+os.environ["DATABASE_URL"] = "sqlite+aiosqlite:////tmp/shieldiq_test.db"
 os.environ["SECRET_KEY"] = "test-secret-that-is-long-enough-for-tests"
 os.environ["DEMO_MODE"] = "true"
 
@@ -29,8 +29,8 @@ async def client():
 @pytest.fixture
 async def auth_headers(client):
     await client.post("/auth/register", json={
-        "email": "officer@sentinelx.gov.in", "full_name": "Test Officer",
+        "email": "officer@shieldiq.gov.in", "full_name": "Test Officer",
         "password": "StrongPass!42", "role": "police",
     })
-    result = await client.post("/auth/login", json={"email": "officer@sentinelx.gov.in", "password": "StrongPass!42"})
+    result = await client.post("/auth/login", json={"email": "officer@shieldiq.gov.in", "password": "StrongPass!42"})
     return {"Authorization": f"Bearer {result.json()['access_token']}"}

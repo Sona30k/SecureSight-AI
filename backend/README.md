@@ -1,6 +1,6 @@
-# SentinelX Backend
+# ShieldIQ Backend
 
-Production-oriented FastAPI backend for the SentinelX Digital Public Safety Intelligence Platform.
+Production-oriented FastAPI backend for the ShieldIQ Digital Public Safety Intelligence Platform.
 
 ## Capabilities
 
@@ -43,7 +43,7 @@ uvicorn app.main:app --reload
 For a zero-infrastructure local run, set:
 
 ```env
-DATABASE_URL=sqlite+aiosqlite:///./sentinelx.db
+DATABASE_URL=sqlite+aiosqlite:///./shieldiq.db
 ```
 
 Then create the schema with `alembic upgrade head`. Redis and Neo4j degrade gracefully in `/health`; graph endpoints return `503` when Neo4j is offline.

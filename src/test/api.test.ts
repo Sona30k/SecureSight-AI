@@ -50,3 +50,18 @@ describe('digital arrest API contract', () => {
     expect(post).toHaveBeenNthCalledWith(2, '/digital-arrest/report', { case_id:'case-1', total_victims:1 })
   })
 })
+
+describe('currency forensic API contract', () => {
+  afterEach(() => vi.restoreAllMocks())
+
+  it('submits the actual image and location to the persistent analyzer', async () => {
+    const post = vi.spyOn(api, 'post').mockResolvedValue({ data:{ case_id:'currency-1' } })
+    const file = new File(['image-bytes'], 'note.png', { type:'image/png' })
+    await services.currency.analyze(file, 'Delhi Branch')
+    expect(post).toHaveBeenCalledOnce()
+    expect(post.mock.calls[0][0]).toBe('/currency/analyze')
+    const form = post.mock.calls[0][1] as FormData
+    expect(form.get('image')).toBe(file)
+    expect(form.get('location')).toBe('Delhi Branch')
+  })
+})

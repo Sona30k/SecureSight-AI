@@ -10,13 +10,16 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "axios": "1.18.1",
     "framer-motion": "12.42.0",
     "lucide-react": "1.22.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
+    "react-hook-form": "^7.80.0",
     "react-router-dom": "7.18.0",
-    "recharts": "3.9.0"
+    "recharts": "3.9.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.9.1",

@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from datetime import datetime, timezone
 from typing import Annotated
 from uuid import UUID
 
@@ -9,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth.security import decode_token
 from app.database import get_db
-from app.models import User, UserRole
+from app.models import User, UserRole, UserSession
 
 bearer = HTTPBearer(auto_error=False)
 
@@ -28,6 +29,18 @@ async def get_current_user(
     user = await db.scalar(select(User).where(User.id == user_id))
     if not user or not user.is_active or user.token_version != payload.get("ver"):
         raise HTTPException(status_code=401, detail="User is inactive or token was revoked")
+    if payload.get("sid"):
+        try:
+            session_id = UUID(payload["sid"])
+        except (ValueError, TypeError):
+            raise HTTPException(status_code=401, detail="Invalid session")
+        session = await db.scalar(select(UserSession).where(
+            UserSession.id == session_id, UserSession.user_id == user.id,
+            UserSession.revoked_at.is_(None),
+            UserSession.expires_at > datetime.now(timezone.utc),
+        ))
+        if not session:
+            raise HTTPException(status_code=401, detail="Session expired or revoked")
     return user
 
 

@@ -186,6 +186,17 @@ Every prediction creates a case, transcript, risk-analysis, evidence, AI-analysi
 <summary><strong>Counterfeit Currency, Computer Vision, and OCR</strong></summary>
 
 The currency pipeline inspects image quality and security signals including thread visibility, watermark indicators, and serial validity. It supports future YOLOv8 or ResNet checkpoints without changing the API. EasyOCR is an optional provider for serial number, denomination, signature indicator, and text extraction. Synthetic augmentation utilities generate brightness, rotation, blur, noise, contrast, crop, and compression variants.
+
+The production currency workflow validates the binary signature and image limits, rejects low-resolution,
+blurred, over/underexposed, partial, or multi-note inputs, normalizes the detected note, and measures twelve
+security regions. It stores the original, corrected image, saliency artifact, verdict, confidence, denomination,
+serial intelligence, location, feature evidence, explanation, user, and audit record. APIs are available at
+`POST /currency/upload`, `POST /currency/analyze`, `GET /currency/history`,
+`GET /currency/statistics`, and `GET /currency/{case_id}/report.pdf`.
+
+Verdicts never use hashes or random values. When EasyOCR or a trained checkpoint is not installed, that
+provider is explicitly reported as unavailable and is excluded from the authenticity weighting rather than
+being replaced with fabricated output.
 </details>
 
 <details>
@@ -254,7 +265,7 @@ SecureSight-AI/
 | Data | PostgreSQL, Neo4j, Redis, synthetic CSV/JSON/GeoJSON |
 | Processing | Celery worker, Celery Beat, Redis broker/backend, asyncio |
 | Visualization | Recharts, interactive SVG graph, GeoJSON heatmap UI, Folium-ready outputs |
-| Security | JWT access/refresh tokens, scrypt, RBAC, SlowAPI rate limiting, CORS, security headers |
+| Security | bcrypt, rotating JWT access/refresh tokens, normalized RBAC, lockout, SlowAPI rate limiting, CORS, security headers |
 | DevOps | Docker, Docker Compose, Nginx, health checks, Prometheus metrics, structured JSON logging |
 | Testing | Pytest, pytest-asyncio, HTTPX, Vitest, Testing Library, jsdom |
 
@@ -262,7 +273,7 @@ SecureSight-AI/
 
 | Group | Prefix | Purpose |
 |---|---|---|
-| Authentication | `/auth` | Registration, login, profile, refresh, logout, token revocation |
+| Authentication | `/auth` | Role registration, email/OTP verification, agency approval, login, rotating sessions, recovery, profile, RBAC administration |
 | Digital Arrest | `/digital-arrest` | Call/transcript analysis and explainable scam risk |
 | Counterfeit | `/currency` | Secure note upload and persisted authenticity analysis |
 | AI Intelligence | `/ai` | Scam, currency, OCR, voice, graph, hotspot, risk, and chat APIs |

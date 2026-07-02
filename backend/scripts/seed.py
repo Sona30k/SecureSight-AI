@@ -5,7 +5,7 @@ from sqlalchemy import select
 
 from app.auth.security import hash_password
 from app.database import AsyncSessionLocal
-from app.models import CrimeLocation, FraudReport, ReportStatus, User, UserRole
+from app.models import AccountStatus, CrimeLocation, FraudReport, ReportStatus, User, UserRole
 
 
 async def seed():
@@ -21,7 +21,11 @@ async def seed():
         for email, full_name, role in demo_users:
             user = await db.scalar(select(User).where(User.email == email))
             if not user:
-                user = User(email=email, full_name=full_name, hashed_password=hash_password("ShieldIQ!2026"), role=role)
+                user = User(
+                    email=email, full_name=full_name, hashed_password=hash_password("ShieldIQ!2026"),
+                    role=role, account_status=AccountStatus.verified, is_active=True,
+                    email_verified=True, phone_verified=True,
+                )
                 db.add(user)
                 await db.flush()
             if role == UserRole.administrator:

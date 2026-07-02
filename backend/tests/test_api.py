@@ -1,4 +1,6 @@
 import pytest
+import io
+from PIL import Image, ImageDraw
 
 from app.ai.risk_scoring import RiskScoringEngine, RiskSignals
 
@@ -118,3 +120,37 @@ async def test_report_crud(client, auth_headers):
     report_id = created.json()["id"]
     assert (await client.get(f"/reports/{report_id}", headers=auth_headers)).status_code == 200
     assert (await client.put(f"/reports/{report_id}", headers=auth_headers, json={"status": "verified"})).json()["status"] == "verified"
+
+
+@pytest.mark.asyncio
+async def test_currency_forensic_lifecycle(client, auth_headers):
+    image = Image.new("RGB", (960, 400), (142, 121, 157))
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((8, 8, 951, 391), outline=(35, 30, 50), width=6)
+    draw.rectangle((280, 20, 298, 380), fill=(85, 78, 98))
+    draw.ellipse((490, 65, 700, 335), outline=(45, 40, 60), width=10)
+    for x in range(35, 930, 22):
+        draw.line((x, 30, x + 18, 370), fill=(65 + x % 100, 70, 110), width=2)
+    draw.text((50, 50), "RESERVE BANK OF INDIA 100", fill=(20, 20, 25))
+    output = io.BytesIO()
+    image.save(output, "PNG")
+    response = await client.post(
+        "/currency/analyze", headers=auth_headers,
+        data={"location": "Test Branch"},
+        files={"image": ("note.png", output.getvalue(), "image/png")},
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["features"]["security_thread"]["confidence"] >= 0
+    assert body["detected_note"].startswith("data:image/png;base64,")
+    assert body["model_version"] == "shieldiq-currency-forensics-v2"
+
+    history = await client.get("/currency/history", headers=auth_headers)
+    assert history.status_code == 200
+    assert history.json()[0]["location"] == "Test Branch"
+    statistics = await client.get("/currency/statistics", headers=auth_headers)
+    assert statistics.status_code == 200
+    assert statistics.json()["total_notes_scanned"] == 1
+    report = await client.get(f"/currency/{body['case_id']}/report.pdf", headers=auth_headers)
+    assert report.status_code == 200
+    assert report.content.startswith(b"%PDF")

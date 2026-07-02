@@ -119,14 +119,54 @@ class DigitalArrestDashboard(BaseModel):
 
 class CurrencyDetectionResponse(BaseModel):
     case_id: UUID
-    prediction: Literal["Real", "Fake"]
+    prediction: Literal["Genuine", "Likely Genuine", "Suspicious", "Counterfeit", "Withdrawn Note", "Not Valid Tender"]
     confidence: float
+    authenticity_score: int = Field(ge=0, le=100)
+    counterfeit_probability: float = Field(ge=0, le=1)
+    denomination: str | None
+    series: str
+    legal_tender: bool
+    currency_status: str
+    specimen_detected: bool
+    serial_number: str | None
+    serial_valid: bool
+    serial_duplicate: bool
     security_thread: bool
     watermark: bool
-    serial_valid: bool
-    features: dict[str, float | bool]
+    features: dict[str, dict[str, Any]]
+    quality: dict[str, float | int | str | bool]
+    bounding_box: dict[str, int]
+    detected_note: str
+    heatmap: str
     explanation: list[str] = Field(default_factory=list)
-    model_version: str = "currency-cv-v1.0"
+    model_version: str = "shieldiq-currency-cv-v2"
+    explainability_method: str
+
+
+class CurrencyHistoryItem(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: UUID
+    prediction: str
+    confidence: float
+    authenticity_score: int
+    counterfeit_probability: float
+    denomination: str | None
+    series: str | None
+    legal_tender: bool
+    currency_status: str | None
+    serial_number: str | None
+    serial_duplicate: bool
+    location: str | None
+    created_at: datetime
+
+
+class CurrencyStatistics(BaseModel):
+    total_notes_scanned: int
+    fake_notes_found: int
+    detection_accuracy: float | None
+    most_counterfeited_denomination: str | None
+    denomination_distribution: list[dict[str, int | str]]
+    monthly_trends: list[dict[str, int | str]]
 
 
 class ReportCreate(BaseModel):

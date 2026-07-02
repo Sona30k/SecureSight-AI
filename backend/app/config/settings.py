@@ -20,9 +20,11 @@ class Settings(BaseSettings):
     neo4j_uri: str = "bolt://localhost:7687"
     neo4j_user: str = "neo4j"
     neo4j_password: str = "shieldiq-password"
-    cors_origins: list[str] = Field(default=["http://localhost:5173"])
+    cors_origins: list[str] = Field(default=["http://localhost:5173", "http://127.0.0.1:5173"])
     storage_path: Path = Path("storage")
     max_upload_mb: int = 10
+    currency_resnet_path: Path | None = None
+    currency_yolo_path: Path | None = None
     rate_limit: str = "100/minute"
     demo_mode: bool = False
     allowed_upload_types: list[str] = Field(default=["image/jpeg", "image/png", "image/webp", "audio/wav", "audio/mpeg", "application/pdf", "text/csv"])

@@ -12,7 +12,10 @@ class ImageProcessingService:
     allowed_types = {"image/jpeg", "image/png", "image/webp"}
 
     def __init__(self, model: CurrencyDetectionPipeline | None = None):
-        self.model = model or CurrencyDetectionPipeline()
+        self.model = model or CurrencyDetectionPipeline(
+            resnet_path=settings.currency_resnet_path,
+            yolo_path=settings.currency_yolo_path,
+        )
 
     @staticmethod
     def _verified_suffix(content: bytes) -> str:
@@ -25,6 +28,21 @@ class ImageProcessingService:
         raise ValueError("File contents do not match a supported image format")
 
     async def process_currency(self, upload: UploadFile) -> tuple[str, dict]:
+        image_path, content = await self.store_currency(upload)
+        result = await self.model.analyze(content)
+        corrected = result.pop("detected_note_image")
+        heatmap = result.pop("heatmap_image")
+        base = image_path.rsplit(".", 1)[0]
+        corrected_path, heatmap_path = f"{base}-corrected.png", f"{base}-heatmap.png"
+        await asyncio.gather(
+            asyncio.to_thread(corrected.save, corrected_path, "PNG"),
+            asyncio.to_thread(heatmap.save, heatmap_path, "PNG"),
+        )
+        result["corrected_image_path"] = corrected_path
+        result["heatmap_path"] = heatmap_path
+        return image_path, result
+
+    async def store_currency(self, upload: UploadFile) -> tuple[str, bytes]:
         if upload.content_type not in self.allowed_types:
             raise ValueError("Only JPEG, PNG and WebP images are accepted")
         content = await upload.read()
@@ -35,10 +53,4 @@ class ImageProcessingService:
         target = settings.storage_path / "currency" / filename
         target.parent.mkdir(parents=True, exist_ok=True)
         await asyncio.to_thread(target.write_bytes, content)
-        prediction = (await self.model.predict(content)).to_dict()
-        details = prediction.pop("details")
-        return str(target), {
-            **prediction,
-            **{key: details[key] for key in ("security_thread", "watermark", "serial_valid")},
-            "features": details["quality"],
-        }
+        return str(target), content

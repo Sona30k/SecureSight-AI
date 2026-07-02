@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { services, tokenStore, User } from './lib/api'
 
-type AuthState={user:User|null;loading:boolean;login:(email:string,password:string)=>Promise<User>;logout:()=>Promise<void>}
+type AuthState={user:User|null;loading:boolean;login:(email:string,password:string,remember?:boolean)=>Promise<User>;logout:()=>Promise<void>;refreshUser:()=>Promise<User>}
 const AuthContext=createContext<AuthState|null>(null)
 
 export function AuthProvider({children}:{children:React.ReactNode}){
@@ -15,9 +15,10 @@ export function AuthProvider({children}:{children:React.ReactNode}){
     window.addEventListener('shieldiq:logout',clear)
     return()=>window.removeEventListener('shieldiq:logout',clear)
   },[])
-  const login=async(email:string,password:string)=>{await services.auth.login(email,password);const current=await services.auth.me();setUser(current);return current}
-  const logout=async()=>{await services.auth.logout();setUser(null)}
-  return <AuthContext.Provider value={{user,loading,login,logout}}>{children}</AuthContext.Provider>
+  const refreshUser=async()=>{const current=await services.auth.me();setUser(current);return current}
+  const login=async(email:string,password:string,remember=false)=>{await services.auth.login(email,password,remember);return refreshUser()}
+  const logout=async()=>{try{await services.auth.logout()}finally{setUser(null)}}
+  return <AuthContext.Provider value={{user,loading,login,logout,refreshUser}}>{children}</AuthContext.Provider>
 }
 
 export const useAuth=()=>{const value=useContext(AuthContext);if(!value)throw new Error('AuthProvider missing');return value}

@@ -1,8 +1,25 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
 
 export type Role = 'citizen' | 'police' | 'bank' | 'telecom_provider' | 'administrator'
-export type User = { id:string; email:string; full_name:string; role:Role; is_active:boolean; created_at:string }
-export type TokenPair = { access_token:string; refresh_token:string; token_type:string; expires_in:number }
+export type AccountStatus = 'pending' | 'verified' | 'rejected' | 'blocked'
+export type User = {
+  id:string; email:string; full_name:string; phone:string|null; role:Role;
+  account_status:AccountStatus; is_active:boolean; email_verified:boolean; phone_verified:boolean;
+  state:string|null; district:string|null; preferred_language:string;
+  organization:string|null; employee_id:string|null; badge_number:string|null;
+  police_station:string|null; department:string|null; rank:string|null; branch:string|null;
+  profile_picture:string|null; notification_preferences:Record<string,boolean>;
+  created_at:string; last_login_at:string|null;
+  demo_verification_token?:string|null;demo_otp?:string|null;
+}
+export type TokenPair = { access_token:string; refresh_token:string; token_type:string; expires_in:number; session_id?:string }
+export type UserSession = {id:string;ip_address:string|null;user_agent:string|null;device_name:string|null;remember_me:boolean;last_seen_at:string;expires_at:string;revoked_at:string|null}
+export type RegisterPayload = {
+  email:string;full_name:string;phone?:string;password:string;confirm_password:string;role:Role;
+  state?:string;district?:string;preferred_language?:string;organization?:string;
+  employee_id?:string;badge_number?:string;police_station?:string;department?:string;rank?:string;branch?:string;
+  accept_terms:boolean;
+}
 export type Prediction = { prediction:string; confidence:number; risk_score:number; explanation:string[]; model_version:string; details:Record<string, unknown> }
 export type AssistantReply = { response:string; confidence:number; risk_level:'low'|'medium'|'high'|'critical'; recommendations:string[]; analysis_id:string; provider:string }
 export type ThreatLevel = 'low'|'medium'|'high'|'critical'
@@ -27,6 +44,18 @@ export type DigitalArrestDashboard = {
   top_numbers:{caller_number:string;reports:number;average_risk:number;reputation_score:number}[];
   daily_cases:{date:string;count:number}[];
 }
+export type CurrencyFeature = {detected:boolean;confidence:number;status:'PASS'|'FAIL'|'NOT ASSESSED';value?:string|null;valid?:boolean;ocr_available?:boolean}
+export type CurrencyResult = {
+  case_id:string;prediction:'Genuine'|'Likely Genuine'|'Suspicious'|'Counterfeit';
+  confidence:number;authenticity_score:number;counterfeit_probability:number;
+  denomination?:string;series:string;legal_tender:boolean;currency_status:string;specimen_detected:boolean;
+  serial_number?:string;serial_valid:boolean;serial_duplicate:boolean;
+  security_thread:boolean;watermark:boolean;features:Record<string,CurrencyFeature>;
+  quality:Record<string,string|number|boolean>;bounding_box:{x:number;y:number;width:number;height:number};
+  detected_note:string;heatmap:string;explanation:string[];model_version:string;explainability_method:string;
+}
+export type CurrencyHistory = {id:string;prediction:string;confidence:number;authenticity_score:number;counterfeit_probability:number;denomination?:string;series?:string;legal_tender:boolean;currency_status?:string;serial_number?:string;serial_duplicate:boolean;location?:string;created_at:string}
+export type CurrencyStatistics = {total_notes_scanned:number;fake_notes_found:number;detection_accuracy:number|null;most_counterfeited_denomination:string|null;denomination_distribution:{denomination:string;count:number}[];monthly_trends:{month:string;count:number}[]}
 export type Report = { id:string; title:string; description:string; category:string; location?:string; status:string; risk_score:number; money_involved:number; created_at:string }
 export type DashboardData = {
   today_frauds:number; counterfeit_detected:number; money_saved:number; active_investigations:number;
@@ -47,7 +76,7 @@ export const tokenStore = {
   clear: () => localStorage.removeItem(TOKEN_KEY),
 }
 
-export const api = axios.create({ baseURL: API_URL, timeout: 15_000 })
+export const api = axios.create({ baseURL: API_URL, timeout: 15_000, withCredentials:true })
 
 api.interceptors.request.use((config:InternalAxiosRequestConfig) => {
   const token = tokenStore.get()?.access_token
@@ -63,7 +92,7 @@ api.interceptors.response.use(
     if (!config) return Promise.reject(error)
     if (error.response?.status === 401 && !config._retry && tokenStore.get()?.refresh_token) {
       config._retry = true
-      refreshRequest ||= axios.post<TokenPair>(`${API_URL}/auth/refresh`, { refresh_token:tokenStore.get()!.refresh_token })
+      refreshRequest ||= axios.post<TokenPair>(`${API_URL}/auth/refresh`, { refresh_token:tokenStore.get()!.refresh_token }, {withCredentials:true})
         .then(result => { tokenStore.set(result.data); return result.data })
         .finally(() => { refreshRequest = null })
       try {
@@ -96,14 +125,33 @@ export const errorMessage = (error:unknown) => {
 
 export const services = {
   auth: {
-    login: async (email:string,password:string) => {
-      const {data} = await api.post<TokenPair>('/auth/login',{email,password})
+    login: async (email:string,password:string,remember_me=false) => {
+      const {data} = await api.post<TokenPair>('/auth/login',{email,password,remember_me})
       tokenStore.set(data)
       return data
     },
+    register: (payload:RegisterPayload) => api.post<User>('/auth/register',payload).then(r=>r.data),
+    verifyEmail: (token:string) => api.post<{message:string}>('/auth/verify-email',{token}).then(r=>r.data),
+    sendOtp: (destination:string,purpose:'phone_verification'|'password_reset'='phone_verification') =>
+      api.post<{message:string;otp?:string;expires_in?:number}>('/auth/send-otp',{destination,purpose}).then(r=>r.data),
+    verifyOtp: (destination:string,code:string,purpose:'phone_verification'|'password_reset'='phone_verification') =>
+      api.post<{message:string}>('/auth/verify-otp',{destination,code,purpose}).then(r=>r.data),
+    forgotPassword: (email:string) => api.post<{message:string;otp?:string}>('/auth/forgot-password',{email}).then(r=>r.data),
+    resetPassword: (email:string,otp:string,new_password:string) =>
+      api.post<{message:string}>('/auth/reset-password',{email,otp,new_password}).then(r=>r.data),
     me: async () => (await api.get<User>('/auth/me')).data,
-    updateMe: async (full_name:string) => (await api.patch<User>('/auth/me',{full_name})).data,
+    updateMe: async (payload:Partial<Pick<User,'full_name'|'phone'|'preferred_language'|'state'|'district'|'profile_picture'|'notification_preferences'>>) =>
+      (await api.patch<User>('/auth/me',payload)).data,
+    changePassword: (current_password:string,new_password:string) =>
+      api.post<{message:string}>('/auth/change-password',{current_password,new_password}).then(r=>r.data),
+    sessions: () => api.get<UserSession[]>('/auth/sessions').then(r=>r.data),
     logout: async () => { try { await api.post('/auth/logout') } finally { tokenStore.clear() } },
+    logoutAll: async () => { try { await api.post('/auth/logout-all') } finally { tokenStore.clear() } },
+    permissions: () => api.get<{role:Role;permissions:string[]}>('/auth/permissions').then(r=>r.data),
+    adminUsers: (account_status?:AccountStatus) => api.get<User[]>('/auth/admin/users',{params:account_status?{account_status}:undefined}).then(r=>r.data),
+    adminAction: (userId:string,action:'approve'|'reject'|'block'|'unblock'|'delete',reason?:string) =>
+      api.post<User>(`/auth/admin/users/${userId}/action`,{action,reason}).then(r=>r.data),
+    assignRole: (userId:string,role:Role) => api.put<User>(`/auth/admin/users/${userId}/role`,{role}).then(r=>r.data),
   },
   analytics: () => api.get<DashboardData>('/analytics/dashboard').then(r=>r.data),
   reports: (params?:Record<string,unknown>) => api.get<{items:Report[];total:number}>('/reports',{params}).then(r=>r.data),
@@ -127,9 +175,18 @@ export const services = {
       link.href=url;link.download=`shieldiq-${caseId}.pdf`;link.click();URL.revokeObjectURL(url)
     },
   },
-  currency: (file:File) => {
-    const form = new FormData(); form.append('image',file)
-    return api.post<Prediction>('/ai/currency-detection',form).then(r=>r.data)
+  currency: {
+    analyze: (file:File,location?:string) => {
+      const form = new FormData(); form.append('image',file);if(location)form.append('location',location)
+      return api.post<CurrencyResult>('/currency/analyze',form).then(r=>r.data)
+    },
+    history: () => api.get<CurrencyHistory[]>('/currency/history').then(r=>r.data),
+    statistics: () => api.get<CurrencyStatistics>('/currency/statistics').then(r=>r.data),
+    report: async (caseId:string) => {
+      const response=await api.get<Blob>(`/currency/${caseId}/report.pdf`,{responseType:'blob'})
+      const url=URL.createObjectURL(response.data);const link=document.createElement('a')
+      link.href=url;link.download=`currency-${caseId}.pdf`;link.click();URL.revokeObjectURL(url)
+    },
   },
   graph: () => api.get('/ai/fraud-network').then(r=>r.data),
   hotspots: () => api.get('/ai/hotspots').then(r=>r.data),

@@ -19,11 +19,12 @@ from app.models import (
     AIAnalysis, AuditLog, CallerHistory, CallTranscript, DigitalArrestCase,
     Evidence, Notification, RiskAlert, RiskAnalysis, User,
 )
+from app.services.field_integrations import TelecomSpoofAnalyzer
 
 AUTHORITY_TERMS = ("cbi", "ed", "income tax", "customs", "police", "court", "rbi", "national security")
 THREAT_TERMS = ("arrest", "warrant", "freeze account", "money laundering", "police will arrive", "jail")
 FINANCIAL_TERMS = ("transfer money", "transfer immediately", "verification account", "bank account", "upi", "funds")
-ISOLATION_TERMS = ("do not disconnect", "don't disconnect", "stay on the call", "do not tell anyone", "secret")
+ISOLATION_TERMS = ("do not disconnect", "don't disconnect", "stay on the call", "stay on this call", "do not tell anyone", "secret")
 CREDENTIAL_TERMS = ("otp", "pin", "password", "aadhaar", "cvv")
 URGENCY_TERMS = ("immediately", "urgent", "now", "today", "within minutes")
 
@@ -50,7 +51,8 @@ class DigitalArrestRiskEngine:
 
     def analyze(
         self, *, transcript: str, duration: int, video_call: bool,
-        spoof_detected: bool, previous_reports: int,
+        spoof_detected: bool, previous_reports: int, spoof_score: int = 0,
+        voice_synthetic_score: int = 0,
         transformer_probability: float | None = None,
     ) -> dict[str, Any]:
         cleaned = normalize_text(transcript)
@@ -68,12 +70,17 @@ class DigitalArrestRiskEngine:
             "financial_demand": min(len(financial) * 9, 18),
             "isolation_pressure": min(len(isolation) * 7, 10),
             "credential_request": min(len(credentials) * 5, 10),
-            "spoof_detection": 12 if spoof_detected else 0,
+            "spoof_detection": min(18, round(max(spoof_score, 70 if spoof_detected else 0) * .18)),
+            "synthetic_voice_signal": min(12, round(voice_synthetic_score * .12)),
             "previous_reports": min(previous_reports * 4, 12),
             "video_call": 4 if video_call else 0,
             "conversation_length": 4 if duration >= 600 else 2 if duration >= 240 else 0,
         }
         rules_score = min(100, round(sum(contributions.values())))
+        if "digital arrest" in cleaned and threats and financial:
+            rules_score = max(rules_score, 82 if video_call else 76)
+        elif authority and threats and financial and (isolation or credentials):
+            rules_score = max(rules_score, 80 if video_call else 74)
         score = (
             round(rules_score * 0.7 + transformer_probability * 100 * 0.3)
             if transformer_probability is not None else rules_score
@@ -129,6 +136,8 @@ class DigitalArrestRiskEngine:
             explanations.append(f"Number has {previous_reports} previous report{'s' if previous_reports != 1 else ''}")
         if spoof_detected:
             explanations.append("Caller ID spoofing is suspected")
+        if voice_synthetic_score >= 60:
+            explanations.append("Audio signal screening found possible synthetic-voice indicators")
         if not explanations:
             explanations.append("No strong digital-arrest pattern was detected in the supplied conversation")
 
@@ -177,14 +186,24 @@ class DigitalArrestService:
         self, *, caller_number: str, transcript: str, duration: int, video_call: bool,
         location: str | None, country: str | None, spoof_detected: bool | None,
         user: User, source: str = "text", evidence: dict[str, Any] | None = None,
+        telecom_signals: dict[str, Any] | None = None,
+        voice_forensics: dict[str, Any] | None = None,
     ) -> tuple[DigitalArrestCase, dict[str, Any]]:
         started = datetime.now(timezone.utc)
         history = await self.reputation(caller_number)
-        inferred_spoof = spoof_detected if spoof_detected is not None else not bool(location and country)
+        spoof_analysis = TelecomSpoofAnalyzer().analyze(caller_number, telecom_signals)
+        inferred_spoof = spoof_detected if spoof_detected is not None else bool(spoof_analysis["detected"])
+        spoof_score = max(int(spoof_analysis["score"]), 70 if spoof_detected is True else 0)
+        voice_score = int((voice_forensics or {}).get("synthetic_likelihood", 0))
         result = self.engine.analyze(
             transcript=transcript, duration=duration, video_call=video_call,
             spoof_detected=inferred_spoof, previous_reports=history.report_count,
+            spoof_score=spoof_score, voice_synthetic_score=voice_score,
         )
+        result["spoof_score"] = spoof_score
+        result["spoof_reasons"] = spoof_analysis["reasons"]
+        result["voice_forensics"] = voice_forensics
+        result["external_actions"] = []
         case = DigitalArrestCase(
             caller_number=caller_number, transcript=transcript, duration=duration,
             video_call=video_call, caller_location=location, country=country,
@@ -210,7 +229,12 @@ class DigitalArrestService:
         ))
         self.db.add(Evidence(
             case_id=case.id, evidence_type="transcript",
-            metadata_={"source": source, "characters": len(transcript)},
+            metadata_={
+                "source": source, "characters": len(transcript),
+                "telecom_signals": telecom_signals or {},
+                "spoof_analysis": spoof_analysis,
+                "voice_forensics": voice_forensics or {},
+            },
         ))
         if evidence:
             self.db.add(Evidence(case_id=case.id, **evidence))
@@ -230,6 +254,7 @@ class DigitalArrestService:
                 risk_score=result["risk_score"], source_type="digital_arrest",
                 source_id=str(case.id), details={
                     "keywords": result["detected_keywords"], "location": location, "country": country,
+                    "spoof_analysis": spoof_analysis, "voice_forensics": voice_forensics or {},
                 },
             ))
         if result["risk_score"] > 90:

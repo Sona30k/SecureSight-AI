@@ -25,6 +25,11 @@ class Settings(BaseSettings):
     max_upload_mb: int = 10
     currency_resnet_path: Path | None = None
     currency_yolo_path: Path | None = None
+    mha_alert_webhook_url: str | None = None
+    bank_hold_webhook_url: str | None = None
+    ncrb_webhook_url: str | None = None
+    channel_webhook_secret: str | None = None
+    integration_webhook_secret: str | None = None
     rate_limit: str = "100/minute"
     demo_mode: bool = False
     allowed_upload_types: list[str] = Field(default=["image/jpeg", "image/png", "image/webp", "audio/wav", "audio/mpeg", "application/pdf", "text/csv"])
@@ -42,6 +47,8 @@ class Settings(BaseSettings):
                 raise ValueError("Wildcard CORS origins are not allowed in production")
             if self.demo_mode:
                 raise ValueError("DEMO_MODE must be disabled in production")
+            if (self.mha_alert_webhook_url or self.bank_hold_webhook_url or self.ncrb_webhook_url) and not self.integration_webhook_secret:
+                raise ValueError("INTEGRATION_WEBHOOK_SECRET is required when external webhooks are enabled")
         return self
 
 

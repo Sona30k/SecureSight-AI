@@ -161,6 +161,26 @@ class CounterfeitCase(Base, UUIDMixin, TimestampMixin):
     submitted_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
 
 
+class CurrencyDevice(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "currency_devices"
+    name: Mapped[str] = mapped_column(String(150))
+    device_type: Mapped[str] = mapped_column(String(30), index=True)
+    organization: Mapped[str] = mapped_column(String(180), index=True)
+    api_key_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    active: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
+    last_seen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    registered_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+
+
+class CurrencyReview(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "currency_reviews"
+    case_id: Mapped[UUID] = mapped_column(ForeignKey("counterfeit_cases.id", ondelete="CASCADE"), unique=True, index=True)
+    ground_truth: Mapped[str] = mapped_column(String(20), index=True)
+    verification_method: Mapped[str] = mapped_column(String(60))
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    reviewed_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+
+
 class DigitalArrestCase(Base, UUIDMixin, TimestampMixin):
     __tablename__ = "digital_arrest_cases"
     caller_number: Mapped[str] = mapped_column(String(32), index=True)
@@ -188,6 +208,32 @@ class DigitalArrestCase(Base, UUIDMixin, TimestampMixin):
     transcripts: Mapped[list[CallTranscript]] = relationship(back_populates="case", cascade="all, delete-orphan")
     risk_analyses: Mapped[list[RiskAnalysis]] = relationship(back_populates="case", cascade="all, delete-orphan")
     evidence: Mapped[list[Evidence]] = relationship(back_populates="case", cascade="all, delete-orphan")
+
+
+class LiveCallSession(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "live_call_sessions"
+    caller_number: Mapped[str] = mapped_column(String(32), index=True)
+    transcript: Mapped[str] = mapped_column(Text, default="")
+    duration: Mapped[int] = mapped_column(Integer, default=0)
+    video_call: Mapped[bool] = mapped_column(Boolean, default=False)
+    consent_confirmed: Mapped[bool] = mapped_column(Boolean)
+    telecom_signals: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    latest_analysis: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    status: Mapped[str] = mapped_column(String(20), default="active", index=True)
+    started_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+    finalized_case_id: Mapped[UUID | None] = mapped_column(ForeignKey("digital_arrest_cases.id"), nullable=True, index=True)
+
+
+class IntegrationDispatch(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "integration_dispatches"
+    case_id: Mapped[UUID] = mapped_column(ForeignKey("digital_arrest_cases.id", ondelete="CASCADE"), index=True)
+    integration: Mapped[str] = mapped_column(String(40), index=True)
+    action: Mapped[str] = mapped_column(String(60), index=True)
+    idempotency_key: Mapped[str] = mapped_column(String(100), unique=True, index=True)
+    status: Mapped[str] = mapped_column(String(30), index=True)
+    request_payload: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    response_payload: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    attempted_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
 
 
 class CallTranscript(Base, UUIDMixin, TimestampMixin):
@@ -261,6 +307,143 @@ class CrimeLocation(Base, UUIDMixin, TimestampMixin):
     risk_score: Mapped[int] = mapped_column(Integer, default=0)
     reported_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
     __table_args__ = (Index("ix_crime_geo", "latitude", "longitude"),)
+
+
+class GISFeed(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "gis_feeds"
+    name: Mapped[str] = mapped_column(String(150))
+    provider: Mapped[str] = mapped_column(String(100))
+    district: Mapped[str | None] = mapped_column(String(100), nullable=True, index=True)
+    source_type: Mapped[str] = mapped_column(String(30), default="geojson_webhook")
+    api_key_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    active: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
+    last_ingested_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+
+
+class DistrictIntelligenceShare(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "district_intelligence_shares"
+    source_district: Mapped[str] = mapped_column(String(100), index=True)
+    target_district: Mapped[str] = mapped_column(String(100), index=True)
+    title: Mapped[str] = mapped_column(String(200))
+    summary: Mapped[str] = mapped_column(Text)
+    severity: Mapped[str] = mapped_column(String(20), index=True)
+    incident_ids: Mapped[list[str]] = mapped_column(JSON, default=list)
+    status: Mapped[str] = mapped_column(String(20), default="shared", index=True)
+    shared_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+    acknowledged_by: Mapped[UUID | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    acknowledged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class SpeechStream(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "speech_streams"
+    language: Mapped[str] = mapped_column(String(20), default="en")
+    status: Mapped[str] = mapped_column(String(20), default="active", index=True)
+    transcript: Mapped[str] = mapped_column(Text, default="")
+    chunk_count: Mapped[int] = mapped_column(Integer, default=0)
+    latest_forensics: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    started_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+    finalized_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class ChannelInteraction(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "channel_interactions"
+    channel: Mapped[str] = mapped_column(String(20), index=True)
+    external_id: Mapped[str | None] = mapped_column(String(150), nullable=True, index=True)
+    sender_reference: Mapped[str] = mapped_column(String(200))
+    language: Mapped[str] = mapped_column(String(20), default="en")
+    request_text: Mapped[str] = mapped_column(Text)
+    response_text: Mapped[str] = mapped_column(Text)
+    risk_level: Mapped[str] = mapped_column(String(20), index=True)
+    confidence: Mapped[float] = mapped_column(Float)
+    status: Mapped[str] = mapped_column(String(20), default="processed")
+
+
+class GovernmentSubmission(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "government_submissions"
+    provider: Mapped[str] = mapped_column(String(30), default="ncrb", index=True)
+    analysis_id: Mapped[UUID] = mapped_column(ForeignKey("ai_analyses.id"), index=True)
+    status: Mapped[str] = mapped_column(String(30), index=True)
+    reference_number: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    payload: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    response: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    submitted_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+
+
+class IntelligenceFeed(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "intelligence_feeds"
+    name: Mapped[str] = mapped_column(String(150))
+    agency_type: Mapped[str] = mapped_column(String(40), index=True)
+    data_type: Mapped[str] = mapped_column(String(40), index=True)
+    jurisdiction: Mapped[str] = mapped_column(String(150), index=True)
+    api_key_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    active: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
+    last_ingested_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+
+
+class GraphIngestionBatch(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "graph_ingestion_batches"
+    feed_id: Mapped[UUID] = mapped_column(ForeignKey("intelligence_feeds.id"), index=True)
+    external_batch_id: Mapped[str] = mapped_column(String(150))
+    event_count: Mapped[int] = mapped_column(Integer, default=0)
+    accepted_count: Mapped[int] = mapped_column(Integer, default=0)
+    rejected_count: Mapped[int] = mapped_column(Integer, default=0)
+    payload_hash: Mapped[str] = mapped_column(String(64), index=True)
+    status: Mapped[str] = mapped_column(String(30), index=True)
+    graph_status: Mapped[str] = mapped_column(String(30), default="pending")
+    __table_args__ = (UniqueConstraint("feed_id", "external_batch_id", name="uq_graph_feed_batch"),)
+
+
+class GraphEvent(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "graph_events"
+    batch_id: Mapped[UUID] = mapped_column(ForeignKey("graph_ingestion_batches.id"), index=True)
+    external_event_id: Mapped[str] = mapped_column(String(150), index=True)
+    event_type: Mapped[str] = mapped_column(String(40), index=True)
+    source_type: Mapped[str] = mapped_column(String(40), index=True)
+    source_value: Mapped[str] = mapped_column(String(250), index=True)
+    target_type: Mapped[str] = mapped_column(String(40), index=True)
+    target_value: Mapped[str] = mapped_column(String(250), index=True)
+    relationship: Mapped[str] = mapped_column(String(60))
+    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    attributes: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    event_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+
+
+class EvidenceItem(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "evidence_items"
+    case_reference: Mapped[str] = mapped_column(String(150), index=True)
+    title: Mapped[str] = mapped_column(String(200))
+    evidence_type: Mapped[str] = mapped_column(String(60), index=True)
+    content_hash: Mapped[str] = mapped_column(String(64), index=True)
+    storage_reference: Mapped[str] = mapped_column(String(500))
+    metadata_: Mapped[dict[str, Any]] = mapped_column("metadata", JSON, default=dict)
+    created_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+
+
+class EvidenceCustodyEvent(Base, UUIDMixin):
+    __tablename__ = "evidence_custody_events"
+    evidence_id: Mapped[UUID] = mapped_column(ForeignKey("evidence_items.id"), index=True)
+    action: Mapped[str] = mapped_column(String(50), index=True)
+    actor_id: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+    location: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    previous_hash: Mapped[str] = mapped_column(String(64))
+    event_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
+
+
+class CaseExchange(Base, UUIDMixin, TimestampMixin):
+    __tablename__ = "case_exchanges"
+    case_reference: Mapped[str] = mapped_column(String(150), index=True)
+    source_jurisdiction: Mapped[str] = mapped_column(String(150), index=True)
+    target_jurisdiction: Mapped[str] = mapped_column(String(150), index=True)
+    package_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    payload: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    status: Mapped[str] = mapped_column(String(30), default="shared", index=True)
+    shared_by: Mapped[UUID] = mapped_column(ForeignKey("users.id"), index=True)
+    acknowledged_by: Mapped[UUID | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    acknowledged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class RiskAlert(Base, UUIDMixin, TimestampMixin):

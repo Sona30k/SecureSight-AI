@@ -24,7 +24,8 @@ async def test_digital_arrest_analysis(client, auth_headers):
     assert response.status_code == 200
     body = response.json()
     assert body["risk_score"] >= 75
-    assert body["spoof_detected"] is True
+    assert body["spoof_detected"] is False
+    assert body["spoof_score"] == 0
     assert body["threat_level"] in {"high", "critical"}
     assert body["conversation_stages"]
 

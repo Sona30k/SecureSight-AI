@@ -61,3 +61,24 @@ class Neo4jClient:
                 minimum=minimum,
             )
             return [dict(row["r"]) async for row in result]
+
+    async def ingest_events(self, events: list[dict[str, Any]], feed_id: str) -> int:
+        """Merge normalized provider events without constructing dynamic Cypher labels."""
+        query = """
+        UNWIND $events AS event
+        MERGE (source:Entity {type:event.source_type, value:event.source_value})
+        MERGE (target:Entity {type:event.target_type, value:event.target_value})
+        MERGE (record:IntelEvent {event_hash:event.event_hash})
+        SET record.event_type=event.event_type,
+            record.relationship=event.relationship,
+            record.occurred_at=datetime(event.occurred_at),
+            record.feed_id=$feed_id,
+            record.attributes=event.attributes
+        MERGE (source)-[:SOURCE_OF]->(record)
+        MERGE (record)-[:TARGETS]->(target)
+        RETURN count(record) AS count
+        """
+        async with self.driver.session() as session:
+            result = await session.run(query, events=events, feed_id=feed_id)
+            row = await result.single()
+            return int(row["count"]) if row else 0

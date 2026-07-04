@@ -21,9 +21,15 @@ export type RegisterPayload = {
   accept_terms:boolean;
 }
 export type Prediction = { prediction:string; confidence:number; risk_score:number; explanation:string[]; model_version:string; details:Record<string, unknown> }
-export type AssistantReply = { response:string; confidence:number; risk_level:'low'|'medium'|'high'|'critical'; recommendations:string[]; analysis_id:string; provider:string }
+export type AssistantReply = { response:string; confidence:number; risk_level:'low'|'medium'|'high'|'critical'; recommendations:string[]; analysis_id:string; provider:string; language:string }
 export type ThreatLevel = 'low'|'medium'|'high'|'critical'
 export type ConversationStage = { stage:string; evidence:string; severity:'low'|'medium'|'high'; order:number }
+export type TelecomSignals = {
+  network_asserted_number?:string;attestation?:'verified'|'partial'|'failed'|'unavailable';
+  network_type?:'mobile'|'landline'|'voip'|'international'|'unknown';
+  origination_country?:string;sim_age_days?:number;recent_sim_swap?:boolean;
+  diversion_count?:number;carrier_risk_score?:number;provider_reference?:string;
+}
 export type DigitalArrestResult = {
   case_id:string; risk_score:number; confidence:number; scam_probability:number; threat_level:ThreatLevel;
   detected_keywords:string[]; spoof_detected:boolean; recommendation:string; explanation:string[];
@@ -32,6 +38,8 @@ export type DigitalArrestResult = {
   suspicious_spans:{start:number;end:number;text:string;category:string;severity:'green'|'yellow'|'red'}[];
   caller_reputation:{caller_number:string;report_count:number;average_risk:number;reputation_score:number;total_victims:number;last_seen?:string;label:string};
   signals:Record<string,number>; model_version:string;
+  spoof_score:number;spoof_reasons:string[];voice_forensics?:Record<string,unknown>|null;
+  external_actions:{integration:string;action:string;status:string}[];
 }
 export type DigitalArrestHistory = {
   id:string;caller_number:string;duration:number;country?:string;caller_location?:string;risk_score:number;
@@ -53,6 +61,7 @@ export type CurrencyResult = {
   security_thread:boolean;watermark:boolean;features:Record<string,CurrencyFeature>;
   quality:Record<string,string|number|boolean>;bounding_box:{x:number;y:number;width:number;height:number};
   detected_note:string;heatmap:string;explanation:string[];model_version:string;explainability_method:string;
+  spectral_analysis:Record<string,any>;model_provenance:Record<string,any>;
 }
 export type CurrencyHistory = {id:string;prediction:string;confidence:number;authenticity_score:number;counterfeit_probability:number;denomination?:string;series?:string;legal_tender:boolean;currency_status?:string;serial_number?:string;serial_duplicate:boolean;location?:string;created_at:string}
 export type CurrencyStatistics = {total_notes_scanned:number;fake_notes_found:number;detection_accuracy:number|null;most_counterfeited_denomination:string|null;denomination_distribution:{denomination:string;count:number}[];monthly_trends:{month:string;count:number}[]}
@@ -157,7 +166,7 @@ export const services = {
   reports: (params?:Record<string,unknown>) => api.get<{items:Report[];total:number}>('/reports',{params}).then(r=>r.data),
   scam: (payload:Record<string,unknown>) => api.post<Prediction & {case_id?:string;scam_probability?:number;detected_keywords?:string[]}>('/ai/scam-detection',payload).then(r=>r.data),
   digitalArrest: {
-    analyze: (payload:{caller_number:string;transcript:string;duration:number;video_call:boolean;location?:string;country?:string;spoof_detected?:boolean}) =>
+    analyze: (payload:{caller_number:string;transcript:string;duration:number;video_call:boolean;location?:string;country?:string;spoof_detected?:boolean;telecom_signals?:TelecomSignals}) =>
       api.post<DigitalArrestResult>('/digital-arrest/analyze',payload).then(r=>r.data),
     analyzeAudio: (file:File,payload:{caller_number:string;duration:number;video_call:boolean;location?:string;country?:string;spoof_detected?:boolean}) => {
       const form=new FormData();form.append('audio',file)
@@ -174,12 +183,29 @@ export const services = {
       const url=URL.createObjectURL(response.data);const link=document.createElement('a')
       link.href=url;link.download=`shieldiq-${caseId}.pdf`;link.click();URL.revokeObjectURL(url)
     },
+    startLive: (payload:{caller_number:string;video_call:boolean;consent_confirmed:boolean;telecom_signals?:TelecomSignals}) =>
+      api.post<{session_id:string;status:string}>('/digital-arrest/live/start',payload).then(r=>r.data),
+    liveChunk: (sessionId:string,payload:{text:string;duration:number;final?:boolean}) =>
+      api.post<DigitalArrestResult & {session_id:string;status:string}>(`/digital-arrest/live/${sessionId}/chunk`,payload).then(r=>r.data),
+    finalizeLive: (sessionId:string) =>
+      api.post<DigitalArrestResult>(`/digital-arrest/live/${sessionId}/finalize`).then(r=>r.data),
+    externalAction: (caseId:string,payload:{integration:'mha'|'bank';action:'submit_alert'|'request_payment_hold';transaction_id?:string;account_reference?:string;amount?:number;reason?:string}) =>
+      api.post<{dispatch_id:string;integration:string;action:string;status:string;response:Record<string,unknown>}>(`/digital-arrest/${caseId}/external-action`,payload).then(r=>r.data),
   },
   currency: {
     analyze: (file:File,location?:string) => {
       const form = new FormData(); form.append('image',file);if(location)form.append('location',location)
       return api.post<CurrencyResult>('/currency/analyze',form).then(r=>r.data)
     },
+    analyzeMultispectral: (file:File,uv?:File|null,infrared?:File|null,location?:string) => {
+      const form=new FormData();form.append('image',file)
+      if(uv)form.append('uv_image',uv);if(infrared)form.append('infrared_image',infrared)
+      if(location)form.append('location',location)
+      return api.post<CurrencyResult>('/currency/analyze-multispectral',form).then(r=>r.data)
+    },
+    modelCard: () => api.get<Record<string,unknown>>('/currency/model-card').then(r=>r.data),
+    review: (caseId:string,ground_truth:'genuine'|'counterfeit',verification_method:string,notes?:string) =>
+      api.post(`/currency/${caseId}/review`,{ground_truth,verification_method,notes}).then(r=>r.data),
     history: () => api.get<CurrencyHistory[]>('/currency/history').then(r=>r.data),
     statistics: () => api.get<CurrencyStatistics>('/currency/statistics').then(r=>r.data),
     report: async (caseId:string) => {
@@ -188,11 +214,33 @@ export const services = {
       link.href=url;link.download=`currency-${caseId}.pdf`;link.click();URL.revokeObjectURL(url)
     },
   },
-  graph: () => api.get('/ai/fraud-network').then(r=>r.data),
+  graph: () => api.get('/graph/operational-network').then(r=>r.data),
+  graphOperations: {
+    feeds: () => api.get('/graph/feeds').then(r=>r.data),
+    ingestion: () => api.get('/graph/ingestion/status').then(r=>r.data),
+    exchanges: () => api.get('/graph/exchanges').then(r=>r.data),
+    acknowledgeExchange: (id:string) => api.post(`/graph/exchanges/${id}/acknowledge`).then(r=>r.data),
+    acquireEvidence: (payload:{file:File;case_reference:string;title:string;evidence_type:string;location?:string}) => {
+      const form=new FormData();form.append('file',payload.file);form.append('case_reference',payload.case_reference)
+      form.append('title',payload.title);form.append('evidence_type',payload.evidence_type)
+      if(payload.location)form.append('location',payload.location)
+      return api.post('/graph/evidence',form).then(r=>r.data)
+    },
+    verifyEvidence: (id:string) => api.get(`/graph/evidence/${id}/verify`).then(r=>r.data),
+  },
   hotspots: () => api.get('/ai/hotspots').then(r=>r.data),
   heatmap: (params?:Record<string,unknown>) => api.get('/crime/heatmap',{params}).then(r=>r.data),
-  chat: (text:string,file?:File|null) => {
-    const form = new FormData(); form.append('text',text)
+  geospatial: {
+    hotspots: () => api.get('/crime/hotspots').then(r=>r.data),
+    patrolPlan: (district?:string) => api.get('/crime/patrol-plan',{params:district?{district}:undefined}).then(r=>r.data),
+    shares: (district?:string) => api.get('/crime/shares',{params:district?{district}:undefined}).then(r=>r.data),
+    share: (payload:{source_district:string;target_district:string;title:string;summary:string;severity:string;incident_ids:string[]}) =>
+      api.post('/crime/shares',payload).then(r=>r.data),
+    acknowledge: (id:string) => api.post(`/crime/shares/${id}/acknowledge`).then(r=>r.data),
+    feeds: () => api.get('/crime/feeds').then(r=>r.data),
+  },
+  chat: (text:string,file?:File|null,language='en') => {
+    const form = new FormData(); form.append('text',text);form.append('language',language)
     if(file){
       const field=file.type.startsWith('image/')?'image':file.type.startsWith('audio/')?'voice':file.type==='application/pdf'?'pdf':''
       if(!field)throw new Error('Attach an image, audio file, or PDF.')
@@ -200,6 +248,17 @@ export const services = {
     }
     return api.post<AssistantReply>('/assistant/chat',form).then(r=>r.data)
   },
+  speech: {
+    start: (language:string) => api.post<{stream_id:string;status:string}>('/assistant/speech/stream/start',{language}).then(r=>r.data),
+    chunk: (streamId:string,file:Blob) => {
+      const form=new FormData();form.append('audio',file,'live-chunk.webm')
+      return api.post(`/assistant/speech/stream/${streamId}/chunk`,form).then(r=>r.data)
+    },
+    transcript: (streamId:string,text:string) =>
+      api.post(`/assistant/speech/stream/${streamId}/transcript`,{text}).then(r=>r.data),
+    finalize: (streamId:string) => api.post(`/assistant/speech/stream/${streamId}/finalize`).then(r=>r.data),
+  },
+  submitNcrb: (analysisId:string) => api.post(`/assistant/analyses/${analysisId}/ncrb-submit`).then(r=>r.data),
 }
 
 export const websocketUrl = (channel:string) => {

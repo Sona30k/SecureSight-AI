@@ -16,13 +16,16 @@ from app.auth import CurrentUser
 from app.database import get_db
 from app.graph import Neo4jClient
 from app.models import (
-    AuditLog, CallerHistory, DigitalArrestCase, FraudReport, ReportStatus, UserRole,
+    AuditLog, CallerHistory, DigitalArrestCase, FraudReport, LiveCallSession,
+    ReportStatus, UserRole,
 )
 from app.realtime import hub
 from app.schemas import (
     DigitalArrestAction, DigitalArrestDashboard, DigitalArrestHistoryItem,
     DigitalArrestReportCreate, DigitalArrestRequest, DigitalArrestResponse,
+    ExternalAlertRequest, LiveCallStart, LiveTranscriptChunk,
 )
+from app.services import ExternalDispatchService, TelecomSpoofAnalyzer
 from app.services.digital_arrest import DigitalArrestService, investigation_pdf
 
 router = APIRouter(prefix="/digital-arrest", tags=["Digital Arrest Detection"])
@@ -81,7 +84,21 @@ async def analyze_call(payload: DigitalArrestRequest, user: CurrentUser, db: DbS
         duration=payload.duration, video_call=payload.video_call,
         location=payload.resolved_location, country=payload.country,
         spoof_detected=payload.spoof_detected, user=user,
+        telecom_signals=payload.telecom_signals.model_dump() if payload.telecom_signals else None,
     )
+    if case.risk_score >= 90 and user.role in {UserRole.police, UserRole.administrator}:
+        dispatch = await ExternalDispatchService(db).dispatch(
+            case_id=case.id, integration="mha", action="submit_alert",
+            payload={
+                "case_id": str(case.id), "caller_number": case.caller_number,
+                "risk_score": case.risk_score, "threat_level": case.threat_level,
+                "detected_keywords": case.detected_keywords,
+            },
+            user_id=user.id,
+        )
+        result["external_actions"].append({
+            "integration": "mha", "action": "submit_alert", "status": dispatch.status,
+        })
     graph_synced = await _sync_graph(case, user.email)
     if graph_synced:
         db.add(AuditLog(
@@ -127,10 +144,127 @@ async def analyze_audio(
         caller_number=normalized.caller_number, transcript=transcript, duration=duration,
         video_call=video_call, location=location, country=country,
         spoof_detected=spoof_detected, user=user, source="audio", evidence=evidence,
+        voice_forensics=voice.details.get("voice_forensics"),
     )
     await _sync_graph(case, user.email)
     await _broadcast_case(case)
     return DigitalArrestResponse(case_id=case.id, **result)
+
+
+@router.post("/live/start", status_code=201)
+async def start_live_call(payload: LiveCallStart, user: CurrentUser, db: DbSession):
+    session = LiveCallSession(
+        caller_number=payload.caller_number.replace(" ", "").replace("-", ""),
+        video_call=payload.video_call, consent_confirmed=payload.consent_confirmed,
+        telecom_signals=payload.telecom_signals.model_dump() if payload.telecom_signals else {},
+        started_by=user.id,
+    )
+    db.add(session)
+    await db.commit()
+    await db.refresh(session)
+    return {"session_id": session.id, "status": session.status, "started_at": session.created_at}
+
+
+async def _live_session(db: AsyncSession, session_id: UUID, user) -> LiveCallSession:
+    item = await db.get(LiveCallSession, session_id)
+    if not item or (user.role == UserRole.citizen and item.started_by != user.id):
+        raise HTTPException(status_code=404, detail="Live call session not found")
+    return item
+
+
+@router.post("/live/{session_id}/chunk")
+async def append_live_chunk(
+    session_id: UUID, payload: LiveTranscriptChunk, user: CurrentUser, db: DbSession,
+):
+    item = await _live_session(db, session_id, user)
+    if item.status not in {"active", "ready"}:
+        raise HTTPException(status_code=409, detail="Live call session is already finalized")
+    item.transcript = f"{item.transcript}\n{payload.text}".strip()
+    if len(item.transcript) > 50_000:
+        raise HTTPException(status_code=413, detail="Live transcript exceeds 50,000 characters")
+    item.duration = max(item.duration, payload.duration)
+    history = await db.scalar(select(CallerHistory).where(
+        CallerHistory.caller_number == item.caller_number
+    ))
+    spoof = TelecomSpoofAnalyzer().analyze(item.caller_number, item.telecom_signals)
+    preview = DigitalArrestService(db).engine.analyze(
+        transcript=item.transcript, duration=item.duration, video_call=item.video_call,
+        spoof_detected=bool(spoof["detected"]), spoof_score=int(spoof["score"]),
+        previous_reports=history.report_count if history else 0,
+    )
+    preview["spoof_score"], preview["spoof_reasons"] = spoof["score"], spoof["reasons"]
+    item.latest_analysis = preview
+    item.status = "ready" if payload.final else "active"
+    await db.commit()
+    await hub.broadcast("digital-arrest", "digital_arrest.live_update", {
+        "session_id": str(item.id), "caller_number": item.caller_number,
+        "risk_score": preview["risk_score"], "threat_level": preview["threat_level"],
+        "timeline": preview["conversation_stages"], "transcript": item.transcript,
+    })
+    return {"session_id": item.id, "status": item.status, **preview}
+
+
+@router.post("/live/{session_id}/finalize", response_model=DigitalArrestResponse)
+async def finalize_live_call(session_id: UUID, user: CurrentUser, db: DbSession):
+    item = await _live_session(db, session_id, user)
+    if item.finalized_case_id:
+        case = await _case_or_404(db, item.finalized_case_id, user)
+        latest = item.latest_analysis
+        latest.setdefault("caller_reputation", {
+            "caller_number": case.caller_number, "report_count": 0, "average_risk": case.risk_score,
+            "reputation_score": max(0, 100-case.risk_score), "total_victims": 0,
+            "last_seen": case.created_at, "label": "unknown",
+        })
+        return DigitalArrestResponse(case_id=case.id, **latest)
+    if len(item.transcript.strip()) < 5:
+        raise HTTPException(status_code=422, detail="Live transcript is too short to finalize")
+    case, result = await DigitalArrestService(db).analyze(
+        caller_number=item.caller_number, transcript=item.transcript, duration=item.duration,
+        video_call=item.video_call, location=None, country=None, spoof_detected=None,
+        telecom_signals=item.telecom_signals, user=user, source="live",
+    )
+    stored_result = DigitalArrestResponse(case_id=case.id, **result).model_dump(
+        mode="json", exclude={"case_id"}
+    )
+    item.status, item.finalized_case_id, item.latest_analysis = "finalized", case.id, stored_result
+    await db.commit()
+    await _sync_graph(case, user.email)
+    await _broadcast_case(case, "digital_arrest.live_finalized")
+    return DigitalArrestResponse(case_id=case.id, **result)
+
+
+@router.post("/{case_id}/external-action")
+async def external_action(
+    case_id: UUID, payload: ExternalAlertRequest, user: CurrentUser, db: DbSession,
+):
+    item = await _case_or_404(db, case_id, user)
+    allowed = {
+        "mha": {UserRole.police, UserRole.administrator},
+        "bank": {UserRole.bank, UserRole.police, UserRole.administrator},
+    }
+    if user.role not in allowed[payload.integration]:
+        raise HTTPException(status_code=403, detail="Your role cannot request this external action")
+    if payload.integration == "bank" and not payload.transaction_id and not payload.account_reference:
+        raise HTTPException(status_code=422, detail="A transaction or account reference is required for a bank hold")
+    dispatch = await ExternalDispatchService(db).dispatch(
+        case_id=item.id, integration=payload.integration, action=payload.action,
+        payload={
+            "case_id": str(item.id), "caller_number": item.caller_number,
+            "risk_score": item.risk_score, **payload.model_dump(exclude={"integration", "action"}),
+        },
+        user_id=user.id,
+    )
+    db.add(AuditLog(
+        user_id=user.id, action=f"digital_arrest.external.{payload.action}",
+        resource="digital_arrest_case", resource_id=str(item.id),
+        details={"integration": payload.integration, "dispatch_status": dispatch.status},
+    ))
+    await db.commit()
+    return {
+        "dispatch_id": dispatch.id, "integration": dispatch.integration,
+        "action": dispatch.action, "status": dispatch.status,
+        "response": dispatch.response_payload,
+    }
 
 
 @router.post("/report", status_code=201)

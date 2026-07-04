@@ -13,8 +13,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 from slowapi.middleware import SlowAPIMiddleware
-from sqlalchemy import text
-from sqlalchemy import select
+from sqlalchemy import select, text, update
 from starlette.responses import Response
 
 from app.api.v1.router import api_router
@@ -22,7 +21,7 @@ from app.config.settings import settings
 from app.auth.security import decode_token
 from app.database import AsyncSessionLocal, engine
 from app.middleware import RequestContextMiddleware, SecurityHeadersMiddleware
-from app.models import User
+from app.models import SpeechStream, User
 from app.realtime import hub
 from app.schemas import HealthResponse
 from app.utils.logging import configure_logging
@@ -37,6 +36,13 @@ limiter = Limiter(key_func=get_remote_address, default_limits=[settings.rate_lim
 async def lifespan(app: FastAPI):
     settings.storage_path.mkdir(parents=True, exist_ok=True)
     app.state.redis = redis.from_url(settings.redis_url, decode_responses=True)
+    async with AsyncSessionLocal() as db:
+        await db.execute(
+            update(SpeechStream)
+            .where(SpeechStream.status == "active")
+            .values(status="abandoned")
+        )
+        await db.commit()
     yield
     await app.state.redis.aclose()
     await engine.dispose()
@@ -122,7 +128,7 @@ async def metrics():
 
 @app.websocket("/ws/{channel}")
 async def websocket_updates(websocket: WebSocket, channel: str, token: str):
-    if channel not in {"dashboard", "alerts", "reports", "graph", "heatmap", "digital-arrest"}:
+    if channel not in {"dashboard", "alerts", "reports", "graph", "heatmap", "digital-arrest", "speech"}:
         await websocket.close(code=4404)
         return
     try:

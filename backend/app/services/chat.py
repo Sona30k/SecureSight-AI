@@ -14,7 +14,7 @@ class ChatService:
 
     async def chat(
         self, text: str, attachment_type: str | None = None,
-        attachment: bytes | None = None, filename: str = "",
+        attachment: bytes | None = None, filename: str = "", language: str = "en",
     ) -> dict:
         original_text = text.strip()
         normalized = normalize_text(original_text)
@@ -117,9 +117,27 @@ class ChatService:
             recommendations = ["Check the official domain", "Never share OTP or PIN", "Report any request for urgent payment"]
         if keywords:
             response += f" Detected risk phrases: {', '.join(keywords)}."
-        return {
+        result = {
             "response": response,
             "confidence": round(min(.62 + score / 180, .98), 2),
             "risk_level": level,
             "recommendations": recommendations,
         }
+        if language != "en":
+            localized = {
+                "hi": "सावधानी: OTP, PIN या पासवर्ड साझा न करें। भुगतान रोकें और आधिकारिक माध्यम से पुष्टि करें।",
+                "bn": "সতর্কতা: OTP, PIN বা পাসওয়ার্ড শেয়ার করবেন না। অর্থপ্রদান থামিয়ে সরকারি মাধ্যমে যাচাই করুন।",
+                "te": "జాగ్రత్త: OTP, PIN లేదా పాస్‌వర్డ్‌ను పంచుకోవద్దు. చెల్లింపును ఆపి అధికారిక మార్గంలో ధృవీకరించండి.",
+                "mr": "सावधान: OTP, PIN किंवा पासवर्ड शेअर करू नका. पेमेंट थांबवा आणि अधिकृत माध्यमातून पडताळणी करा.",
+                "ta": "எச்சரிக்கை: OTP, PIN அல்லது கடவுச்சொல்லைப் பகிர வேண்டாம். பணம் செலுத்துவதை நிறுத்தி அதிகாரப்பூர்வ வழியில் சரிபார்க்கவும்.",
+                "gu": "સાવધાન: OTP, PIN અથવા પાસવર્ડ શેર કરશો નહીં. ચુકવણી રોકો અને સત્તાવાર માધ્યમથી ચકાસો.",
+                "ur": "احتیاط: OTP، PIN یا پاس ورڈ شیئر نہ کریں۔ ادائیگی روکیں اور سرکاری ذریعے سے تصدیق کریں۔",
+                "kn": "ಎಚ್ಚರಿಕೆ: OTP, PIN ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ. ಪಾವತಿ ನಿಲ್ಲಿಸಿ ಅಧಿಕೃತ ಮಾರ್ಗದಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.",
+                "or": "ସତର୍କତା: OTP, PIN କିମ୍ବା ପାସୱାର୍ଡ ସେୟାର କରନ୍ତୁ ନାହିଁ। ଦେୟ ବନ୍ଦ କରି ସରକାରୀ ମାଧ୍ୟମରେ ଯାଞ୍ଚ କରନ୍ତୁ।",
+                "ml": "ജാഗ്രത: OTP, PIN അല്ലെങ്കിൽ പാസ്‌വേഡ് പങ്കിടരുത്. പണമടയ്ക്കൽ നിർത്തി ഔദ്യോഗിക മാർഗത്തിലൂടെ സ്ഥിരീകരിക്കുക.",
+                "pa": "ਸਾਵਧਾਨ: OTP, PIN ਜਾਂ ਪਾਸਵਰਡ ਸਾਂਝਾ ਨਾ ਕਰੋ। ਭੁਗਤਾਨ ਰੋਕੋ ਅਤੇ ਅਧਿਕਾਰਤ ਮਾਧਿਅਮ ਰਾਹੀਂ ਪੁਸ਼ਟੀ ਕਰੋ।",
+            }.get(language)
+            if localized:
+                result["response"] = f"{localized}\n\n{result['response']}"
+        result["language"] = language
+        return result

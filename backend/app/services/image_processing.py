@@ -1,5 +1,6 @@
 import hashlib
 import asyncio
+from functools import lru_cache
 from uuid import uuid4
 
 from fastapi import UploadFile
@@ -8,14 +9,24 @@ from ai.inference import CurrencyDetectionPipeline
 from app.config.settings import settings
 
 
+@lru_cache(maxsize=1)
+def _currency_model() -> CurrencyDetectionPipeline:
+    return CurrencyDetectionPipeline(
+        classifier_path=settings.currency_classifier_path,
+        classifier_arch=settings.currency_classifier_arch,
+        resnet_path=settings.currency_resnet_path,
+        yolo_path=settings.currency_yolo_path,
+        yolo_confidence=settings.currency_yolo_confidence,
+        ocr_gpu=settings.currency_ocr_gpu,
+        ocr_download_enabled=settings.currency_ocr_download_enabled,
+    )
+
+
 class ImageProcessingService:
     allowed_types = {"image/jpeg", "image/png", "image/webp"}
 
     def __init__(self, model: CurrencyDetectionPipeline | None = None):
-        self.model = model or CurrencyDetectionPipeline(
-            resnet_path=settings.currency_resnet_path,
-            yolo_path=settings.currency_yolo_path,
-        )
+        self.model = model or _currency_model()
 
     @staticmethod
     def _verified_suffix(content: bytes) -> str:

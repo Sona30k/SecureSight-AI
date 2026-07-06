@@ -73,13 +73,17 @@ async def _analyze_and_store(
         result["explanation"].insert(0, "Serial number was previously scanned and is flagged as a duplicate")
     result["serial_duplicate"] = duplicate
     result["spectral_analysis"] = {}
+    pipeline_stages = result.pop("pipeline_stages", {})
+    classifier_checkpoint = settings.currency_classifier_path or settings.currency_resnet_path
     result["model_provenance"] = {
         "pipeline": result["model_version"],
-        "resnet_checkpoint_configured": bool(settings.currency_resnet_path),
-        "yolo_checkpoint_configured": bool(settings.currency_yolo_path),
+        "classifier_architecture": settings.currency_classifier_arch,
+        "classifier_checkpoint_configured": bool(classifier_checkpoint and classifier_checkpoint.exists()),
+        "yolo_checkpoint_configured": bool(settings.currency_yolo_path and settings.currency_yolo_path.exists()),
         "ocr_available": bool(result["features"]["serial_number"].get("ocr_available")),
+        "stages": pipeline_stages,
         "independent_certification": False,
-        "validation_status": "site_checkpoint" if settings.currency_resnet_path else "measured-feature baseline; not independently certified",
+        "validation_status": "site_checkpoint" if classifier_checkpoint else "measured-feature baseline; not independently certified",
     }
     case = CounterfeitCase(
         image_path=image_path, corrected_image_path=result["corrected_image_path"],
@@ -184,11 +188,17 @@ async def analyze_multispectral(
 
 @router.get("/model-card")
 async def currency_model_card(user: CurrentUser):
+    classifier_checkpoint = settings.currency_classifier_path or settings.currency_resnet_path
     return {
-        "pipeline": "shieldiq-currency-cv-v2",
+        "pipeline": "shieldiq-currency-cv-v3",
         "purpose": "Screening and decision support for Indian banknote images",
-        "resnet_checkpoint_configured": bool(settings.currency_resnet_path),
-        "yolo_checkpoint_configured": bool(settings.currency_yolo_path),
+        "detector": "YOLOv8 banknote localization",
+        "perspective_correction": "OpenCV four-point homography",
+        "ocr": "EasyOCR serial-number extraction",
+        "classifier": settings.currency_classifier_arch,
+        "explainability": "prediction-targeted Grad-CAM",
+        "classifier_checkpoint_configured": bool(classifier_checkpoint and classifier_checkpoint.exists()),
+        "yolo_checkpoint_configured": bool(settings.currency_yolo_path and settings.currency_yolo_path.exists()),
         "visible_baseline": "Measured image regions and quality checks",
         "spectral_support": ["physical UV capture", "physical infrared capture"],
         "independent_certification": False,

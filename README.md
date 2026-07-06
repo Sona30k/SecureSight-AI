@@ -54,7 +54,7 @@ External MHA, bank, and telecom actions require authorized provider URLs and cre
 - Registered mobile, POS, scanner, and counting-machine API clients
 - Batch scans, model provenance, expert review labels, and measured accuracy from reviewed cases
 
-The default currency pipeline uses measured image features. Optional YOLO, ResNet, and OCR models can be configured for stronger detection. UV and infrared features are assessed only when physical sensor captures are supplied; the application does not simulate missing spectral data.
+The currency pipeline supports YOLOv8 note localization, OpenCV four-point perspective correction, EasyOCR serial extraction, a fine-tuned ResNet50 or EfficientNet-B0 genuine/counterfeit classifier, and prediction-targeted Grad-CAM. When a trained checkpoint or optional AI dependency is unavailable, the API explicitly reports the measured-feature fallback instead of presenting it as model inference. UV and infrared features are assessed only when physical sensor captures are supplied.
 
 ### Fraud and Crime Intelligence
 
@@ -85,8 +85,13 @@ The default currency pipeline uses measured image features. Optional YOLO, ResNe
 - Risk classification, confidence, and safety recommendations
 - Persistent floating-chat history in the browser session
 - Suggested prompts, file attachments, and responsive layout
+- Selectable GPT, Gemini, local Llama/Ollama, or automatic provider routing
+- Structured model responses validated with Pydantic
+- Database-grounded counterfeit explanations and fraud-report summaries
+- Credential redaction before cloud inference
+- Explicit live-provider and local-fallback labels
 
-The included assistant is focused on fraud and public-safety questions. It uses the local analysis pipeline; it is not a general-purpose large language model.
+The assistant remains focused on fraud and public-safety questions. Local safety scoring always runs first, and an external model cannot lower a high-risk local classification. When no configured model is reachable, ShieldIQ returns a labelled local fallback instead of pretending that GPT, Gemini, or Llama answered.
 
 ## Technology
 
@@ -113,6 +118,40 @@ source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
 ```
+
+Install the computer-vision dependencies when running the trained currency pipeline:
+
+```bash
+pip install -r requirements-ai.txt
+```
+
+Configure institution-trained checkpoints in `backend/.env`:
+
+```env
+CURRENCY_YOLO_PATH=/absolute/path/to/banknote-yolov8.pt
+CURRENCY_YOLO_CONFIDENCE=0.55
+CURRENCY_CLASSIFIER_PATH=/absolute/path/to/currency-efficientnet-b0.pt
+CURRENCY_CLASSIFIER_ARCH=efficientnet_b0
+CURRENCY_OCR_GPU=false
+CURRENCY_OCR_DOWNLOAD_ENABLED=false
+```
+
+Supported classifiers are `efficientnet_b0` and `resnet50`. Checkpoints must contain a two-class state dictionary and may include `architecture` and `class_to_idx` metadata. Production verdicts require a separately validated, institution-approved dataset and checkpoint.
+Keep `CURRENCY_OCR_DOWNLOAD_ENABLED=false` in controlled deployments and provision EasyOCR model files during the image build. It may be enabled temporarily in a trusted development environment to download the initial OCR weights.
+
+Configure one or more assistant providers:
+
+```env
+ASSISTANT_PROVIDER=auto
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-5.4-mini
+GEMINI_API_KEY=
+GEMINI_MODEL=gemini-3.5-flash
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_MODEL=llama3.2
+```
+
+`auto` tries configured cloud providers and then local Ollama before using the built-in safety engine. API keys stay on the backend and must never be placed in the frontend environment.
 
 For a lightweight local setup, set these values in `backend/.env`:
 

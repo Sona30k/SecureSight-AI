@@ -21,7 +21,13 @@ export type RegisterPayload = {
   accept_terms:boolean;
 }
 export type Prediction = { prediction:string; confidence:number; risk_score:number; explanation:string[]; model_version:string; details:Record<string, unknown> }
-export type AssistantReply = { response:string; confidence:number; risk_level:'low'|'medium'|'high'|'critical'; recommendations:string[]; analysis_id:string; provider:string; language:string }
+export type AssistantProvider = 'auto'|'openai'|'gemini'|'llama'|'rules'
+export type AssistantReply = {
+  response:string; confidence:number; risk_level:'low'|'medium'|'high'|'critical';
+  recommendations:string[]; analysis_id:string; provider:string; model:string;
+  provider_status:'live'|'fallback'|'local'; grounded_context:string[]; language:string;
+}
+export type AssistantProviderInfo = {id:Exclude<AssistantProvider,'auto'>;label:string;model:string;configured:boolean}
 export type ThreatLevel = 'low'|'medium'|'high'|'critical'
 export type ConversationStage = { stage:string; evidence:string; severity:'low'|'medium'|'high'; order:number }
 export type TelecomSignals = {
@@ -66,6 +72,10 @@ export type CurrencyResult = {
 export type CurrencyHistory = {id:string;prediction:string;confidence:number;authenticity_score:number;counterfeit_probability:number;denomination?:string;series?:string;legal_tender:boolean;currency_status?:string;serial_number?:string;serial_duplicate:boolean;location?:string;created_at:string}
 export type CurrencyStatistics = {total_notes_scanned:number;fake_notes_found:number;detection_accuracy:number|null;most_counterfeited_denomination:string|null;denomination_distribution:{denomination:string;count:number}[];monthly_trends:{month:string;count:number}[]}
 export type Report = { id:string; title:string; description:string; category:string; location?:string; status:string; risk_score:number; money_involved:number; created_at:string }
+export type NotificationItem = {
+  id:string; channel:'sms'|'email'|'push'|'whatsapp'; subject:string; body:string;
+  status:string; created_at:string; read:boolean;
+}
 export type DashboardData = {
   today_frauds:number; counterfeit_detected:number; money_saved:number; active_investigations:number;
   protected_citizens:number; high_risk_calls:number; digital_arrest_cases:number;
@@ -163,6 +173,14 @@ export const services = {
     assignRole: (userId:string,role:Role) => api.put<User>(`/auth/admin/users/${userId}/role`,{role}).then(r=>r.data),
   },
   analytics: () => api.get<DashboardData>('/analytics/dashboard').then(r=>r.data),
+  notifications: {
+    list: () => api.get<{items:NotificationItem[]}>('/notifications').then(r=>r.data.items.map(item=>({
+      ...item,
+      body:item.body||`${item.channel.toUpperCase()} notification • ${item.status}`,
+      read:item.read??false,
+    }))),
+    markRead: (id:string) => api.post<{id:string;read:boolean}>(`/notifications/${id}/read`).then(r=>r.data),
+  },
   reports: (params?:Record<string,unknown>) => api.get<{items:Report[];total:number}>('/reports',{params}).then(r=>r.data),
   scam: (payload:Record<string,unknown>) => api.post<Prediction & {case_id?:string;scam_probability?:number;detected_keywords?:string[]}>('/ai/scam-detection',payload).then(r=>r.data),
   digitalArrest: {
@@ -231,7 +249,7 @@ export const services = {
   hotspots: () => api.get('/ai/hotspots').then(r=>r.data),
   heatmap: (params?:Record<string,unknown>) => api.get('/crime/heatmap',{params}).then(r=>r.data),
   geospatial: {
-    hotspots: () => api.get('/crime/hotspots').then(r=>r.data),
+    hotspots: () => api.get('/crime/hotspots',{params:{limit:100}}).then(r=>r.data),
     patrolPlan: (district?:string) => api.get('/crime/patrol-plan',{params:district?{district}:undefined}).then(r=>r.data),
     shares: (district?:string) => api.get('/crime/shares',{params:district?{district}:undefined}).then(r=>r.data),
     share: (payload:{source_district:string;target_district:string;title:string;summary:string;severity:string;incident_ids:string[]}) =>
@@ -239,8 +257,10 @@ export const services = {
     acknowledge: (id:string) => api.post(`/crime/shares/${id}/acknowledge`).then(r=>r.data),
     feeds: () => api.get('/crime/feeds').then(r=>r.data),
   },
-  chat: (text:string,file?:File|null,language='en') => {
-    const form = new FormData(); form.append('text',text);form.append('language',language)
+  assistantProviders: () => api.get<{default:AssistantProvider;providers:AssistantProviderInfo[]}>('/assistant/providers').then(r=>r.data),
+  chat: (text:string,file?:File|null,language='en',provider:AssistantProvider='auto',contextType:'auto'|'currency'|'report'|'none'='auto',contextId='') => {
+    const form = new FormData(); form.append('text',text);form.append('language',language);form.append('provider',provider);form.append('context_type',contextType)
+    if(contextId.trim())form.append('context_id',contextId.trim())
     if(file){
       const field=file.type.startsWith('image/')?'image':file.type.startsWith('audio/')?'voice':file.type==='application/pdf'?'pdf':''
       if(!field)throw new Error('Attach an image, audio file, or PDF.')

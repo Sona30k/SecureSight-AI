@@ -144,7 +144,13 @@ async def test_currency_forensic_lifecycle(client, auth_headers):
     body = response.json()
     assert body["features"]["security_thread"]["confidence"] >= 0
     assert body["detected_note"].startswith("data:image/png;base64,")
-    assert body["model_version"] == "shieldiq-currency-forensics-v2"
+    assert body["model_version"] == "shieldiq-currency-forensics-v3"
+    assert body["model_provenance"]["stages"]["note_detection"]["provider"]
+    assert body["model_provenance"]["stages"]["perspective_correction"]["provider"]
+    assert body["model_provenance"]["stages"]["serial_ocr"]["provider"]
+    assert body["model_provenance"]["stages"]["classification"]["provider"] in {
+        "resnet50", "efficientnet_b0",
+    }
 
     history = await client.get("/currency/history", headers=auth_headers)
     assert history.status_code == 200

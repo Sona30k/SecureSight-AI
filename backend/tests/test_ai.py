@@ -9,7 +9,9 @@ from ai.inference.scam import ScamDetectionPipeline
 from ai.synthetic_data.generate import crime_geojson, digital_arrest_calls, fraud_network, scam_calls
 from app.services.chat import ChatService
 from app.services.digital_arrest import DigitalArrestRiskEngine
-from ai.inference.currency import CurrencyDetectionPipeline
+from ai.inference.currency import (
+    CurrencyDetectionPipeline, OpenCVPerspectiveRectifier, TorchForgeryProvider,
+)
 
 
 @pytest.mark.asyncio
@@ -76,6 +78,46 @@ def test_currency_pipeline_uses_measured_pixels_and_returns_forensics():
     assert result["detected_note"].startswith("data:image/png;base64,")
     assert result["heatmap"].startswith("data:image/png;base64,")
     assert 0 <= result["authenticity_score"] <= 100
+    assert set(result["pipeline_stages"]) == {
+        "note_detection", "perspective_correction", "serial_ocr",
+        "classification", "explainability",
+    }
+    assert result["pipeline_stages"]["classification"]["checkpoint_configured"] is False
+
+
+def test_opencv_applies_four_point_perspective_correction():
+    pytest.importorskip("cv2")
+    image = Image.new("RGB", (1200, 700), "white")
+    draw = ImageDraw.Draw(image)
+    corners = [(120, 170), (1070, 90), (1110, 540), (170, 610)]
+    draw.polygon(corners, fill=(142, 121, 157), outline=(25, 25, 35), width=12)
+    for offset in range(80, 850, 55):
+        draw.line((160 + offset, 170, 180 + offset, 570), fill=(55, 48, 80), width=5)
+    corrected, applied, method = OpenCVPerspectiveRectifier().rectify(
+        image, (80, 60, 1140, 640),
+    )
+    assert applied is True
+    assert method == "opencv_homography"
+    assert corrected.size == (960, 400)
+
+
+def test_efficientnet_checkpoint_produces_prediction_targeted_gradcam(tmp_path):
+    torch = pytest.importorskip("torch")
+    torchvision = pytest.importorskip("torchvision")
+    model = torchvision.models.efficientnet_b0(weights=None)
+    model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, 2)
+    checkpoint = tmp_path / "efficientnet.pt"
+    torch.save({
+        "state_dict": model.state_dict(),
+        "architecture": "efficientnet_b0",
+        "class_to_idx": {"counterfeit": 0, "genuine": 1},
+    }, checkpoint)
+    provider = TorchForgeryProvider(checkpoint, "efficientnet_b0")
+    result = provider.predict(Image.new("RGB", (960, 400), (130, 120, 145)))
+    assert result is not None
+    assert result["architecture"] == "efficientnet_b0"
+    assert result["predicted_label"] in {"counterfeit", "genuine"}
+    assert result["gradcam"].size == (960, 400)
 
 
 def test_currency_pipeline_rejects_blurry_flat_image():

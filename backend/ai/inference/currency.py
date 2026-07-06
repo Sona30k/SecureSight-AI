@@ -4,6 +4,7 @@ import asyncio
 import base64
 import io
 import re
+import threading
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -35,62 +36,144 @@ class PreparedNote:
     color_mean: np.ndarray
 
 
-class YOLOBoundaryProvider:
-    """Optional YOLOv8 checkpoint adapter; CV contour detection remains the safe fallback."""
+@dataclass(frozen=True)
+class NoteDetection:
+    box: tuple[int, int, int, int]
+    confidence: float
+    class_name: str
 
-    def __init__(self, path: str | Path | None):
+
+class YOLOBoundaryProvider:
+    """YOLOv8 banknote-localization adapter with an explicit confidence threshold."""
+
+    def __init__(self, path: str | Path | None, confidence: float = .55):
         self.model = None
+        self._inference_lock = threading.Lock()
+        self.confidence = confidence
+        self.checkpoint = str(path) if path else None
         if path and Path(path).exists():
             ultralytics = optional_import("ultralytics")
             if ultralytics:
                 self.model = ultralytics.YOLO(str(path))
 
-    def detect(self, image: Image.Image) -> list[tuple[int, int, int, int]]:
+    @property
+    def available(self) -> bool:
+        return self.model is not None
+
+    def detect(self, image: Image.Image) -> list[NoteDetection]:
         if self.model is None:
             return []
-        result = self.model.predict(np.asarray(image), verbose=False)[0]
-        return [tuple(map(int, box)) for box in result.boxes.xyxy.cpu().numpy().tolist()]
+        with self._inference_lock:
+            result = self.model.predict(
+                np.asarray(image), verbose=False, conf=self.confidence, max_det=5,
+            )[0]
+        names = getattr(result, "names", {}) or {}
+        detections: list[NoteDetection] = []
+        boxes = result.boxes
+        for box, confidence, class_id in zip(
+            boxes.xyxy.cpu().numpy().tolist(),
+            boxes.conf.cpu().numpy().tolist(),
+            boxes.cls.cpu().numpy().tolist(),
+        ):
+            detections.append(NoteDetection(
+                box=tuple(map(int, box)),
+                confidence=float(confidence),
+                class_name=str(names.get(int(class_id), "banknote")),
+            ))
+        return sorted(detections, key=lambda item: item.confidence, reverse=True)
 
 
-class ResNetForgeryProvider:
-    """Optional fine-tuned ResNet50 provider with GradCAM over layer4."""
+class TorchForgeryProvider:
+    """Fine-tuned ResNet50/EfficientNet-B0 classifier with prediction-targeted Grad-CAM."""
 
-    def __init__(self, path: str | Path | None):
-        self.model = self.torch = None
-        if not path or not Path(path).exists():
+    supported_architectures = {"resnet50", "efficientnet_b0"}
+
+    def __init__(self, path: str | Path | None, architecture: str = "efficientnet_b0"):
+        self.model = self.torch = self.target_layer = None
+        self._inference_lock = threading.Lock()
+        self.architecture = architecture
+        self.checkpoint = str(path) if path else None
+        self.class_to_idx = {"counterfeit": 0, "genuine": 1}
+        if architecture not in self.supported_architectures or not path or not Path(path).exists():
             return
         torch, torchvision = optional_import("torch"), optional_import("torchvision")
         if not torch or not torchvision:
             return
-        model = torchvision.models.resnet50(weights=None)
-        model.fc = torch.nn.Linear(model.fc.in_features, 2)
         state = torch.load(str(path), map_location="cpu", weights_only=True)
-        model.load_state_dict(state["state_dict"] if isinstance(state, dict) and "state_dict" in state else state)
+        metadata = state if isinstance(state, dict) else {}
+        checkpoint_arch = str(metadata.get("architecture", architecture))
+        if checkpoint_arch in self.supported_architectures:
+            self.architecture = checkpoint_arch
+        if isinstance(metadata.get("class_to_idx"), dict):
+            self.class_to_idx = {
+                str(label).lower(): int(index)
+                for label, index in metadata["class_to_idx"].items()
+            }
+        if self.architecture == "resnet50":
+            model = torchvision.models.resnet50(weights=None)
+            model.fc = torch.nn.Linear(model.fc.in_features, 2)
+            target_layer = model.layer4[-1]
+        else:
+            model = torchvision.models.efficientnet_b0(weights=None)
+            model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, 2)
+            target_layer = model.features[-1]
+        state_dict = metadata.get("state_dict", state)
+        state_dict = {
+            str(key).removeprefix("module."): value
+            for key, value in state_dict.items()
+        }
+        model.load_state_dict(state_dict)
         model.eval()
-        self.model, self.torch = model, torch
+        self.model, self.torch, self.target_layer = model, torch, target_layer
 
-    def predict(self, note: Image.Image) -> tuple[float, Image.Image] | None:
-        if self.model is None or self.torch is None:
+    @property
+    def available(self) -> bool:
+        return self.model is not None
+
+    def predict(self, note: Image.Image) -> dict[str, Any] | None:
+        if self.model is None or self.torch is None or self.target_layer is None:
             return None
+        with self._inference_lock:
+            return self._predict(note)
+
+    def _predict(self, note: Image.Image) -> dict[str, Any]:
         torch = self.torch
         image = note.resize((224, 224), Image.Resampling.BILINEAR)
         array = np.asarray(image).astype(np.float32) / 255
         array = (array - np.array([.485, .456, .406])) / np.array([.229, .224, .225])
         tensor = torch.from_numpy(array.transpose(2, 0, 1)).float().unsqueeze(0)
-        activations, gradients = [], []
-        forward = self.model.layer4[-1].register_forward_hook(lambda _m, _i, output: activations.append(output))
-        backward = self.model.layer4[-1].register_full_backward_hook(lambda _m, _gi, output: gradients.append(output[0]))
+        activations = []
+        def capture_activation(_module, _inputs, output):
+            output.retain_grad()
+            activations.append(output)
+        forward = self.target_layer.register_forward_hook(capture_activation)
         logits = self.model(tensor)
-        genuine_probability = float(torch.softmax(logits, dim=1)[0, 1])
+        probabilities = torch.softmax(logits, dim=1)[0]
+        genuine_index = next(
+            (index for label, index in self.class_to_idx.items() if label in {"genuine", "real"}),
+            1,
+        )
+        genuine_probability = float(probabilities[genuine_index].detach())
+        target_index = int(torch.argmax(probabilities))
+        predicted_label = next(
+            (label for label, index in self.class_to_idx.items() if index == target_index),
+            "genuine" if target_index == genuine_index else "counterfeit",
+        )
         self.model.zero_grad()
-        logits[0, 1].backward()
+        logits[0, target_index].backward()
         forward.remove()
-        backward.remove()
-        weights = gradients[0].mean(dim=(2, 3), keepdim=True)
+        gradients = activations[0].grad
+        weights = gradients.mean(dim=(2, 3), keepdim=True)
         cam = torch.relu((weights * activations[0]).sum(dim=1))[0]
-        cam = cam / max(float(cam.max()), 1e-6)
+        cam = cam / max(float(cam.max().detach()), 1e-6)
         cam_image = Image.fromarray((cam.detach().numpy() * 255).astype("uint8")).resize(note.size, Image.Resampling.BILINEAR)
-        return genuine_probability, cam_image
+        return {
+            "genuine_probability": genuine_probability,
+            "predicted_label": predicted_label,
+            "prediction_confidence": float(probabilities[target_index].detach()),
+            "gradcam": cam_image,
+            "architecture": self.architecture,
+        }
 
 
 def _png_data(image: Image.Image) -> str:
@@ -129,11 +212,95 @@ def _connected_components(mask: np.ndarray) -> list[int]:
     return sorted(sizes, reverse=True)
 
 
+class OpenCVPerspectiveRectifier:
+    """Find four note corners and apply a true homography with OpenCV."""
+
+    target_size = (960, 400)
+
+    def __init__(self):
+        self.cv2 = optional_import("cv2")
+
+    @property
+    def available(self) -> bool:
+        return self.cv2 is not None
+
+    @staticmethod
+    def _ordered(points: np.ndarray) -> np.ndarray:
+        points = points.astype("float32")
+        ordered = np.zeros((4, 2), dtype="float32")
+        sums, differences = points.sum(axis=1), np.diff(points, axis=1).reshape(-1)
+        ordered[0], ordered[2] = points[np.argmin(sums)], points[np.argmax(sums)]
+        ordered[1], ordered[3] = points[np.argmin(differences)], points[np.argmax(differences)]
+        return ordered
+
+    def rectify(
+        self, image: Image.Image, bounding_box: tuple[int, int, int, int],
+    ) -> tuple[Image.Image, bool, str]:
+        left, top, right, bottom = bounding_box
+        fallback = image.crop((left, top, right + 1, bottom + 1))
+        if self.cv2 is None:
+            return fallback.resize(self.target_size, Image.Resampling.LANCZOS), False, "crop_resize"
+
+        cv2 = self.cv2
+        rgb = np.asarray(image)
+        roi = rgb[top:bottom + 1, left:right + 1]
+        if roi.size == 0:
+            return fallback.resize(self.target_size, Image.Resampling.LANCZOS), False, "crop_resize"
+        gray = cv2.cvtColor(roi, cv2.COLOR_RGB2GRAY)
+        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        edges = cv2.Canny(blurred, 45, 140)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
+        edges = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel, iterations=2)
+        contours = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
+        roi_area = float(max(1, roi.shape[0] * roi.shape[1]))
+        quadrilateral = None
+        for contour in sorted(contours, key=cv2.contourArea, reverse=True)[:12]:
+            if cv2.contourArea(contour) < roi_area * .22:
+                continue
+            perimeter = cv2.arcLength(contour, True)
+            approximation = cv2.approxPolyDP(contour, .02 * perimeter, True)
+            if len(approximation) == 4 and cv2.isContourConvex(approximation):
+                quadrilateral = approximation.reshape(4, 2)
+                break
+        if quadrilateral is None:
+            return fallback.resize(self.target_size, Image.Resampling.LANCZOS), False, "crop_resize"
+
+        source = self._ordered(quadrilateral)
+        top_width = np.linalg.norm(source[1] - source[0])
+        bottom_width = np.linalg.norm(source[2] - source[3])
+        left_height = np.linalg.norm(source[3] - source[0])
+        right_height = np.linalg.norm(source[2] - source[1])
+        output_width = max(int(top_width), int(bottom_width))
+        output_height = max(int(left_height), int(right_height))
+        if output_width < 100 or output_height < 45:
+            return fallback.resize(self.target_size, Image.Resampling.LANCZOS), False, "crop_resize"
+        destination = np.array([
+            [0, 0], [output_width - 1, 0],
+            [output_width - 1, output_height - 1], [0, output_height - 1],
+        ], dtype="float32")
+        matrix = cv2.getPerspectiveTransform(source, destination)
+        warped = cv2.warpPerspective(
+            roi, matrix, (output_width, output_height),
+            flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE,
+        )
+        if output_height > output_width:
+            warped = cv2.rotate(warped, cv2.ROTATE_90_CLOCKWISE)
+        aspect = warped.shape[1] / max(1, warped.shape[0])
+        if not 1.45 <= aspect <= 4.0:
+            return fallback.resize(self.target_size, Image.Resampling.LANCZOS), False, "crop_resize"
+        corrected = Image.fromarray(warped).resize(self.target_size, Image.Resampling.LANCZOS)
+        return corrected, True, "opencv_homography"
+
+
 class CurrencyPreprocessor:
     target_size = (960, 400)
 
-    def __init__(self, yolo: YOLOBoundaryProvider | None = None):
+    def __init__(
+        self, yolo: YOLOBoundaryProvider | None = None,
+        rectifier: OpenCVPerspectiveRectifier | None = None,
+    ):
         self.yolo = yolo
+        self.rectifier = rectifier or OpenCVPerspectiveRectifier()
 
     def prepare(self, content: bytes) -> PreparedNote:
         try:
@@ -146,8 +313,8 @@ class CurrencyPreprocessor:
         if width * height > 30_000_000:
             raise ValueError("Image dimensions exceed the safe processing limit")
 
-        yolo_boxes = self.yolo.detect(original) if self.yolo else []
-        if len(yolo_boxes) > 1:
+        yolo_detections = self.yolo.detect(original) if self.yolo else []
+        if len(yolo_detections) > 1:
             raise ValueError("Multiple banknotes detected; upload one note at a time")
         array = np.asarray(original).astype(np.float32)
         corners = np.concatenate((
@@ -160,8 +327,10 @@ class CurrencyPreprocessor:
         mask = distance > max(18.0, float(np.percentile(distance, 55)))
         ys, xs = np.where(mask)
         aspect = width / height
-        if yolo_boxes:
-            left, top, right, bottom = yolo_boxes[0]
+        if yolo_detections:
+            left, top, right, bottom = yolo_detections[0].box
+            left, top = max(0, left), max(0, top)
+            right, bottom = min(width - 1, right), min(height - 1, bottom)
             coverage = (right - left) * (bottom - top) / (width * height)
             bbox_aspect = max(1, right - left) / max(1, bottom - top)
         elif len(xs) > width * height * .08:
@@ -193,13 +362,16 @@ class CurrencyPreprocessor:
         if coverage < .42 or (touches >= 3 and not 1.55 <= aspect <= 3.6):
             raise ValueError("The banknote appears partially visible; include all four edges")
 
-        cropped = original.crop((left, top, right + 1, bottom + 1))
-        raw_pixels = np.asarray(cropped).reshape(-1, 3).astype(np.float32)
+        raw_crop = original.crop((left, top, right + 1, bottom + 1))
+        raw_pixels = np.asarray(raw_crop).reshape(-1, 3).astype(np.float32)
         colorful = raw_pixels[
             (raw_pixels.max(axis=1) - raw_pixels.min(axis=1) > 12)
             & (raw_pixels.mean(axis=1) > 35) & (raw_pixels.mean(axis=1) < 225)
         ]
         color_mean = colorful.mean(axis=0) if len(colorful) else raw_pixels.mean(axis=0)
+        cropped, perspective_corrected, correction_method = self.rectifier.rectify(
+            original, (left, top, right, bottom),
+        )
         cropped = ImageOps.autocontrast(cropped, cutoff=1)
         cropped = ImageEnhance.Contrast(cropped).enhance(1.08)
         cropped = cropped.filter(ImageFilter.MedianFilter(3)).resize(self.target_size, Image.Resampling.LANCZOS)
@@ -219,7 +391,10 @@ class CurrencyPreprocessor:
             "note_coverage": round(coverage, 3), "brightness": round(brightness / 255, 3),
             "contrast": round(min(contrast / 70, 1), 3),
             "sharpness": round(min(sharpness / 30, 1), 3),
-            "perspective_corrected": left > 0 or top > 0 or right < width - 1 or bottom < height - 1,
+            "perspective_corrected": perspective_corrected,
+            "perspective_correction_method": correction_method,
+            "boundary_detector": "yolov8" if yolo_detections else "image_contour_fallback",
+            "detector_confidence": round(yolo_detections[0].confidence, 4) if yolo_detections else 0.0,
             "background_removed": True,
         }
         return PreparedNote(
@@ -230,6 +405,29 @@ class CurrencyPreprocessor:
 
 
 class OCRPipeline:
+    _readers: dict[tuple[tuple[str, ...], bool, bool], Any] = {}
+    _reader_lock = threading.Lock()
+
+    def __init__(
+        self, languages: tuple[str, ...] = ("en", "hi"), gpu: bool = False,
+        download_enabled: bool = False,
+    ):
+        self.languages = languages
+        self.gpu = gpu
+        self.download_enabled = download_enabled
+        self._inference_lock = threading.Lock()
+
+    def _reader(self, easyocr):
+        key = (self.languages, self.gpu, self.download_enabled)
+        if key not in self._readers:
+            with self._reader_lock:
+                if key not in self._readers:
+                    self._readers[key] = easyocr.Reader(
+                        list(self.languages), gpu=self.gpu,
+                        download_enabled=self.download_enabled,
+                    )
+        return self._readers[key]
+
     def extract_sync(self, note: Image.Image) -> dict[str, Any]:
         easyocr = optional_import("easyocr")
         if easyocr is None:
@@ -237,7 +435,17 @@ class OCRPipeline:
                 "serial_number": None, "serial_valid": False, "text": [], "confidence": 0.0,
                 "available": False, "model_version": "easyocr-not-installed",
             }
-        results = easyocr.Reader(["en", "hi"], gpu=False).readtext(np.asarray(note))
+        try:
+            with self._inference_lock:
+                results = self._reader(easyocr).readtext(
+                    np.asarray(note), detail=1, paragraph=False,
+                    allowlist="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789₹ ",
+                )
+        except Exception as exc:
+            return {
+                "serial_number": None, "serial_valid": False, "text": [], "confidence": 0.0,
+                "available": False, "model_version": f"easyocr-unavailable:{type(exc).__name__}",
+            }
         text = [str(item[1]) for item in results]
         joined = " ".join(text).upper().replace("-", " ")
         match = SERIAL_PATTERN.search(joined)
@@ -257,13 +465,25 @@ class OCRPipeline:
 class CurrencyDetectionPipeline:
     """Image-derived forensic pipeline. It never uses hashes or random predictions."""
 
-    model_version = "shieldiq-currency-forensics-v2"
+    model_version = "shieldiq-currency-forensics-v3"
 
-    def __init__(self, resnet_path: str | Path | None = None, yolo_path: str | Path | None = None):
-        self.yolo = YOLOBoundaryProvider(yolo_path)
-        self.resnet = ResNetForgeryProvider(resnet_path)
-        self.preprocessor = CurrencyPreprocessor(self.yolo)
-        self.ocr = OCRPipeline()
+    def __init__(
+        self,
+        classifier_path: str | Path | None = None,
+        classifier_arch: str = "efficientnet_b0",
+        yolo_path: str | Path | None = None,
+        yolo_confidence: float = .55,
+        ocr_gpu: bool = False,
+        ocr_download_enabled: bool = False,
+        resnet_path: str | Path | None = None,
+    ):
+        # resnet_path remains accepted for backward-compatible deployments.
+        checkpoint = classifier_path or resnet_path
+        self.yolo = YOLOBoundaryProvider(yolo_path, yolo_confidence)
+        self.classifier = TorchForgeryProvider(checkpoint, classifier_arch)
+        self.rectifier = OpenCVPerspectiveRectifier()
+        self.preprocessor = CurrencyPreprocessor(self.yolo, self.rectifier)
+        self.ocr = OCRPipeline(gpu=ocr_gpu, download_enabled=ocr_download_enabled)
 
     def _denomination(
         self, rgb: np.ndarray, ocr_text: list[str], color_mean: np.ndarray | None = None,
@@ -404,19 +624,56 @@ class CurrencyDetectionPipeline:
             currency_status = "Current series candidate"
         if not explanations:
             explanations.append("All assessed security regions were consistent with the forensic baseline")
-        trained = self.resnet.predict(prepared.note)
+        trained = self.classifier.predict(prepared.note) if legal_tender else None
         if trained:
-            genuine_probability, gradcam = trained
+            genuine_probability = float(trained["genuine_probability"])
             authenticity = round(authenticity * .65 + genuine_probability * 100 * .35)
             probability = round(1 - authenticity / 100, 4)
             prediction = "Genuine" if authenticity >= 78 else "Likely Genuine" if authenticity >= 62 else "Suspicious" if authenticity >= 40 else "Counterfeit"
-            heatmap = Image.blend(prepared.note, ImageOps.colorize(gradcam.convert("L"), "navy", "red"), .38)
-            explainability_method = "GradCAM (fine-tuned ResNet50)"
-            model_version = "resnet50-cv-hybrid-v2"
+            heatmap = Image.blend(
+                prepared.note,
+                ImageOps.colorize(trained["gradcam"].convert("L"), "navy", "red"),
+                .38,
+            )
+            architecture = str(trained["architecture"])
+            explainability_method = f"Grad-CAM ({architecture}, predicted class: {trained['predicted_label']})"
+            model_version = f"{architecture}-yolov8-easyocr-gradcam-v3"
+            explanations.insert(
+                0,
+                f"{architecture} classified the note as {trained['predicted_label']} "
+                f"with {float(trained['prediction_confidence']) * 100:.1f}% confidence",
+            )
         else:
             heatmap = self._heatmap(prepared.note, features)
-            explainability_method = "measured-region saliency (ResNet checkpoint unavailable)"
+            explainability_method = "measured-region saliency (trained classifier checkpoint unavailable)"
             model_version = self.model_version
+        pipeline_stages = {
+            "note_detection": {
+                "provider": "YOLOv8" if self.yolo.available else "image contour fallback",
+                "checkpoint_configured": self.yolo.available,
+                "confidence": prepared.quality["detector_confidence"],
+            },
+            "perspective_correction": {
+                "provider": prepared.quality["perspective_correction_method"],
+                "opencv_available": self.rectifier.available,
+                "applied": prepared.quality["perspective_corrected"],
+            },
+            "serial_ocr": {
+                "provider": ocr["model_version"],
+                "available": ocr["available"],
+                "confidence": ocr["confidence"],
+            },
+            "classification": {
+                "provider": self.classifier.architecture,
+                "checkpoint_configured": self.classifier.available,
+                "prediction": trained["predicted_label"] if trained else None,
+                "confidence": round(float(trained["prediction_confidence"]) * 100, 2) if trained else None,
+            },
+            "explainability": {
+                "provider": "Grad-CAM" if trained else "measured-region saliency",
+                "target": trained["predicted_label"] if trained else "forensic feature anomalies",
+            },
+        }
         return {
             "prediction": prediction, "confidence": confidence,
             "authenticity_score": authenticity, "counterfeit_probability": probability,
@@ -434,6 +691,7 @@ class CurrencyDetectionPipeline:
             "model_version": model_version,
             "explainability_method": explainability_method,
             "ocr": ocr,
+            "pipeline_stages": pipeline_stages,
         }
 
     async def analyze(self, content: bytes) -> dict[str, Any]:

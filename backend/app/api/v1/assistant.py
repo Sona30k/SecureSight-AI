@@ -18,7 +18,9 @@ from app.database import get_db
 from app.models import AIAnalysis, ChannelInteraction, GovernmentSubmission, SpeechStream
 from app.realtime import hub
 from app.schemas import AssistantResponse, ChannelWebhook, SpeechStreamStart, SpeechTranscriptChunk
-from app.services import AnalysisRecorder, ChatService
+from app.services import AnalysisRecorder, ChatService, GroundedAssistantService
+from app.services.assistant_orchestrator import ContextType
+from app.services.llm import LLMRouter, ProviderName
 
 router = APIRouter(prefix="/assistant", tags=["AI Citizen Assistant"])
 
@@ -32,6 +34,9 @@ async def chat(
     voice: UploadFile | None = File(None),
     pdf: UploadFile | None = File(None),
     language: str = Form("en"),
+    provider: ProviderName = Form("auto"),
+    context_type: ContextType = Form("auto"),
+    context_id: UUID | None = Form(None),
 ):
     started = time.perf_counter()
     uploads = [item for item in (image, voice, pdf) if item]
@@ -43,16 +48,32 @@ async def chat(
     if content and len(content) > 25 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="Attachment exceeds the 25 MB limit")
     try:
-        result = await ChatService().chat(text, attachment, content, upload.filename if upload else "", language)
+        result = await GroundedAssistantService(db).answer(
+            text=text, user=user, provider=provider,
+            context_type=context_type, context_id=context_id,
+            attachment_type=attachment, attachment=content,
+            filename=upload.filename if upload else "", language=language,
+        )
     except (ValueError, OSError, EOFError) as exc:
         raise HTTPException(status_code=422, detail=f"Unable to process attachment: {exc}")
     analysis = await AnalysisRecorder.record(
         db, module="assistant", input_type=attachment or "text",
-        result={**result, "prediction": result["risk_level"], "model_version": "assistant-v1.0"},
+        result={
+            **result, "prediction": result["risk_level"],
+            "model_version": result["model"],
+        },
         user_id=user.id, started_at=started,
     )
     await db.commit()
     return AssistantResponse(analysis_id=analysis.id, **result)
+
+
+@router.get("/providers")
+async def assistant_providers(user: CurrentUser):
+    return {
+        "default": settings.assistant_provider,
+        "providers": await LLMRouter().status(),
+    }
 
 
 @router.post("/speech/stream/start", status_code=201)
@@ -127,13 +148,13 @@ async def finalize_speech_stream(stream_id: UUID, user: CurrentUser, db: Annotat
     if not stream or stream.started_by != user.id:
         raise HTTPException(status_code=404, detail="Speech stream not found")
     stream.status, stream.finalized_at = "finalized", datetime.now(timezone.utc)
-    result = await ChatService().chat(
-        stream.transcript or "Audio stream contained no locally transcribed speech.",
-        language=stream.language,
+    result = await GroundedAssistantService(db).answer(
+        text=stream.transcript or "Audio stream contained no locally transcribed speech.",
+        user=user, language=stream.language,
     )
     analysis = await AnalysisRecorder.record(
         db, module="assistant_speech_stream", input_type="voice_stream",
-        result={**result, "prediction": result["risk_level"], "model_version": "streaming-whisper-adapter-v1"},
+        result={**result, "prediction": result["risk_level"], "model_version": result["model"]},
         user_id=user.id, started_at=time.perf_counter(),
     )
     await db.commit()
@@ -151,7 +172,23 @@ async def channel_webhook(
     expected = settings.channel_webhook_secret
     if not expected or not x_shieldiq_channel_secret or not hmac.compare_digest(expected, x_shieldiq_channel_secret):
         raise HTTPException(status_code=401, detail="Invalid channel webhook credentials")
-    result = await ChatService().chat(payload.text, language=payload.language)
+    local = await ChatService().chat(payload.text, language=payload.language)
+    llm_router = LLMRouter()
+    generated, failures = await llm_router.generate(
+        "auto", llm_router.prompt(payload.text, local, None, payload.language),
+    )
+    result = (
+        {
+            **generated.answer.model_dump(), "language": payload.language,
+            "provider": generated.provider, "model": generated.model,
+            "provider_status": "live", "provider_failures": failures,
+        }
+        if generated else
+        {
+            **local, "provider": "rules", "model": "sentinel-rules-v2",
+            "provider_status": "fallback", "provider_failures": failures,
+        }
+    )
     item = ChannelInteraction(
         channel=channel, external_id=payload.external_id, sender_reference=payload.sender_reference,
         language=payload.language, request_text=payload.text, response_text=result["response"],

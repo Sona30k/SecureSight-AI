@@ -194,7 +194,7 @@ class CurrencyDetectionResponse(BaseModel):
     detected_note: str
     heatmap: str
     explanation: list[str] = Field(default_factory=list)
-    model_version: str = "shieldiq-currency-cv-v2"
+    model_version: str = "shieldiq-currency-cv-v3"
     explainability_method: str
     spectral_analysis: dict[str, Any] = Field(default_factory=dict)
     model_provenance: dict[str, Any] = Field(default_factory=dict)
@@ -337,7 +337,10 @@ class AssistantResponse(BaseModel):
     risk_level: Literal["low", "medium", "high", "critical"]
     recommendations: list[str]
     analysis_id: UUID
-    provider: str = "sentinel-rules-v1"
+    provider: str = "rules"
+    model: str = "sentinel-rules-v2"
+    provider_status: Literal["live", "fallback", "local"] = "local"
+    grounded_context: list[str] = Field(default_factory=list)
     language: str = "en"
 
 

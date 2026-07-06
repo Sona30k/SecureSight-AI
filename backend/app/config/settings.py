@@ -24,7 +24,22 @@ class Settings(BaseSettings):
     storage_path: Path = Path("storage")
     max_upload_mb: int = 10
     currency_resnet_path: Path | None = None
+    currency_classifier_path: Path | None = None
+    currency_classifier_arch: str = "efficientnet_b0"
     currency_yolo_path: Path | None = None
+    currency_yolo_confidence: float = 0.55
+    currency_ocr_gpu: bool = False
+    currency_ocr_download_enabled: bool = False
+    assistant_provider: str = "auto"
+    assistant_request_timeout_seconds: float = 45.0
+    openai_api_key: str | None = None
+    openai_base_url: str = "https://api.openai.com/v1"
+    openai_model: str = "gpt-5.4-mini"
+    gemini_api_key: str | None = None
+    gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta"
+    gemini_model: str = "gemini-3.5-flash"
+    ollama_base_url: str = "http://127.0.0.1:11434"
+    ollama_model: str = "llama3.2"
     mha_alert_webhook_url: str | None = None
     bank_hold_webhook_url: str | None = None
     ncrb_webhook_url: str | None = None
@@ -40,6 +55,12 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_production_security(self):
+        if self.currency_classifier_arch not in {"resnet50", "efficientnet_b0"}:
+            raise ValueError("CURRENCY_CLASSIFIER_ARCH must be resnet50 or efficientnet_b0")
+        if not 0 < self.currency_yolo_confidence <= 1:
+            raise ValueError("CURRENCY_YOLO_CONFIDENCE must be between 0 and 1")
+        if self.assistant_provider not in {"auto", "openai", "gemini", "llama", "rules"}:
+            raise ValueError("ASSISTANT_PROVIDER must be auto, openai, gemini, llama, or rules")
         if self.environment == "production":
             if self.secret_key == "development-only-change-this-secret-key" or len(self.secret_key) < 32:
                 raise ValueError("SECRET_KEY must be a unique value of at least 32 characters in production")

@@ -7,13 +7,43 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth import require_roles
 from app.database import get_db
-from app.models import CounterfeitCase, CrimeLocation, DigitalArrestCase, FraudReport, ReportStatus, User, UserRole
+from app.models import (
+    AIAnalysis, CounterfeitCase, CrimeLocation, DigitalArrestCase, FraudReport,
+    GraphEvent, ReportStatus, User, UserRole,
+)
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
 AnalyticsUser = Annotated[
     User,
     Depends(require_roles(UserRole.police, UserRole.bank, UserRole.telecom_provider)),
 ]
+
+
+@router.get("/public-summary")
+async def public_summary(db: Annotated[AsyncSession, Depends(get_db)]):
+    source_entities = select(
+        GraphEvent.source_type.label("entity_type"),
+        GraphEvent.source_value.label("entity_value"),
+    )
+    target_entities = select(
+        GraphEvent.target_type.label("entity_type"),
+        GraphEvent.target_value.label("entity_value"),
+    )
+    entities = source_entities.union(target_entities).subquery()
+    row = (await db.execute(select(
+        select(func.count(FraudReport.id)).scalar_subquery().label("fraud_reports"),
+        select(func.count(FraudReport.id)).where(FraudReport.status == ReportStatus.resolved).scalar_subquery().label("citizens_protected"),
+        select(func.count(CounterfeitCase.id)).where(
+            CounterfeitCase.prediction.in_(("Fake", "Counterfeit", "Suspicious"))
+        ).scalar_subquery().label("counterfeit_notes"),
+        select(func.count(CrimeLocation.id)).scalar_subquery().label("crime_incidents"),
+        select(func.count(AIAnalysis.id)).scalar_subquery().label("ai_analyses"),
+        select(func.count()).select_from(entities).scalar_subquery().label("fraud_entities"),
+    ))).one()
+    return {key: int(getattr(row, key) or 0) for key in (
+        "fraud_reports", "citizens_protected", "counterfeit_notes",
+        "crime_incidents", "ai_analyses", "fraud_entities",
+    )}
 
 
 @router.get("/dashboard")

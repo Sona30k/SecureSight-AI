@@ -17,7 +17,7 @@ from app.config import settings
 from app.database import get_db
 from app.graph import Neo4jClient
 from app.models import (
-    CaseExchange, EvidenceCustodyEvent, EvidenceItem, GraphEvent, GraphIngestionBatch,
+    AuditLog, CaseExchange, EvidenceCustodyEvent, EvidenceItem, GraphEvent, GraphIngestionBatch,
     IntelligenceFeed, User, UserRole,
 )
 from app.realtime import hub
@@ -279,6 +279,11 @@ async def acquire_evidence(
         event_hash=_custody_hash(item.id, "acquired", user.id, occurred, "0" * 64, location, "Initial evidence acquisition"),
     )
     db.add(event)
+    db.add(AuditLog(
+        user_id=user.id, action="file.uploaded", status="success",
+        resource="evidence", resource_id=str(item.id),
+        details={"filename": file.filename, "size": len(content), "case_reference": case_reference},
+    ))
     await db.commit()
     return {"evidence_id": item.id, "content_hash": content_hash, "custody_event_id": event.id}
 

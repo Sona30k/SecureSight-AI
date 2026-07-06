@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response, status
+from fastapi import APIRouter, Cookie, Depends, HTTPException, Query, Request, Response, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -78,9 +78,12 @@ async def _issue_tokens(
     )
 
 
-async def _audit(db: AsyncSession, user_id: UUID | None, action: str, request: Request, details=None) -> None:
+async def _audit(
+    db: AsyncSession, user_id: UUID | None, action: str, request: Request,
+    details=None, *, outcome: str = "success",
+) -> None:
     db.add(AuditLog(
-        user_id=user_id, action=action, resource="user",
+        user_id=user_id, action=action, status=outcome, resource="user",
         resource_id=str(user_id) if user_id else None,
         ip_address=request.client.host if request.client else None, details=details or {},
     ))
@@ -248,8 +251,18 @@ async def login(payload: LoginRequest, request: Request, response: Response, db:
             user.failed_login_attempts += 1
             if user.failed_login_attempts >= LOCKOUT_ATTEMPTS:
                 user.locked_until = now + timedelta(minutes=LOCKOUT_MINUTES)
-            await _audit(db, user.id, "auth.login_failed", request, {"attempts": user.failed_login_attempts})
-            await db.commit()
+            await _audit(
+                db, user.id, "auth.login_failed", request,
+                {"attempts": user.failed_login_attempts, "email": payload.email.lower()},
+                outcome="failure",
+            )
+        else:
+            await _audit(
+                db, None, "auth.login_failed", request,
+                {"email": payload.email.lower(), "reason": "unknown_identity"},
+                outcome="failure",
+            )
+        await db.commit()
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     assert user is not None
     if user.account_status == AccountStatus.blocked:
@@ -531,6 +544,41 @@ async def login_history(admin: AdminUser, db: DB):
     ).order_by(AuditLog.created_at.desc()).limit(500))).all())
     return {"items": [{
         "id": str(item.id), "user_id": str(item.user_id) if item.user_id else None,
-        "action": item.action, "ip_address": item.ip_address,
+        "action": item.action, "status": item.status, "ip_address": item.ip_address,
         "details": item.details, "created_at": item.created_at,
+    } for item in items]}
+
+
+@router.get("/admin/audit-logs")
+async def audit_logs(
+    admin: AdminUser, db: DB,
+    action: str | None = None,
+    outcome: str | None = Query(None, alias="status"),
+    limit: int = Query(200, ge=1, le=1000),
+):
+    filters = []
+    if action:
+        filters.append(AuditLog.action.ilike(f"%{action}%"))
+    if outcome:
+        filters.append(AuditLog.status == outcome)
+    items = list((await db.scalars(
+        select(AuditLog).where(*filters).order_by(AuditLog.created_at.desc()).limit(limit)
+    )).all())
+    user_ids = {item.user_id for item in items if item.user_id}
+    users = {
+        user.id: user
+        for user in (await db.scalars(select(User).where(User.id.in_(user_ids)))).all()
+    } if user_ids else {}
+    return {"items": [{
+        "id": str(item.id),
+        "user_id": str(item.user_id) if item.user_id else None,
+        "user": users[item.user_id].full_name if item.user_id in users else item.details.get("email", "Unknown user"),
+        "email": users[item.user_id].email if item.user_id in users else item.details.get("email"),
+        "action": item.action,
+        "resource": item.resource,
+        "resource_id": item.resource_id,
+        "timestamp": item.created_at,
+        "ip_address": item.ip_address,
+        "status": item.status,
+        "details": item.details,
     } for item in items]}

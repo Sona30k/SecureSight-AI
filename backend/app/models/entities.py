@@ -461,6 +461,7 @@ class AuditLog(Base, UUIDMixin):
     __tablename__ = "audit_logs"
     user_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
     action: Mapped[str] = mapped_column(String(120), index=True)
+    status: Mapped[str] = mapped_column(String(20), default="success", index=True)
     resource: Mapped[str] = mapped_column(String(120))
     resource_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
     ip_address: Mapped[str | None] = mapped_column(String(64), nullable=True)

@@ -52,6 +52,60 @@ async def heatmap(
     } for x in items]}
 
 
+@router.get("/clusters")
+async def incident_clusters(
+    user: CurrentUser, db: DB, district: str | None = None, crime_type: str | None = None,
+    start: datetime | None = None, end: datetime | None = None,
+    precision: int = Query(1, ge=1, le=3),
+):
+    """Aggregate up to 10,000 persisted incidents into map-safe geographic cells."""
+    items = (await db.scalars(
+        select(CrimeLocation)
+        .where(*_filters(district, crime_type, start, end))
+        .order_by(CrimeLocation.occurred_at.desc())
+        .limit(10_000)
+    )).all()
+    buckets: dict[tuple[str, float, float], dict] = {}
+    for incident in items:
+        key = (incident.district, round(incident.latitude, precision), round(incident.longitude, precision))
+        bucket = buckets.setdefault(key, {
+            "district": incident.district,
+            "latitude_sum": 0.0,
+            "longitude_sum": 0.0,
+            "incident_count": 0,
+            "risk_sum": 0,
+            "max_risk": 0,
+            "crime_types": {},
+            "latest_incident": incident.occurred_at,
+        })
+        bucket["latitude_sum"] += incident.latitude
+        bucket["longitude_sum"] += incident.longitude
+        bucket["incident_count"] += 1
+        bucket["risk_sum"] += incident.risk_score
+        bucket["max_risk"] = max(bucket["max_risk"], incident.risk_score)
+        bucket["latest_incident"] = max(bucket["latest_incident"], incident.occurred_at)
+        bucket["crime_types"][incident.crime_type] = bucket["crime_types"].get(incident.crime_type, 0) + 1
+    clusters = [{
+        "id": f"{district_name}:{latitude}:{longitude}",
+        "district": district_name,
+        "latitude": round(bucket["latitude_sum"] / bucket["incident_count"], 6),
+        "longitude": round(bucket["longitude_sum"] / bucket["incident_count"], 6),
+        "incident_count": bucket["incident_count"],
+        "average_risk": round(bucket["risk_sum"] / bucket["incident_count"], 1),
+        "max_risk": bucket["max_risk"],
+        "top_crime_type": max(bucket["crime_types"], key=bucket["crime_types"].get),
+        "crime_types": bucket["crime_types"],
+        "latest_incident": bucket["latest_incident"],
+    } for (district_name, latitude, longitude), bucket in buckets.items()]
+    clusters.sort(key=lambda item: (item["incident_count"] * item["average_risk"]), reverse=True)
+    return {
+        "total_incidents": len(items),
+        "cluster_count": len(clusters),
+        "precision": precision,
+        "clusters": clusters,
+    }
+
+
 @router.get("/hotspots")
 async def hotspots(user: CurrentUser, db: DB, limit: int = Query(10, ge=1, le=100)):
     rows = (await db.execute(

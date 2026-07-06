@@ -378,9 +378,9 @@ class IntelligenceFeedCreate(BaseModel):
 class GraphEventCreate(BaseModel):
     external_event_id: str = Field(min_length=1, max_length=150)
     event_type: Literal["transaction", "call", "device_observation", "case_link"]
-    source_type: Literal["person", "phone", "bank_account", "upi", "device", "ip_address", "case"]
+    source_type: Literal["person", "phone", "bank_account", "upi", "device", "ip_address", "case", "complaint"]
     source_value: str = Field(min_length=1, max_length=250)
-    target_type: Literal["person", "phone", "bank_account", "upi", "device", "ip_address", "case"]
+    target_type: Literal["person", "phone", "bank_account", "upi", "device", "ip_address", "case", "complaint"]
     target_value: str = Field(min_length=1, max_length=250)
     relationship: str = Field(min_length=2, max_length=60)
     occurred_at: datetime

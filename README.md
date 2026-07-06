@@ -93,6 +93,18 @@ The currency pipeline supports YOLOv8 note localization, OpenCV four-point persp
 
 The assistant remains focused on fraud and public-safety questions. Local safety scoring always runs first, and an external model cannot lower a high-risk local classification. When no configured model is reachable, ShieldIQ returns a labelled local fallback instead of pretending that GPT, Gemini, or Llama answered.
 
+### Reliability and Operations
+
+- Centralized Sonner success, warning, and error notifications
+- Dedicated timeout, backend, PostgreSQL, Neo4j, and server-error recovery page
+- Retry controls with live API, database, Redis, and Neo4j health diagnostics
+- Skeletons, progress bars, and AI-analysis loading animations
+- Animated landing-page statistics backed by persisted database counts
+- Landing-page architecture and end-to-end intelligence workflow
+- Structured JSON request logs with request IDs and durations
+- Enterprise audit records containing user, action, resource, timestamp, IP address, outcome, and request metadata
+- Administrator audit-log table with successful and failed login history
+
 ## Technology
 
 - React 19, TypeScript, Vite, React Router

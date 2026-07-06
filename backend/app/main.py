@@ -20,6 +20,7 @@ from app.api.v1.router import api_router
 from app.config.settings import settings
 from app.auth.security import decode_token
 from app.database import AsyncSessionLocal, engine
+from app.graph import Neo4jClient
 from app.middleware import RequestContextMiddleware, SecurityHeadersMiddleware
 from app.models import SpeechStream, User
 from app.realtime import hub
@@ -105,7 +106,10 @@ async def root():
 
 @app.get("/health", response_model=HealthResponse, tags=["System"])
 async def health(request: Request):
-    services = {"api": "healthy", "database": "unavailable", "redis": "unavailable"}
+    services = {
+        "api": "healthy", "database": "unavailable",
+        "redis": "unavailable", "neo4j": "unavailable",
+    }
     try:
         async with engine.connect() as connection:
             await connection.execute(text("SELECT 1"))
@@ -117,6 +121,12 @@ async def health(request: Request):
             services["redis"] = "healthy"
     except Exception:
         pass
+    graph = Neo4jClient()
+    try:
+        if await graph.verify():
+            services["neo4j"] = "healthy"
+    finally:
+        await graph.close()
     overall = "healthy" if services["database"] == "healthy" else "degraded"
     return HealthResponse(status=overall, version=settings.app_version, environment=settings.environment, services=services)
 

@@ -36,6 +36,7 @@ class AnalysisRecorder:
         db.add(AuditLog(
             user_id=user_id,
             action="ai.prediction",
+            status="success",
             resource=module,
             resource_id=str(analysis.id),
             details={"prediction": result.get("prediction"), "risk_score": result.get("risk_score")},

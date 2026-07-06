@@ -71,6 +71,9 @@ export type CurrencyResult = {
 }
 export type CurrencyHistory = {id:string;prediction:string;confidence:number;authenticity_score:number;counterfeit_probability:number;denomination?:string;series?:string;legal_tender:boolean;currency_status?:string;serial_number?:string;serial_duplicate:boolean;location?:string;created_at:string}
 export type CurrencyStatistics = {total_notes_scanned:number;fake_notes_found:number;detection_accuracy:number|null;most_counterfeited_denomination:string|null;denomination_distribution:{denomination:string;count:number}[];monthly_trends:{month:string;count:number}[]}
+export type PublicSummary = {fraud_reports:number;citizens_protected:number;counterfeit_notes:number;crime_incidents:number;ai_analyses:number;fraud_entities:number}
+export type HealthStatus = {status:string;version:string;environment:string;services:Record<string,string>}
+export type AuditLogItem = {id:string;user_id?:string;user:string;email?:string;action:string;resource:string;resource_id?:string;timestamp:string;ip_address?:string;status:string;details:Record<string,unknown>}
 export type Report = { id:string; title:string; description:string; category:string; location?:string; status:string; risk_score:number; money_involved:number; created_at:string }
 export type NotificationItem = {
   id:string; channel:'sms'|'email'|'push'|'whatsapp'; subject:string; body:string;
@@ -130,9 +133,27 @@ api.interceptors.response.use(
       await new Promise(resolve => setTimeout(resolve, 350 * 2 ** config._attempt!))
       return api(config)
     }
+    if ((!error.response || error.response.status >= 500) && !String(config.url||'').includes('/health')) {
+      const detail = String((error.response?.data as {detail?:string;message?:string}|undefined)?.detail || (error.response?.data as {message?:string}|undefined)?.message || error.message || '')
+      const normalized = detail.toLowerCase()
+      const type = error.code === 'ECONNABORTED'
+        ? 'timeout'
+        : !error.response
+          ? 'backend_offline'
+          : normalized.includes('neo4j') || normalized.includes('graph database')
+            ? 'neo4j'
+            : normalized.includes('postgres') || normalized.includes('database')
+              ? 'postgresql'
+              : 'server_error'
+      window.dispatchEvent(new CustomEvent('shieldiq:network-error',{detail:{
+        type,message:detail,status:error.response?.status,source:config.url,
+      }}))
+    }
     return Promise.reject(error)
   },
 )
+
+export const probeBackend = () => axios.get<HealthStatus>(`${API_URL}/health`,{timeout:6000}).then(response=>response.data)
 
 export const errorMessage = (error:unknown) => {
   if (axios.isAxiosError(error)) {
@@ -171,7 +192,9 @@ export const services = {
     adminAction: (userId:string,action:'approve'|'reject'|'block'|'unblock'|'delete',reason?:string) =>
       api.post<User>(`/auth/admin/users/${userId}/action`,{action,reason}).then(r=>r.data),
     assignRole: (userId:string,role:Role) => api.put<User>(`/auth/admin/users/${userId}/role`,{role}).then(r=>r.data),
+    auditLogs: (params?:{action?:string;status?:string;limit?:number}) => api.get<{items:AuditLogItem[]}>('/auth/admin/audit-logs',{params}).then(r=>r.data.items),
   },
+  publicSummary: () => api.get<PublicSummary>('/analytics/public-summary').then(r=>r.data),
   analytics: () => api.get<DashboardData>('/analytics/dashboard').then(r=>r.data),
   notifications: {
     list: () => api.get<{items:NotificationItem[]}>('/notifications').then(r=>r.data.items.map(item=>({
@@ -250,6 +273,7 @@ export const services = {
   heatmap: (params?:Record<string,unknown>) => api.get('/crime/heatmap',{params}).then(r=>r.data),
   geospatial: {
     hotspots: () => api.get('/crime/hotspots',{params:{limit:100}}).then(r=>r.data),
+    clusters: (district?:string) => api.get('/crime/clusters',{params:district&&district!=='All districts'?{district}:undefined}).then(r=>r.data),
     patrolPlan: (district?:string) => api.get('/crime/patrol-plan',{params:district?{district}:undefined}).then(r=>r.data),
     shares: (district?:string) => api.get('/crime/shares',{params:district?{district}:undefined}).then(r=>r.data),
     share: (payload:{source_district:string;target_district:string;title:string;summary:string;severity:string;incident_ids:string[]}) =>

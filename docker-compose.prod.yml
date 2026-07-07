@@ -13,7 +13,7 @@ x-app-environment: &app-environment
   NEO4J_USER: ${NEO4J_USER:-neo4j}
   NEO4J_PASSWORD: ${NEO4J_PASSWORD:?Set NEO4J_PASSWORD}
   CORS_ORIGINS: '["https://${APP_DOMAIN:?Set APP_DOMAIN}"]'
-  ALLOWED_HOSTS: '["${APP_DOMAIN}","localhost","127.0.0.1"]'
+  ALLOWED_HOSTS: '["${APP_DOMAIN}","*.trycloudflare.com","localhost","127.0.0.1"]'
   STORAGE_PATH: /app/storage
   FORWARDED_ALLOW_IPS: "*"
 
@@ -78,6 +78,8 @@ services:
   worker:
     <<: *api-service
     command: celery -A app.tasks.celery_app.celery_app worker --loglevel=info -Q shieldiq
+    healthcheck:
+      disable: true
     depends_on:
       postgres:
         condition: service_healthy
@@ -87,6 +89,8 @@ services:
   beat:
     <<: *api-service
     command: celery -A app.tasks.celery_app.celery_app beat --loglevel=info --schedule=/tmp/celerybeat-schedule
+    healthcheck:
+      disable: true
     depends_on:
       postgres:
         condition: service_healthy

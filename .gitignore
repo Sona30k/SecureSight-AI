@@ -5,3 +5,5 @@ dist/
 .DS_Store
 storage/
 .env.production
+cloudflared
+cloudflared.tgz

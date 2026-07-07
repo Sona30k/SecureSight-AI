@@ -4,6 +4,14 @@ ShieldIQ is a digital public-safety dashboard for reviewing fraud reports, suspi
 
 This repository contains a React frontend, a FastAPI backend, database migrations, demo data, and tests.
 
+## Live demo
+
+Temporary Cloudflare Tunnel demo:
+
+[https://elderly-navy-mechanisms-kitchen.trycloudflare.com](https://elderly-navy-mechanisms-kitchen.trycloudflare.com)
+
+The demo link works while Docker Desktop, the ShieldIQ containers, and the local `cloudflared` tunnel are running on the host machine.
+
 ## What is implemented
 
 ### Authentication

@@ -6,11 +6,12 @@ This repository contains a React frontend, a FastAPI backend, database migration
 
 ## Live demo
 
-Temporary Cloudflare Tunnel demo:
+Permanent Render deployment:
 
-[https://elderly-navy-mechanisms-kitchen.trycloudflare.com](https://elderly-navy-mechanisms-kitchen.trycloudflare.com)
+- Frontend: [https://securesight-ai-a8kr.onrender.com](https://securesight-ai-a8kr.onrender.com)
+- Backend API: [https://shieldiq-api.onrender.com](https://shieldiq-api.onrender.com)
 
-The demo link works while Docker Desktop, the ShieldIQ containers, and the local `cloudflared` tunnel are running on the host machine.
+The Render free instance may sleep after inactivity, so the first backend request can take up to a minute to wake.
 
 ## What is implemented
 

@@ -15,6 +15,7 @@ from slowapi.util import get_remote_address
 from slowapi.middleware import SlowAPIMiddleware
 from sqlalchemy import select, text, update
 from starlette.responses import Response
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from app.api.v1.router import api_router
 from app.config.settings import settings
@@ -53,14 +54,15 @@ app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     description="AI-powered public safety intelligence for citizens, agencies, banks and telecom providers.",
-    docs_url="/docs",
-    redoc_url="/redoc",
-    openapi_url="/openapi.json",
+    docs_url="/docs" if settings.enable_api_docs else None,
+    redoc_url="/redoc" if settings.enable_api_docs else None,
+    openapi_url="/openapi.json" if settings.enable_api_docs else None,
     lifespan=lifespan,
 )
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.allowed_hosts)
 app.add_middleware(RequestContextMiddleware)
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
@@ -101,7 +103,11 @@ async def validation_error(request: Request, exc: RequestValidationError):
 
 @app.get("/", tags=["System"])
 async def root():
-    return {"name": settings.app_name, "version": settings.app_version, "docs": "/docs"}
+    return {
+        "name": settings.app_name,
+        "version": settings.app_version,
+        "docs": "/docs" if settings.enable_api_docs else None,
+    }
 
 
 @app.get("/health", response_model=HealthResponse, tags=["System"])
@@ -129,6 +135,24 @@ async def health(request: Request):
         await graph.close()
     overall = "healthy" if services["database"] == "healthy" else "degraded"
     return HealthResponse(status=overall, version=settings.app_version, environment=settings.environment, services=services)
+
+
+@app.get("/health/live", tags=["System"], include_in_schema=False)
+async def liveness():
+    return {"status": "alive", "version": settings.app_version}
+
+
+@app.get("/health/ready", tags=["System"], include_in_schema=False)
+async def readiness():
+    try:
+        async with engine.connect() as connection:
+            await connection.execute(text("SELECT 1"))
+        return {"status": "ready", "database": "healthy"}
+    except Exception:
+        return JSONResponse(
+            status_code=503,
+            content={"status": "not_ready", "database": "unavailable"},
+        )
 
 
 @app.get("/metrics", tags=["System"], include_in_schema=False)

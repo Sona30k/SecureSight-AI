@@ -87,7 +87,7 @@ export type DashboardData = {
 }
 
 const TOKEN_KEY = 'shieldiq_tokens'
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL || '/api'
 
 export const tokenStore = {
   get: ():TokenPair|null => {
@@ -307,5 +307,11 @@ export const services = {
 
 export const websocketUrl = (channel:string) => {
   const token = tokenStore.get()?.access_token || ''
-  return `${API_URL.replace(/^http/,'ws')}/ws/${channel}?token=${encodeURIComponent(token)}`
+  const configured = import.meta.env.VITE_WS_URL
+  const base = configured || (
+    API_URL.startsWith('http')
+      ? API_URL.replace(/^http/,'ws')
+      : `${window.location.protocol==='https:'?'wss:':'ws:'}//${window.location.host}`
+  )
+  return `${base.replace(/\/$/,'')}/ws/${channel}?token=${encodeURIComponent(token)}`
 }

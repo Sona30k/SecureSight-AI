@@ -5,7 +5,7 @@ services:
       dockerfile: docker/frontend.Dockerfile
       args:
         VITE_API_URL: /api
-    ports: ["3000:80"]
+    ports: ["3000:8080"]
     depends_on:
       api: { condition: service_healthy }
     restart: unless-stopped

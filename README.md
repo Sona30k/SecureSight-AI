@@ -210,6 +210,18 @@ This starts:
 - Neo4j
 - Celery worker and scheduler
 
+## Production deployment
+
+Production containers, secret requirements, private service networking, readiness checks, migrations, backups, and TLS guidance are documented in [DEPLOYMENT.md](DEPLOYMENT.md).
+
+```bash
+cp .env.production.example .env.production
+docker compose --env-file .env.production -f docker-compose.prod.yml config --quiet
+docker compose --env-file .env.production -f docker-compose.prod.yml up -d --build
+```
+
+Replace every `CHANGE_ME` value before startup. Production mode rejects development secrets, SQLite, unauthenticated Redis, wildcard hosts, and the default Neo4j password.
+
 ## Demo accounts
 
 When `DEMO_MODE=true`, the seed script creates these accounts:
